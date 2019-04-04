@@ -132,7 +132,7 @@ public class GeneralSettingsController {
     //System.out.println(pl.getWorkspace());
     //System.out.println(selectedDirectory.listFiles().toString());
     File[] f = selectedDirectory.listFiles();
-    System.out.println(f[f.length-1].getName().split("\\.")[1]);
+    //System.out.println(f[f.length-1].getName().split("\\.")[1]);
   }
   
   @FXML
