@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search &mdash; ontpipeline2  documentation</title>
+  <title>Reads Filter Settings &mdash; ontpipeline2  documentation</title>
   
 
   
@@ -27,7 +27,9 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Assembly Settings" href="AssemblySettings.html" />
+    <link rel="prev" title="Basecalling Settings" href="BasecallingSettings.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -59,7 +61,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -76,11 +78,17 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GetStarted.html">Get Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GeneralSettings.html">General Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Basecalling Settings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ReadsFilterSettings.html">Reads Filter Settings</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reads Filter Settings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#read-score-required">Read Score (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-length-required">Read Length (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#head-crop-required">Head Crop (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#no-split-1-default">no_split  (Default)</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="AssemblySettings.html">Assembly Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="QandA.html">FAQ</a></li>
 </ul>
@@ -128,12 +136,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Search</li>
+      <li>Reads Filter Settings</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/ReadsFilterSettings.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -145,24 +155,71 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="reads-filter-settings">
+<h1>Reads Filter Settings<a class="headerlink" href="#reads-filter-settings" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="read-score-required">
+<h2>Read Score (Required)<a class="headerlink" href="#read-score-required" title="Permalink to this headline">¶</a></h2>
+<p>Set a minimum average read quality score to filter the reads.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Default value: 9.</li>
+<li>If you want to keep all the reads, set the value to 0, or only a postive integer is acceptable.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="read-length-required">
+<h2>Read Length (Required)<a class="headerlink" href="#read-length-required" title="Permalink to this headline">¶</a></h2>
+<p>Set a minimum read length to filter reads.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Default value: 500.</li>
+<li>If you want to keep all the reads, set the value to 0, or only a postive integer is acceptable.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="head-crop-required">
+<h2>Head Crop (Required)<a class="headerlink" href="#head-crop-required" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Default value: 50.</li>
+<li>If you do not want to crop any reads, set the value to 0, or only a postive integer is acceptable.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="no-split-1-default">
+<h2>no_split <a class="footnote-reference" href="#id2" id="id1">[1]</a> (Default)<a class="headerlink" href="#no-split-1-default" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Set value: Split reads when an adapter is found in the middle.</li>
+</ul>
+</div>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Porechop <a class="reference external" href="https://github.com/rrwick/Porechop">https://github.com/rrwick/Porechop</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="AssemblySettings.html" class="btn btn-neutral float-right" title="Assembly Settings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="BasecallingSettings.html" class="btn btn-neutral" title="Basecalling Settings" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -195,7 +252,6 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="_static/searchtools.js"></script>
     
 
   
@@ -206,14 +262,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
-   
-
+  </script> 
 
 </body>
 </html>
