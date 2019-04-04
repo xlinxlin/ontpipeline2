@@ -16,20 +16,17 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-import sphinx_rtd_theme
-#html_theme = 'sphinx_rtd_theme'
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # -- Project information -----------------------------------------------------
 
-project = 'ontpipeline'
+project = 'ontpipeline2'
 copyright = '2019, Yan Zhou'
 author = 'Yan Zhou'
 
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = ''
+release = '04.04.2019'
 
 
 # -- General configuration ---------------------------------------------------
@@ -45,7 +42,7 @@ extensions = [
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['ytemplates']
+templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -77,8 +74,7 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-#html_theme = 'alabaster'
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -89,7 +85,7 @@ html_theme = 'sphinx_rtd_theme'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['ystatic']
+html_static_path = ['_static']
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -105,7 +101,7 @@ html_static_path = ['ystatic']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ontpipelinedoc'
+htmlhelp_basename = 'ontpipeline2doc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -132,7 +128,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'ontpipeline.tex', 'ontpipeline Documentation',
+    (master_doc, 'ontpipeline2.tex', 'ontpipeline2 Documentation',
      'Yan Zhou', 'manual'),
 ]
 
@@ -142,7 +138,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'ontpipeline', 'ontpipeline Documentation',
+    (master_doc, 'ontpipeline2', 'ontpipeline2 Documentation',
      [author], 1)
 ]
 
@@ -153,8 +149,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'ontpipeline', 'ontpipeline Documentation',
-     author, 'ontpipeline', 'One line description of project.',
+    (master_doc, 'ontpipeline2', 'ontpipeline2 Documentation',
+     author, 'ontpipeline2', 'One line description of project.',
      'Miscellaneous'),
 ]
 
