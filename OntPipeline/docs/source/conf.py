@@ -22,7 +22,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # -- Project information -----------------------------------------------------
 
-project = 'ontpipeline'
+project = 'ontpipeline2'
 copyright = '2019, Yan Zhou'
 author = 'Yan Zhou'
 
@@ -105,7 +105,7 @@ html_static_path = ['ystatic']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ontpipelinedoc'
+htmlhelp_basename = 'ontpipeline2doc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -132,7 +132,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'ontpipeline.tex', 'ontpipeline Documentation',
+    (master_doc, 'ontpipeline2.tex', 'ontpipeline2 Documentation',
      'Yan Zhou', 'manual'),
 ]
 
@@ -142,7 +142,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'ontpipeline', 'ontpipeline Documentation',
+    (master_doc, 'ontpipeline2', 'ontpipeline2 Documentation',
      [author], 1)
 ]
 
@@ -153,8 +153,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'ontpipeline', 'ontpipeline Documentation',
-     author, 'ontpipeline', 'One line description of project.',
+    (master_doc, 'ontpipeline2', 'ontpipeline2 Documentation',
+     author, 'ontpipeline2', 'One line description of project.',
      'Miscellaneous'),
 ]
 
