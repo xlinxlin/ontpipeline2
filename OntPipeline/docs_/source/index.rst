@@ -15,6 +15,6 @@ Welcome to ontpipeline2's documentation!
 Indices and tables
 ==================
 
-* :ref:`genindex`
+* :ref:`genindex123`
 * :ref:`modindex`
 * :ref:`search`
