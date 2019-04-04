@@ -1,0 +1,2 @@
+mkdir: cannot create directory '/home/yan/ncct/TestData/Analysis/AdapterTrimmedFiles': File exists
+mkdir: cannot create directory '/home/yan/ncct/TestData/Analysis/Logs': File exists

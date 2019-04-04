@@ -1,0 +1,4 @@
+Could not find conda environment: unicylcer
+You can list all discoverable environments with `conda info --envs`.
+
+DeprecationWarning: 'source deactivate' is deprecated. Use 'conda deactivate'.

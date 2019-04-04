@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mbio.ncct.ont.view.AssemblySettingsController">
+   <children>
+      <Label layoutX="59.0" layoutY="76.0" text="Mode" />
+      <Label layoutX="59.0" layoutY="122.0" text="Method" />
+      <Label layoutX="59.0" layoutY="169.0" text="Read1" />
+      <Label layoutX="59.0" layoutY="212.0" text="Read2" />
+      <TextField fx:id="tfRead1" layoutX="119.0" layoutY="164.0" prefHeight="26.0" prefWidth="345.0" />
+      <TextField fx:id="tfRead2" layoutX="119.0" layoutY="207.0" prefHeight="26.0" prefWidth="345.0" />
+      <Button fx:id="btnRead1" layoutX="464.0" layoutY="164.0" mnemonicParsing="false" onAction="#selectRead1Handler" text="Browse" />
+      <Button fx:id="btnRead2" layoutX="464.0" layoutY="207.0" mnemonicParsing="false" onAction="#selectRead2Handler" text="Browse" />
+      <ChoiceBox fx:id="cbMode" layoutX="119.0" layoutY="71.0" prefWidth="150.0" value="normal" />
+      <ChoiceBox fx:id="cbMethod" layoutX="119.0" layoutY="117.0" prefWidth="150.0" value="Hybrid assembly" />
+      <Label layoutX="59.0" layoutY="254.0" text="VCF" />
+      <CheckBox fx:id="cVCF" layoutX="119.0" layoutY="253.0" mnemonicParsing="false" text="Produce a VCF by mapping the short reads to the final assembly" />
+      <Label layoutX="47.0" layoutY="295.0" text="Polishing" />
+      <ChoiceBox fx:id="cbTimes" layoutX="119.0" layoutY="290.0" prefHeight="26.0" prefWidth="66.0" value="1" />
+      <Label layoutX="187.0" layoutY="295.0" text="times" />
+      <CheckBox fx:id="cBusco" layoutX="119.0" layoutY="338.0" mnemonicParsing="false" />
+      <Label layoutX="57.0" layoutY="339.0" text="BUSCO" />
+      <CheckBox fx:id="cAssemblySettings" layoutX="62.0" layoutY="35.0" mnemonicParsing="false" text="I do not need assembly" />
+      <ChoiceBox fx:id="cbDatabase" layoutX="232.0" layoutY="332.0" prefWidth="150.0" value="Bacteria" />
+      <Label layoutX="167.0" layoutY="337.0" text="Database" />
+   </children>
+</AnchorPane>
