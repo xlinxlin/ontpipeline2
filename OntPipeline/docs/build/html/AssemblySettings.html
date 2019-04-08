@@ -84,23 +84,8 @@
 <li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Basecalling Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReadsFilterSettings.html">Reads Filter Settings</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Assembly Settings</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#assembler-required">Assembler (Required)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#canu">Canu</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#genome-size-required">Genome Size (Required)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#assembly-prefix-1-default">assembly-prefix  (Default)</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#flye">Flye</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">Genome Size (Required)</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#unicycler">Unicycler</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#short-1-optional">Short 1 (Optional)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#short-2-optional">Short 2 (Optional)</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#mode-required">Mode (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#method-required">Method (Required)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="QandA.html">FAQ</a></li>
@@ -170,71 +155,22 @@
             
   <div class="section" id="assembly-settings">
 <h1>Assembly Settings<a class="headerlink" href="#assembly-settings" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="assembler-required">
-<h2>Assembler (Required)<a class="headerlink" href="#assembler-required" title="Permalink to this headline">¶</a></h2>
-<p>Choose an assembler tool from the select list.</p>
-<div class="section" id="canu">
-<h3>Canu<a class="headerlink" href="#canu" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="genome-size-required">
-<h4>Genome Size (Required)<a class="headerlink" href="#genome-size-required" title="Permalink to this headline">¶</a></h4>
-<p>Set the estimated genome size.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>e.g. 5m or 2.6g, which is used for solid k-mers selection.</li>
-<li>The estimate could be rough (e.g. within 0.5x-2x range) and does not affect the other assembly stages.</li>
+<div class="section" id="mode-required">
+<h2>Mode (Required)<a class="headerlink" href="#mode-required" title="Permalink to this headline">¶</a></h2>
+<p>Choose an assembly mode.</p>
+<ul class="simple">
+<li>Conservative: Conservative mode is least likely to produce a complete assembly but has a very low risk of misassembly.</li>
+<li>Normal: Normal mode is intermediate regarding both completeness and misassembly risk. (Default)</li>
+<li>Bold: Bold mode is most likely to produce a complete assembly but carries greater risk of misassembly.</li>
 </ul>
 </div>
-</div>
-<div class="section" id="assembly-prefix-1-default">
-<h4>assembly-prefix <a class="footnote-reference" href="#id3" id="id1">[1]</a> (Default)<a class="headerlink" href="#assembly-prefix-1-default" title="Permalink to this headline">¶</a></h4>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>Set value: asm.</li>
-<li>Set the file name prefix with “asm” of intermediate and output files.</li>
+<div class="section" id="method-required">
+<h2>Method (Required)<a class="headerlink" href="#method-required" title="Permalink to this headline">¶</a></h2>
+<p>Choose an assembly method.</p>
+<ul class="simple">
+<li>Long-read-only assembly: Long-read-only assembly using only long reads.</li>
+<li>Hybrid assembly: Hybrid assembly using both Illumina read and long reads. (Default)</li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="flye">
-<h3>Flye<a class="headerlink" href="#flye" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id2">
-<h4>Genome Size (Required)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
-<p>Set the estimated genome size.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>e.g. 5m or 2.6g, which is used for solid k-mers selection.</li>
-<li>The estimate could be rough (e.g. within 0.5x-2x range) and does not affect the other assembly stages.</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="section" id="unicycler">
-<h3>Unicycler<a class="headerlink" href="#unicycler" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="short-1-optional">
-<h4>Short 1 (Optional)<a class="headerlink" href="#short-1-optional" title="Permalink to this headline">¶</a></h4>
-<p>Set the path to the fastq file of first short reads in each pair.</p>
-</div>
-<div class="section" id="short-2-optional">
-<h4>Short 2 (Optional)<a class="headerlink" href="#short-2-optional" title="Permalink to this headline">¶</a></h4>
-<p>Set the path to the fastq file of second short reads in each pair</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<ul class="last simple">
-<li>These two options are required in <strong>hybrid assembly</strong> mode, or leave it blank for <strong>long-read-only assembly</strong> mode.</li>
-<li>These two fastq files should be obtained from Illumina sequencing.</li>
-</ul>
-</div>
-<table class="docutils footnote" frame="void" id="id3" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Canu Tutorial <a class="reference external" href="https://canu.readthedocs.io/en/latest/tutorial.html">https://canu.readthedocs.io/en/latest/tutorial.html</a></td></tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 </div>
 
