@@ -11,8 +11,8 @@ ___________________________________
 
 Where can I find output files?
 _______________________________
-- :file:`\\Basecalled` (reads after basecalling)
-- :file:`\\Barcodes` (reads after demultiplexing)
+- :file:`\\Analysis\\Basecalled` (reads after basecalling)
+- :file:`\\Analysis\\Barcodes` (reads after demultiplexing)
 - :file:`\\Analysis\\AdapterTrimmedFiles` (reads after adapter trimming)
 - :file:`\\Analysis\\FiltedFiles` (reads after filtering)
 - :file:`\\Analysis\\StatFiles` (statitstical data before and after filtering)
