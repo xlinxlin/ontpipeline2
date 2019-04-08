@@ -370,18 +370,18 @@ public class MainApp extends Application {
         System.out.println(barcodeKits);
         
         try {
-          /*
+          
           Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "qsub -v "
-              + "IS_ADAPERTRIMMING="+adapterTrimming+",BARCODENUMBERS="+barcodes
-              + ",IS_BASECALLING="+basecallingSettings
+              + "NOT_ADAPERTRIMMING="+adapterTrimming+",BARCODENUMBERS="+barcodes
+              + ",NOT_BASECALLING="+basecallingSettings
               + ",THREADS="+threads+",FLOWCELL_ID="+flowcellId+",KIT_NUMBER="+kitNumber+",BARCODEKIT="+barcodeKits
-              + ",IS_READSFILTER="+readsFilterSettings
+              + ",NOT_READSFILTER="+readsFilterSettings
               + ",SCORE="+readScore+",LENGTH="+readLength+",HEADCROP="+headCrop
               + ",IS_ASSEMBLY="+assemblySettings
               + ",MODE="+mode+",METHOD="+method+",READ1="+read1+",READ2="+read2+",IS_VCF="+vcf+",PTIMES="+polishingTimes
-              + ",IS_BUSCO="+busco
+              + ",NOT_BUSCO="+busco
               + ",WORKSPACE_PATH="+workspace+" /home/yan/pbsScripts/ont_pipeline_java.pbs" });
-              */
+              
           /*
           Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller -h" });
           BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -396,7 +396,7 @@ public class MainApp extends Application {
           
           //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c", "qsub -v NOT_BASECALLING=false,THREADS=4,FLOWCELL_ID=FLO-MIN106,KIT_NUMBER=SQK-RBK004,WORKSPACE_PATH=/home/yan/ncct/TestData/fast5_106_sqk-rbk004 /home/yan/nextflowScripts/ont/pipeline.pbs"});
           //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub /home/yan/nextflowScripts/ont/adapterTrimming.pbs"});
-          Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub -v NOT_ADAPTERTRIMMING=false,NOT_BASECALLING=false,WORKSPACE_PATH=/home/yan/ncct/TestData/fast5_106_sqk-rbk004,THREADS=4 /home/yan/nextflowScripts/ont/adapterTrimming.pbs"});
+          //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub -v NOT_ADAPTERTRIMMING=false,NOT_BASECALLING=false,WORKSPACE_PATH=/home/yan/ncct/TestData/fast5_106_sqk-rbk004,THREADS=4 /home/yan/nextflowScripts/ont/adapterTrimming.pbs"});
           //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","echo 'sleep 20'|qsub"});
           //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub /home/yan/pbsScripts/test.pbs"});
           System.out.println("2");

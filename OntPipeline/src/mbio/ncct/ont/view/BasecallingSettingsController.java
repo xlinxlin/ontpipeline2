@@ -16,6 +16,7 @@ import javafx.scene.Group;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 
 public class BasecallingSettingsController {
 
@@ -30,24 +31,19 @@ public class BasecallingSettingsController {
   @FXML
   public Group gpBasecalling;
   
-  
   public BasecallingSettingsController() {
     
   }
  
   @FXML
   private void initialize() throws IOException {
-    //String[] str = {"Hello", "World"};
-    //cbfc.setItems(FXCollections.observableArrayList("New Document", "Open ", "Save", "Save as"));
     ObservableList<String> olFlowcellIds = FXCollections.observableArrayList(getFlowcellIds());
     cbFlowcellId.setItems(olFlowcellIds);
     cbFlowcellId.getSelectionModel().selectFirst();
     ObservableList<String> olKitNumbers = FXCollections.observableArrayList(getKitNumbers());
     cbKitNumber.setItems(olKitNumbers);
-    //System.out.println(cbkn.getId());
     cbKitNumber.getSelectionModel().selectFirst();
     ObservableList<String> olBarcodeKits = FXCollections.observableArrayList(getBarcodeKits());
-    //System.out.println(olBarcodeKits);
     ccbBarcodeKit.getItems().addAll(olBarcodeKits);
     ccbBarcodeKit.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
       public void onChanged(ListChangeListener.Change<? extends String> c) {
@@ -63,6 +59,21 @@ public class BasecallingSettingsController {
       }
     });
     
+    //Set the tool tips.
+    /*
+    Tooltip ttCbFlowcellId = new Tooltip();
+    ttCbFlowcellId.setText("Select one flowcell ID.");
+    cbFlowcellId.setTooltip(ttCbFlowcellId);
+    
+    Tooltip ttCbKitNumber = new Tooltip();
+    ttCbKitNumber.setText("Select one kit number.");
+    cbKitNumber.setTooltip(ttCbKitNumber);
+    
+    Tooltip ttCcbBarcodeKit = new Tooltip();
+    ttCcbBarcodeKit.setText("Select barcode kit(s) if used.");
+    ccbBarcodeKit.setTooltip(ttCcbBarcodeKit); 
+    */
+    
   }
   
   private ArrayList<String> getFlowcellIds() throws IOException {
@@ -72,7 +83,6 @@ public class BasecallingSettingsController {
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
     BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
     while ((s = stdInput.readLine()) != null ) {
-      //System.out.println(s);
       if (s.isEmpty() == false) {
         arFlowcellIds.add(s);
       }
@@ -87,7 +97,6 @@ public class BasecallingSettingsController {
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
     BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
     while ((s = stdInput.readLine()) != null ) {
-      //System.out.println(s);
       if (s.isEmpty() == false) {
         arKitNumbers.add(s);
       }
@@ -102,12 +111,10 @@ public class BasecallingSettingsController {
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
     BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
     while ((s = stdInput.readLine()) != null ) {
-      //System.out.println(s);
       if (s.isEmpty() == false) {
         arBarcodeKits.add(s);
       }
     }
-    //System.out.println(arBarcodeKits);
     return arBarcodeKits;
   }
   

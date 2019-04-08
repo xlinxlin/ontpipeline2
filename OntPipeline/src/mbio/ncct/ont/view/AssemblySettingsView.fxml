@@ -6,11 +6,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Tooltip?>
 
 <AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mbio.ncct.ont.view.AssemblySettingsController">
    <children>
-      <Label layoutX="59.0" layoutY="76.0" text="Mode" />
-      <Label layoutX="59.0" layoutY="122.0" text="Method" />
+      <Label layoutX="59.0" layoutY="76.0" text="Mode">
+        <tooltip>
+          <Tooltip text="Conservative:high quality,many contigs;Normal:medium quality,medium contigs;Bold:low quality,few contigs." />
+        </tooltip>
+      </Label>
+      <Label layoutX="59.0" layoutY="122.0" text="Method">
+        <tooltip>
+          <Tooltip text="Hybrid assembly:use both long reads and short reads;Long-read-only assembly:use only long reads." />
+        </tooltip>
+      </Label>
       <Label layoutX="59.0" layoutY="169.0" text="Read1" />
       <Label layoutX="59.0" layoutY="212.0" text="Read2" />
       <TextField fx:id="tfRead1" layoutX="119.0" layoutY="164.0" prefHeight="26.0" prefWidth="345.0" />
