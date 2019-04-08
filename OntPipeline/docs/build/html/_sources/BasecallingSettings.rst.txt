@@ -37,7 +37,14 @@ enable_trimming [2]_ (Default)
 _________________________________
 .. note::
   * Set value: enable trimming of the adapter from the beginning of the read before basecalling.
+  
+no_split [3]_ (Default)
+__________________________
+
+.. note::
+  * Set value: Split reads when an adapter is found in the middle. 
 
 
 .. [1] Guppy v2.3.1 Release https://community.nanoporetech.com/posts/guppy-2-3-1-release
 .. [2] How to configure Guppy parameters https://community.nanoporetech.com/protocols/Guppy-protocol-preRev/v/gpb_2003_v1_revg_14dec2018/how-to-configure-guppy-parameters
+.. [3] Porechop https://github.com/rrwick/Porechop
