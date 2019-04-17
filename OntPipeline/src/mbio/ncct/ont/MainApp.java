@@ -3,11 +3,17 @@ package mbio.ncct.ont;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.controlsfx.dialog.Wizard;
 import org.controlsfx.dialog.WizardPane;
 import org.controlsfx.dialog.Wizard.LinearFlow;
+import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
@@ -26,8 +32,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mbio.ncct.ont.view.GeneralSettingsController;
+import mbio.ncct.ont.view.PipelineOverviewController;
+import mbio.ncct.ont.view.AdvancedAssemblyController;
+import mbio.ncct.ont.view.AdvancedBasecallingController;
+import mbio.ncct.ont.view.AdvancedPolishingController;
+import mbio.ncct.ont.view.AdvancedReadsFilterController;
 import mbio.ncct.ont.view.AssemblySettingsController;
 import mbio.ncct.ont.view.BasecallingSettingsController;
 import mbio.ncct.ont.view.ReadsFilterSettingsController;
@@ -40,6 +52,7 @@ public class MainApp extends Application {
   
   private Stage primaryStage;
   private BorderPane rootLayout;
+  public Pipeline p = new Pipeline();
   
   
 
@@ -69,9 +82,10 @@ public class MainApp extends Application {
   public void start(Stage primaryStage) throws IOException {
     this.primaryStage = primaryStage;
     this.primaryStage.setTitle("ONT Pipeline");
-
-        //initRootLayout();
-    showWizard();    
+    
+    initRootLayout();
+    showPipelineOverview();
+    //showWizard();    
     
     
   }
@@ -85,6 +99,7 @@ public class MainApp extends Application {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
       rootLayout = (BorderPane) loader.load();
+      //rootLayout = loader.load();
             
       // Show the scene containing the root layout.
       Scene scene = new Scene(rootLayout);
@@ -92,6 +107,24 @@ public class MainApp extends Application {
       primaryStage.show();
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+  
+  
+  public void showPipelineOverview() {
+    try {
+        // Load person overview.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("view/RootLayout_.fxml"));
+        AnchorPane pipelineOverview = (AnchorPane) loader.load();
+        
+        // Set person overview into the center of root layout.
+        rootLayout.setCenter(pipelineOverview);
+        PipelineOverviewController controller = loader.getController();
+        controller.setMainApp(this);
+        
+    } catch (IOException e) {
+        e.printStackTrace();
     }
   }
 
@@ -286,7 +319,7 @@ public class MainApp extends Application {
     generalSettingsPage.setHeaderText("General Settings");
     GeneralSettingsController gsCtrl = loaderGeneralSettings.getController();
     vsTfWorkspace.registerValidator(gsCtrl.tfWorkspace, Validator.createEmptyValidator("Text is Required"));
-    vsTfThreads.registerValidator(gsCtrl.tfThreads, Validator.createEmptyValidator("Text is Required"));
+    vsTfThreads.registerValidator(gsCtrl.tfThreads, Validator.createRegexValidator("Number only!", "\\d+", Severity.ERROR));
     
     FXMLLoader loaderBasecallingSettings = new FXMLLoader(getClass().getResource("view/BasecallingSettingsView.fxml"));  
     basecallingSettingsPage.setContent(loaderBasecallingSettings.load());
@@ -299,9 +332,10 @@ public class MainApp extends Application {
     readsFilterSettingsPage.setContent(loaderReadsFilterSettings.load());
     ReadsFilterSettingsController rfCtrl = loaderReadsFilterSettings.getController();    
     readsFilterSettingsPage.setHeaderText("Reads Filter Settings");
-    vsTfReadLength.registerValidator(rfCtrl.tfReadLength, Validator.createEmptyValidator("Text is Required"));
-    vsTfReadLength.registerValidator(rfCtrl.tfReadScore, Validator.createEmptyValidator("Text is Required"));
-    vsTfReadLength.registerValidator(rfCtrl.tfHeadCrop, Validator.createEmptyValidator("Text is Required")); 
+    //vsTfReadLength.registerValidator(rfCtrl.tfReadLength, Validator.createEmptyValidator("Text is Required"));
+    vsTfReadLength.registerValidator(rfCtrl.tfReadLength, Validator.createRegexValidator("Number only!", "\\d+", Severity.ERROR));
+    vsTfReadLength.registerValidator(rfCtrl.tfReadScore, Validator.createRegexValidator("Number only!", "\\d+", Severity.ERROR));
+    vsTfReadLength.registerValidator(rfCtrl.tfHeadCrop, Validator.createRegexValidator("Number only!", "\\d+", Severity.ERROR)); 
     
     rfCtrl.cReadsFilter.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(rfCtrl.cReadsFilter.isSelected()) { 
@@ -367,44 +401,74 @@ public class MainApp extends Application {
         Boolean vcf = asCtrl.cVCF.isSelected();
         String polishingTimes = asCtrl.cbTimes.getValue();
         Boolean busco = asCtrl.cBusco.isSelected();
-        System.out.println(barcodeKits);
-        
-        try {
-          
-          Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "qsub -v "
-              + "NOT_ADAPERTRIMMING="+adapterTrimming+",BARCODENUMBERS="+barcodes
-              + ",NOT_BASECALLING="+basecallingSettings
-              + ",THREADS="+threads+",FLOWCELL_ID="+flowcellId+",KIT_NUMBER="+kitNumber+",BARCODEKIT="+barcodeKits
-              + ",NOT_READSFILTER="+readsFilterSettings
-              + ",SCORE="+readScore+",LENGTH="+readLength+",HEADCROP="+headCrop
-              + ",IS_ASSEMBLY="+assemblySettings
-              + ",MODE="+mode+",METHOD="+method+",READ1="+read1+",READ2="+read2+",IS_VCF="+vcf+",PTIMES="+polishingTimes
-              + ",NOT_BUSCO="+busco
-              + ",WORKSPACE_PATH="+workspace+" /home/yan/pbsScripts/ont_pipeline_java.pbs" });
-              
-          /*
-          Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller -h" });
-          BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-          BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-          String s = null;
-          while ((s = stdInput.readLine()) != null ) {
-            //System.out.println(s);
-            System.out.println(s);
-          }
-          */
-          System.out.println("1");
-          
-          //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c", "qsub -v NOT_BASECALLING=false,THREADS=4,FLOWCELL_ID=FLO-MIN106,KIT_NUMBER=SQK-RBK004,WORKSPACE_PATH=/home/yan/ncct/TestData/fast5_106_sqk-rbk004 /home/yan/nextflowScripts/ont/pipeline.pbs"});
-          //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub /home/yan/nextflowScripts/ont/adapterTrimming.pbs"});
-          //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub -v NOT_ADAPTERTRIMMING=false,NOT_BASECALLING=false,WORKSPACE_PATH=/home/yan/ncct/TestData/fast5_106_sqk-rbk004,THREADS=4 /home/yan/nextflowScripts/ont/adapterTrimming.pbs"});
-          //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","echo 'sleep 20'|qsub"});
-          //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub /home/yan/pbsScripts/test.pbs"});
-          System.out.println("2");
-        } catch (IOException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
         //System.out.println(barcodeKits);
+        Path path = Paths.get("/home/yan/nextflowScripts/ont/pipeline.pbs");
+        Path newPath = Paths.get("/home/yan/nextflowScripts/ont/pipeline_.pbs");
+        Charset charset = StandardCharsets.UTF_8;
+
+        String content = null;
+        try {
+          content = new String(Files.readAllBytes(path), charset);
+        } catch (IOException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
+        content = content.replaceAll("\\$\\{WORKSPACE_PATH\\}", workspace)
+            .replaceAll("\\$NOT_BASECALLING", basecallingSettings.toString())
+            .replaceAll("\\$\\{FLOWCELL_ID\\}", flowcellId)
+            .replaceAll("\\$\\{KIT_NUMBER\\}", kitNumber)
+            .replaceAll("\\$\\{THREADS\\}", threads)
+            .replaceAll("\\$\\{BARCODEKIT\\}", barcodeKits)
+            .replaceAll("\\$NOT_ADAPTERTRIMMING", adapterTrimming.toString())
+            .replaceAll("\\$\\{BARCODENUMBERS\\}", barcodes)
+            .replaceAll("\\$NOT_READSFILTER", readsFilterSettings.toString())
+            .replaceAll("\\$\\{SCORE\\}", readScore)
+            .replaceAll("\\$\\{LENGTH\\}", readLength)
+            .replaceAll("\\$\\{HEADCROP\\}", headCrop)
+            .replaceAll("\\$NOT_ASSEMBLY", assemblySettings.toString())
+            .replaceAll("\\$\\{MODE\\}", mode)
+            .replaceAll("\\$\\{METHOD\\}", method)
+            .replaceAll("\\$NOT_BUSCO", busco.toString())
+            .replaceAll("\\$\\{PTIMES\\}", polishingTimes);
+       try {
+          Files.write(newPath, content.getBytes(charset));
+        } catch (IOException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
+        
+        
+        
+        /*
+        Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "qsub -v "
+            + "NOT_ADAPERTRIMMING="+adapterTrimming+",BARCODENUMBERS="+barcodes
+            + ",NOT_BASECALLING="+basecallingSettings
+            + ",THREADS="+threads+",FLOWCELL_ID="+flowcellId+",KIT_NUMBER="+kitNumber+",BARCODEKIT="+barcodeKits
+            + ",NOT_READSFILTER="+readsFilterSettings
+            + ",SCORE="+readScore+",LENGTH="+readLength+",HEADCROP="+headCrop
+            + ",IS_ASSEMBLY="+assemblySettings
+            + ",MODE="+mode+",METHOD="+method+",READ1="+read1+",READ2="+read2+",IS_VCF="+vcf+",PTIMES="+polishingTimes
+            + ",NOT_BUSCO="+busco
+            + ",WORKSPACE_PATH="+workspace+" /home/yan/pbsScripts/ont_pipeline_java.pbs" });
+            */
+        /*
+        Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller -h" });
+        BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+        String s = null;
+        while ((s = stdInput.readLine()) != null ) {
+          //System.out.println(s);
+          System.out.println(s);
+        }
+        */
+        System.out.println("1");
+        
+        //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c", "qsub -v NOT_BASECALLING=false,THREADS=4,FLOWCELL_ID=FLO-MIN106,KIT_NUMBER=SQK-RBK004,WORKSPACE_PATH=/home/yan/ncct/TestData/fast5_106_sqk-rbk004 /home/yan/nextflowScripts/ont/pipeline.pbs"});
+        //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub /home/yan/nextflowScripts/ont/adapterTrimming.pbs"});
+        //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub -v NOT_ADAPTERTRIMMING=false,NOT_BASECALLING=false,WORKSPACE_PATH=/home/yan/ncct/TestData/fast5_106_sqk-rbk004,THREADS=4 /home/yan/nextflowScripts/ont/adapterTrimming.pbs"});
+        //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","echo 'sleep 20'|qsub"});
+        //Process p = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub /home/yan/pbsScripts/test.pbs"});
+        System.out.println("2");
         
       } 
     });
@@ -421,4 +485,151 @@ public class MainApp extends Application {
   public static void main(String[] args) {
     launch(args);
   }
+  
+  public void handleAdvancedBasecalling() {
+    try {
+      // Load the fxml file and create a new stage for the popup dialog.
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(MainApp.class.getResource("view/AdvancedBasecallingView.fxml"));
+      AnchorPane page = (AnchorPane) loader.load();
+
+      // Create the dialog Stage.
+      Stage dialogStage = new Stage();
+      dialogStage.setTitle("Advanced Basecalling Setting");
+      dialogStage.initModality(Modality.WINDOW_MODAL);
+      dialogStage.initOwner(primaryStage);
+      Scene scene = new Scene(page);
+      dialogStage.setScene(scene);
+
+      // Set the person into the controller.
+      AdvancedBasecallingController controller = loader.getController();
+      controller.setDialogStage(dialogStage);
+      controller.setBarcodeKits(p.getBarcodeKit());
+      //controller.setPerson(person);
+     
+      // Show the dialog and wait until the user closes it
+      dialogStage.showAndWait();
+      //System.out.println(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+      p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+      //return controller.isOkClicked();
+    } catch (IOException e) {
+      e.printStackTrace();
+      //return false;
+    }
+  }
+  
+  public void handleAdvancedReadsFilter() {
+    try {
+      // Load the fxml file and create a new stage for the popup dialog.
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(MainApp.class.getResource("view/AdvancedReadsFilterView.fxml"));
+      AnchorPane page = (AnchorPane) loader.load();
+
+      // Create the dialog Stage.
+      Stage dialogStage = new Stage();
+      dialogStage.setTitle("Advanced Reads Filter Setting");
+      dialogStage.initModality(Modality.WINDOW_MODAL);
+      dialogStage.initOwner(primaryStage);
+      Scene scene = new Scene(page);
+      dialogStage.setScene(scene);
+
+      // Set the person into the controller.
+      AdvancedReadsFilterController controller = loader.getController();
+      controller.setDialogStage(dialogStage);
+      controller.setReadScore(p.getReadScore());
+      controller.setReadLength(p.getReadLength());
+      controller.setHeadCrop(p.getHeadCrop());
+      controller.setIfAdapterTrimming(p.getIfAdapterTrimming());
+      controller.setIfSplitting(p.getIfSplitting());
+      //controller.setPerson(person);
+     
+      // Show the dialog and wait until the user closes it
+      dialogStage.showAndWait();
+      //System.out.println(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+      //p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+      //return controller.isOkClicked();
+      p.setReadScore(controller.tfReadScore.getText());
+      p.setReadLength(controller.tfReadLength.getText());
+      p.setHeadCrop(controller.tfHeadCrop.getText());
+      p.setIfAdapterTrimming(controller.cAdapterTrimming.isSelected());
+      p.setIfSplitting(controller.cSplitting.isSelected());
+    } catch (IOException e) {
+      e.printStackTrace();
+      //return false;
+    }
+  }
+  
+  public void handleAdvancedAssembly() {
+    try {
+      // Load the fxml file and create a new stage for the popup dialog.
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(MainApp.class.getResource("view/AdvancedAssemblyView.fxml"));
+      AnchorPane page = (AnchorPane) loader.load();
+
+      // Create the dialog Stage.
+      Stage dialogStage = new Stage();
+      dialogStage.setTitle("Advanced Assembly Setting");
+      dialogStage.initModality(Modality.WINDOW_MODAL);
+      dialogStage.initOwner(primaryStage);
+      Scene scene = new Scene(page);
+      dialogStage.setScene(scene);
+
+      // Set the person into the controller.
+      AdvancedAssemblyController controller = loader.getController();
+      controller.setDialogStage(dialogStage);
+      controller.setIfVcf(p.getIfVcf());
+      //controller.setPerson(person);
+     
+      // Show the dialog and wait until the user closes it
+      dialogStage.showAndWait();
+      //System.out.println(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+      //p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+      //return controller.isOkClicked();
+      p.setIfVcf(controller.cVcf.isSelected());
+    } catch (IOException e) {
+      e.printStackTrace();
+      //return false;
+    }
+  }
+  
+  public void handleAdvancedPolishing() {
+    try {
+      // Load the fxml file and create a new stage for the popup dialog.
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(MainApp.class.getResource("view/AdvancedPolishingView.fxml"));
+      AnchorPane page = (AnchorPane) loader.load();
+
+      // Create the dialog Stage.
+      Stage dialogStage = new Stage();
+      dialogStage.setTitle("Advanced Polishing Setting");
+      dialogStage.initModality(Modality.WINDOW_MODAL);
+      dialogStage.initOwner(primaryStage);
+      Scene scene = new Scene(page);
+      dialogStage.setScene(scene);
+
+      // Set the person into the controller.
+      AdvancedPolishingController controller = loader.getController();
+      controller.setDialogStage(dialogStage);
+      controller.setPtimes(p.getPtimes());
+      //controller.setIfVcf(p.getIfVcf());
+      //controller.setPerson(person);
+     
+      // Show the dialog and wait until the user closes it
+      dialogStage.showAndWait();
+      //System.out.println(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+      //p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+      //return controller.isOkClicked();
+      //p.setIfVcf(controller.cVcf.isSelected());
+      p.setPtimes(controller.cbPtimes.getValue());
+    } catch (IOException e) {
+      e.printStackTrace();
+      //return false;
+    }
+  }
+  
+  public void handleStartPipeline() {
+    System.out.println(p.getBarcodeKit());
+    System.out.println("HeadCrop:"+p.getHeadCrop());
+  }
+  
 }

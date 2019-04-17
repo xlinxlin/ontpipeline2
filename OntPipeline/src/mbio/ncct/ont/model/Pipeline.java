@@ -1,6 +1,8 @@
 package mbio.ncct.ont.model;
 
 import mbio.ncct.ont.view.GeneralSettingsController;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
@@ -9,20 +11,25 @@ import mbio.ncct.ont.view.ReadsFilterSettingsController;
 
 public class Pipeline {
 
-  
   private final StringProperty workspace = new SimpleStringProperty("");
   private final StringProperty selectedBarcode = new SimpleStringProperty("");
-  private final StringProperty threads = new SimpleStringProperty("");
-  private final StringProperty flowcellId = new SimpleStringProperty("");
-  private final StringProperty kitNumber = new SimpleStringProperty("");
+  private final StringProperty threads = new SimpleStringProperty("4");
+  private final StringProperty flowcellId = new SimpleStringProperty("FLO-MIN106");
+  private final StringProperty kitNumber = new SimpleStringProperty("SQK-LSK109");
   private final StringProperty barcodeKit = new SimpleStringProperty("");
-  private final StringProperty readScore = new SimpleStringProperty("");
-  private final StringProperty readLength = new SimpleStringProperty("");
-  private final StringProperty headCrop = new SimpleStringProperty("");
-  private final StringProperty mode = new SimpleStringProperty("");
-  private final StringProperty method = new SimpleStringProperty("");
+  private final StringProperty readScore = new SimpleStringProperty("9");
+  private final StringProperty readLength = new SimpleStringProperty("500");
+  private final StringProperty headCrop = new SimpleStringProperty("50");
+  private final StringProperty mode = new SimpleStringProperty("normal");
+  private final StringProperty method = new SimpleStringProperty("Hybrid assembly");
   private final StringProperty read1Workspace = new SimpleStringProperty("");
   private final StringProperty read2Workspace = new SimpleStringProperty("");
+  private final BooleanProperty ifAdapterTrimming = new SimpleBooleanProperty(true);
+  private final BooleanProperty ifSplitting = new SimpleBooleanProperty(false);
+  private final BooleanProperty ifVcf = new SimpleBooleanProperty(false);
+  private final StringProperty pTimes = new SimpleStringProperty("1");
+  private final BooleanProperty ifBusco = new SimpleBooleanProperty(true);
+  private final StringProperty buscoDatabase = new SimpleStringProperty("");
   
   //public Pipeline() {
   //}
@@ -41,5 +48,111 @@ public class Pipeline {
     return selectedBarcode.get();
   }
   
+  public void setSelectedBarcode(String selectedBarcode) {
+    this.selectedBarcode.set(selectedBarcode);
+  }
   
+  public String getThreads() {
+    return threads.get();
+  }
+  
+  public void setThreads(String threads) {
+    this.threads.set(threads);
+  }
+  
+  public String getFlowcellId() {
+    return flowcellId.get();
+  }
+  
+  public void setFlowcellId(String flowcellId) {
+    this.flowcellId.set(flowcellId);
+  }
+  
+  public String getKitNumber() {
+    return kitNumber.get();
+  }
+  
+  public void setKitNumber(String kitNumber) {
+    this.kitNumber.set(kitNumber);
+  }
+  
+  public String getBarcodeKit() {
+    return barcodeKit.get();
+  }
+  
+  public void setBarcodeKit(String barcodeKit) {
+    this.barcodeKit.set(barcodeKit);
+  }
+  
+  public String getReadScore() {
+    return readScore.get();
+  }
+  
+  public void setReadScore(String readScore) {
+    this.readScore.set(readScore);
+  }
+  
+  public String getReadLength() {
+    return readLength.get();
+  }
+  
+  public void setReadLength(String readLength) {
+    this.readLength.set(readLength);
+  }
+  
+  public String getHeadCrop() {
+    return headCrop.get();
+  }
+  
+  public void setHeadCrop(String headCrop) {
+    this.headCrop.set(headCrop);
+  }
+  
+  public String getMode() {
+    return mode.get();
+  }
+  
+  public void setMode(String mode) {
+    this.mode.set(mode);
+  }
+  
+  public String getMethod() {
+    return method.get();
+  }
+  
+  public void setMethod(String method) {
+    this.method.set(method);
+  }
+  
+  public void setIfAdapterTrimming(Boolean ifAdapterTrimming) {
+    this.ifAdapterTrimming.set(ifAdapterTrimming);
+  }
+  
+  public Boolean getIfAdapterTrimming() {
+    return ifAdapterTrimming.get();
+  }
+  
+  public void setIfSplitting(Boolean ifSplitting) {
+    this.ifSplitting.set(ifSplitting);
+  }
+  
+  public Boolean getIfSplitting() {
+    return ifSplitting.get();
+  }
+  
+  public void setIfVcf(Boolean ifVcf) {
+    this.ifVcf.set(ifVcf);
+  }
+  
+  public Boolean getIfVcf() {
+    return ifVcf.get();
+  }
+  
+  public String getPtimes() {
+    return pTimes.get();
+  }
+  
+  public void setPtimes(String pTimes) {
+    this.pTimes.set(pTimes);
+  }
 }
