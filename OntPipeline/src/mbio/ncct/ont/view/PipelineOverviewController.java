@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import javax.swing.event.ChangeListener;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,9 +25,6 @@ import javafx.stage.Stage;
 import mbio.ncct.ont.MainApp;
 
 public class PipelineOverviewController {
-  
-  @FXML
-  private Button btnBasecalling;
   
   private MainApp mainApp;
 
@@ -52,6 +51,15 @@ public class PipelineOverviewController {
   public TextField tfWorkspace;
   @FXML
   public TextField tfThreads;
+  @FXML
+  public Button btnBasecalling;
+  @FXML
+  public Button btnReadsFilter;
+  @FXML
+  public Button btnAssembly;
+  @FXML
+  public Button btnPolishing;
+  
   
   /**
    * Initializes the controller class. This method is automatically called
@@ -92,6 +100,46 @@ public class PipelineOverviewController {
     cPolishing.setSelected(true);
     
     tfThreads.setText("4");
+    
+    cBasecalling.selectedProperty().addListener((observable, oldValue, newValue) -> {
+      if(cBasecalling.isSelected()) {
+        cbFlowcellId.setDisable(false);
+        cbKitNumber.setDisable(false);
+        btnBasecalling.setDisable(false);
+      } else {
+        cbFlowcellId.setDisable(true);
+        cbKitNumber.setDisable(true);
+        btnBasecalling.setDisable(true);
+      }
+    });
+    
+    cReadsFilter.selectedProperty().addListener((observable, oldValue, newValue) -> {
+      if(cReadsFilter.isSelected()) {
+        btnReadsFilter.setDisable(false);
+      } else {
+        btnReadsFilter.setDisable(true);
+      }
+    });
+    
+    cAssembly.selectedProperty().addListener((observable, oldValue, newValue) -> {
+      if(cAssembly.isSelected()) {
+        cbMode.setDisable(false);
+        cbMethod.setDisable(false);
+        btnAssembly.setDisable(false);
+      } else {
+        cbMode.setDisable(true);
+        cbMethod.setDisable(true);
+        btnAssembly.setDisable(true);
+      }
+    });
+    
+    cPolishing.selectedProperty().addListener((observable, oldValue, newValue) -> {
+      if(cPolishing.isSelected()) {
+        btnPolishing.setDisable(false);
+      } else {
+        btnPolishing.setDisable(true);
+      }
+    });
   }
 
   /**
@@ -209,6 +257,7 @@ public class PipelineOverviewController {
     
     //gsModel.setWorkspace(tfWorkspace.getText());
     //File[] f = selectedDirectory.listFiles();
+    /*
     if (f!=null) {
       String extension = f[f.length-1].getName().contains(".") ? f[f.length-1].getName().split("\\.")[1].toLowerCase() : "";
       if(!extension.equals("fast5")&&!extension.equals("fastq")) {
@@ -217,6 +266,12 @@ public class PipelineOverviewController {
         alert.setContentText("Can not find .fast5 or .fastq file in this folder.");
         alert.showAndWait();
         tfWorkspace.setText("");
+      }
+    }
+    */
+    if (f!=null) {
+      for(int i=0;i<f.length;i++) {
+        System.out.println(f[i].getName());
       }
     }
   }

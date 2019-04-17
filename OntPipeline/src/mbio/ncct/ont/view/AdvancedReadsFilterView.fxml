@@ -25,7 +25,7 @@
          </children>
       </HBox>
       <Label layoutX="16.0" layoutY="20.0" prefWidth="120.0" text="Porechop Setting" />
-      <Label layoutX="61.0" layoutY="99.0" text="(Default: split reads when an adapter is found in the middle.)" />
+      <Label fx:id="lbSplit" layoutX="61.0" layoutY="99.0" text="(Default: split reads when an adapter is found in the middle.)" />
       <Separator layoutX="14.0" layoutY="129.0" prefHeight="4.0" prefWidth="454.0" />
       <Label layoutX="20.0" layoutY="144.0" text="NanoFilt Setting" />
       <Separator layoutX="13.0" layoutY="208.0" prefHeight="4.0" prefWidth="454.0" />

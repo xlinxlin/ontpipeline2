@@ -15,11 +15,11 @@
       <CheckBox fx:id="cAssembly" layoutX="14.0" layoutY="250.0" mnemonicParsing="false" text="Assembly" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="250.0" />
       <ChoiceBox fx:id="cbFlowcellId" layoutX="138.0" layoutY="144.0" prefWidth="150.0" />
       <ChoiceBox fx:id="cbKitNumber" layoutX="324.0" layoutY="143.0" prefWidth="150.0" />
-      <Button layoutX="516.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleAdvancedReadsFilter" text="Advanced" />
-      <Button layoutX="515.0" layoutY="142.0" mnemonicParsing="false" onAction="#handleAdvancedBasecalling" text="Advanced" />
+      <Button fx:id="btnReadsFilter" layoutX="516.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleAdvancedReadsFilter" text="Advanced" />
+      <Button fx:id="btnBasecalling" layoutX="515.0" layoutY="142.0" mnemonicParsing="false" onAction="#handleAdvancedBasecalling" text="Advanced" />
       <CheckBox fx:id="cPolishing" layoutX="14.0" layoutY="302.0" mnemonicParsing="false" text="Polishing" AnchorPane.leftAnchor="14.0" />
-      <Button layoutX="515.0" layoutY="245.0" mnemonicParsing="false" onAction="#handleAdvancedAssembly" text="Advanced" />
-      <Button layoutX="514.0" layoutY="294.0" mnemonicParsing="false" onAction="#handleAdvancedPolishung" text="Advanced" />
+      <Button fx:id="btnAssembly" layoutX="515.0" layoutY="245.0" mnemonicParsing="false" onAction="#handleAdvancedAssembly" text="Advanced" />
+      <Button fx:id="btnPolishing" layoutX="514.0" layoutY="294.0" mnemonicParsing="false" onAction="#handleAdvancedPolishung" text="Advanced" />
       <Button layoutX="516.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleStartPipeline" prefHeight="26.0" prefWidth="83.0" text="Start" />
       <ChoiceBox fx:id="cbMode" layoutX="135.0" layoutY="247.0" prefWidth="150.0" value="normal" />
       <ChoiceBox fx:id="cbMethod" layoutX="323.0" layoutY="246.0" prefWidth="150.0" value="Hybrid assembly" />

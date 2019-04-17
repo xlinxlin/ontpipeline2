@@ -3,6 +3,7 @@ package mbio.ncct.ont.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -22,6 +23,10 @@ public class AdvancedReadsFilterController {
   public CheckBox cAdapterTrimming; 
   @FXML
   public CheckBox cSplitting; 
+  @FXML
+  public Label lbSplit;
+  
+  public int isOK = 0;
 
   @FXML
   private void initialize() {
@@ -29,6 +34,15 @@ public class AdvancedReadsFilterController {
     //tfReadLength.setText("500");
     //tfHeadCrop.setText("50");
     //setInitialize()
+    cAdapterTrimming.selectedProperty().addListener((observable, oldValue, newValue) -> {
+      if(cAdapterTrimming.isSelected()) {
+        cSplitting.setDisable(false);
+        lbSplit.setDisable(false);
+      } else {
+        cSplitting.setDisable(true);
+        lbSplit.setDisable(true);
+      }
+    });
   }
   
   public void setDialogStage(Stage dialogStage) {
@@ -41,6 +55,7 @@ public class AdvancedReadsFilterController {
     System.out.println(tfReadScore.getText().matches("\\d+"));
     //dialogStage.close();
     if(tfReadScore.getText().matches("\\d+") && tfReadLength.getText().matches("\\d+") && tfHeadCrop.getText().matches("\\d+")) {
+      isOK = 1;
       dialogStage.close();
     } else {
       Alert alert = new Alert(AlertType.ERROR);

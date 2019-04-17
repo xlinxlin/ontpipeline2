@@ -510,7 +510,9 @@ public class MainApp extends Application {
       // Show the dialog and wait until the user closes it
       dialogStage.showAndWait();
       //System.out.println(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
-      p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+      if(controller.isOK == 1) {
+        p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+      }
       //return controller.isOkClicked();
     } catch (IOException e) {
       e.printStackTrace();
@@ -548,11 +550,13 @@ public class MainApp extends Application {
       //System.out.println(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
       //p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
       //return controller.isOkClicked();
-      p.setReadScore(controller.tfReadScore.getText());
-      p.setReadLength(controller.tfReadLength.getText());
-      p.setHeadCrop(controller.tfHeadCrop.getText());
-      p.setIfAdapterTrimming(controller.cAdapterTrimming.isSelected());
-      p.setIfSplitting(controller.cSplitting.isSelected());
+      if (controller.isOK == 1) {
+        p.setReadScore(controller.tfReadScore.getText());
+        p.setReadLength(controller.tfReadLength.getText());
+        p.setHeadCrop(controller.tfHeadCrop.getText());
+        p.setIfAdapterTrimming(controller.cAdapterTrimming.isSelected());
+        p.setIfSplitting(controller.cSplitting.isSelected()); 
+      }
     } catch (IOException e) {
       e.printStackTrace();
       //return false;
@@ -585,7 +589,9 @@ public class MainApp extends Application {
       //System.out.println(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
       //p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
       //return controller.isOkClicked();
-      p.setIfVcf(controller.cVcf.isSelected());
+      if (controller.isOK == 1) {
+        p.setIfVcf(controller.cVcf.isSelected()); 
+      }
     } catch (IOException e) {
       e.printStackTrace();
       //return false;
@@ -620,7 +626,9 @@ public class MainApp extends Application {
       //p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
       //return controller.isOkClicked();
       //p.setIfVcf(controller.cVcf.isSelected());
-      p.setPtimes(controller.cbPtimes.getValue());
+      if (controller.isOK == 1) {
+        p.setPtimes(controller.cbPtimes.getValue()); 
+      }
     } catch (IOException e) {
       e.printStackTrace();
       //return false;

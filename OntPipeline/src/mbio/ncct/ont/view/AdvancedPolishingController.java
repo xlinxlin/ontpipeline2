@@ -20,6 +20,7 @@ public class AdvancedPolishingController {
   @FXML
   public CheckBox cBusco;
   
+  public int isOK = 0;
   
   @FXML
   private void initialize() {
@@ -35,6 +36,7 @@ public class AdvancedPolishingController {
   
   @FXML
   public void OK() {
+    isOK = 1;
     dialogStage.close();
   }
   

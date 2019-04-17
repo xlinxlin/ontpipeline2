@@ -9,6 +9,8 @@ public class AdvancedAssemblyController {
   private Stage dialogStage;
   @FXML
   public CheckBox cVcf;
+  
+  public int isOK = 0;
 
   @FXML
   private void initialize() {
@@ -24,6 +26,7 @@ public class AdvancedAssemblyController {
   
   @FXML
   public void OK() {
+    isOK = 1;
     dialogStage.close();
   }
   

@@ -26,6 +26,8 @@ public class AdvancedBasecallingController {
   
   private Stage dialogStage;
   
+  public int isOK = 0;
+  
   @FXML
   private void initialize() throws IOException {
     //ObservableList<String> olBarcodeKits = FXCollections.observableArrayList(getBarcodeKits());
@@ -66,6 +68,7 @@ public class AdvancedBasecallingController {
     String test = ccbBarcodeKits.getCheckModel().getCheckedItems().isEmpty() ? 
         "" : ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\"");
     //p.setWorkspace(test);
+    isOK = 1;
     dialogStage.close();
     return test;
   }
