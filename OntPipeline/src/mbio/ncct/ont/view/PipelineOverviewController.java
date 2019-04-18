@@ -59,6 +59,8 @@ public class PipelineOverviewController {
   public Button btnAssembly;
   @FXML
   public Button btnPolishing;
+  @FXML
+  public TextField tfSelectedBarcode;
   
   
   /**
@@ -80,6 +82,7 @@ public class PipelineOverviewController {
       cbKitNumber.getSelectionModel().select("SQK-LSK109");
     } else {
       cbKitNumber.getSelectionModel().selectFirst();
+      mainApp.setKitNumber(cbKitNumber.getSelectionModel().getSelectedItem());
     }
     ArrayList<String> alMode = new ArrayList<String>();
     alMode.add("conservative");
@@ -106,18 +109,22 @@ public class PipelineOverviewController {
         cbFlowcellId.setDisable(false);
         cbKitNumber.setDisable(false);
         btnBasecalling.setDisable(false);
+        mainApp.setIfBasecalling(true);
       } else {
         cbFlowcellId.setDisable(true);
         cbKitNumber.setDisable(true);
         btnBasecalling.setDisable(true);
+        mainApp.setIfBasecalling(false);
       }
     });
     
     cReadsFilter.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cReadsFilter.isSelected()) {
         btnReadsFilter.setDisable(false);
+        mainApp.setIfReadsFilter(true);
       } else {
         btnReadsFilter.setDisable(true);
+        mainApp.setIfReadsFilter(false);
       }
     });
     
@@ -126,19 +133,51 @@ public class PipelineOverviewController {
         cbMode.setDisable(false);
         cbMethod.setDisable(false);
         btnAssembly.setDisable(false);
+        mainApp.setIfAssembly(true);
       } else {
         cbMode.setDisable(true);
         cbMethod.setDisable(true);
         btnAssembly.setDisable(true);
+        mainApp.setIfAssembly(false);
       }
     });
     
     cPolishing.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cPolishing.isSelected()) {
         btnPolishing.setDisable(false);
+        mainApp.setIfPolishing(true);
       } else {
         btnPolishing.setDisable(true);
+        mainApp.setIfPolishing(false);
       }
+    });
+    
+    cbFlowcellId.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> {
+      mainApp.setFlowcellId(newValue);
+    });
+    
+    cbKitNumber.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> {
+      mainApp.setKitNumber(newValue);
+    });
+    
+    cbMode.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> {
+      mainApp.setMode(newValue);
+    });
+    
+    cbMethod.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> {
+      mainApp.setMethod(newValue);
+    });
+    
+    tfWorkspace.textProperty().addListener((observable, oldValue, newValue) -> {
+      mainApp.setWorkspace(newValue);
+    });
+    
+    tfThreads.textProperty().addListener((observable, oldValue, newValue) -> {
+      mainApp.setThreads(newValue);
+    });
+    
+    tfSelectedBarcode.textProperty().addListener((observable, oldValue, newValue) -> {
+      mainApp.setSelectedBarcode(newValue);
     });
   }
 
@@ -187,7 +226,7 @@ public class PipelineOverviewController {
   }
   
   @FXML
-  private void handleStartPipeline() {
+  private void handleStartPipeline() throws IOException {
       //boolean okClicked = mainApp.handleAdvancedBasecalling();
     mainApp.handleStartPipeline();
       /*
@@ -269,11 +308,13 @@ public class PipelineOverviewController {
       }
     }
     */
+    /*
     if (f!=null) {
       for(int i=0;i<f.length;i++) {
         System.out.println(f[i].getName());
       }
     }
+    */
   }
 }
 

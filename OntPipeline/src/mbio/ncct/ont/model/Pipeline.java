@@ -30,6 +30,10 @@ public class Pipeline {
   private final StringProperty pTimes = new SimpleStringProperty("1");
   private final BooleanProperty ifBusco = new SimpleBooleanProperty(true);
   private final StringProperty buscoDatabase = new SimpleStringProperty("");
+  private final BooleanProperty ifBasecalling = new SimpleBooleanProperty(true);
+  private final BooleanProperty ifReadsFilter = new SimpleBooleanProperty(true);
+  private final BooleanProperty ifAssembly = new SimpleBooleanProperty(true);
+  private final BooleanProperty ifPolishing = new SimpleBooleanProperty(true);
   
   //public Pipeline() {
   //}
@@ -154,5 +158,37 @@ public class Pipeline {
   
   public void setPtimes(String pTimes) {
     this.pTimes.set(pTimes);
+  }
+  
+  public void setIfBasecalling(Boolean ifBasecalling) {
+    this.ifBasecalling.set(ifBasecalling);
+  }
+  
+  public Boolean getIfBasecalling() {
+    return ifBasecalling.get();
+  }
+  
+  public void setIfReadsFilter(Boolean ifReadsFilter) {
+    this.ifReadsFilter.set(ifReadsFilter);
+  }
+  
+  public Boolean getIfReadsFilter() {
+    return ifReadsFilter.get();
+  }
+  
+  public void setIfAssembly(Boolean ifAssembly) {
+    this.ifAssembly.set(ifAssembly);
+  }
+  
+  public Boolean getIfAssembly() {
+    return ifAssembly.get();
+  }
+  
+  public void setIfPolishing(Boolean ifPolishing) {
+    this.ifPolishing.set(ifPolishing);
+  }
+  
+  public Boolean getIfPolishing() {
+    return ifPolishing.get();
   }
 }

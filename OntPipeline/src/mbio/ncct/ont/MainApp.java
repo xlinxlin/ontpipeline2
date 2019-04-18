@@ -1,6 +1,9 @@
 package mbio.ncct.ont;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -635,9 +638,96 @@ public class MainApp extends Application {
     }
   }
   
-  public void handleStartPipeline() {
+  public void handleStartPipeline() throws IOException {
     System.out.println(p.getBarcodeKit());
     System.out.println("HeadCrop:"+p.getHeadCrop());
+    
+    System.out.println("workspace"+p.getWorkspace());
+    
+    
+    File pbs = new File(p.getWorkspace()+"/test.pbs");
+    pbs.createNewFile();
+    //String str = "World";
+    BufferedWriter writer = new BufferedWriter(new FileWriter(pbs, true));
+    writer.append("#!/bin/bash\n");
+    writer.append("#PBS -l nodes=1:ppn=4\n");
+    writer.append("#PBS -l walltime=99750:00:00\n");
+    writer.append("#PBS -q batch\n");
+    writer.append("#PBS -N Unicycler_Job\n");
+    writer.append("echo $(date) Analysis starts.\n");
+    writer.append("echo $(date) Your workdir is " + p.getWorkspace() + ".\n");
+    writer.append("cd " + p.getWorkspace() + "\n");
+    writer.append("mkdir ../Analysis\n");
+    writer.append("mkdir ../Analysis/Logs\n");
+    writer.append("echo $(date) Your output path is " + p.getWorkspace() + "/Analysis .\n");
+    writer.append("cd " + p.getWorkspace() + "\n");
+    if(p.getIfBasecalling()) {
+      writer.append("#Basecalling\n");
+      writer.append("echo $(date) Basecalling starts.\n");
+      writer.append("mkdir " + p.getWorkspace() + "/Analysis/Basecalled\n");
+      writer.append("mkdir " + p.getWorkspace() + "/Analysis/Barcodes\n");
+      writer.append("/opt/ont-guppy-cpu_V2.3.5+53a111f/bin/guppy_basecaller --flowcell " + p.getFlowcellId() + " --kit " + p.getKitNumber() 
+                    + "-i " + p.getWorkspace() + " -s " + p.getWorkspace() + "/Analysis/Basecalled" + " --num_callers " + p.getThreads() 
+                    + " --cpu_threads_per_caller 1 -q 0 -r --enable_trimming on > " + p.getWorkspace() + "/Analysis/Logs/guppy_basecaller.log\n");
+      writer.append("echo $(date) Basecalling ends.\n");
+      writer.append("#Demultiplexing\n");
+      writer.append("echo $(date) Demultiplexing starts.\n");
+      if(p.getBarcodeKit().isEmpty()) {
+        writer.append("/opt/ont-guppy-cpu_V2.3.5+53a111f/bin/guppy_barcoder -i " + p.getWorkspace() + "/Analysis/Basecalled -s " 
+                      + p.getWorkspace() + "/Analysis/Barcodes -t " + p.getThreads() + " -q 0 -r > " + p.getWorkspace() + "/Analysis/Logs/guppy_barcoder.log\n");
+      } else {
+        writer.append("/opt/ont-guppy-cpu_V2.3.5+53a111f/bin/guppy_barcoder -i " + p.getWorkspace() + "/Analysis/Basecalled -s " + p.getWorkspace() 
+                      + "/Analysis/Barcodes -t " + p.getThreads() + " -q 0 -r --barcode_kit " + p.getBarcodeKit() + " > " + p.getWorkspace() + "/Analysis/Logs/guppy_barcoder.log\n");
+      }
+      writer.append("echo $(date) Demultiplexing ends.\n");
+    }
+     
+    writer.close();
+    
+  }
+  
+  public void setIfBasecalling(boolean ifAssembly) {
+    p.setIfAssembly(ifAssembly);
+  }
+  
+  public void setIfReadsFilter(boolean ifReadsFilter) {
+    p.setIfReadsFilter(ifReadsFilter);
+  }
+  
+  public void setIfAssembly(boolean ifAssembly) {
+    p.setIfAssembly(ifAssembly);
+  }
+  
+  public void setIfPolishing(boolean ifPolishing) {
+    p.setIfPolishing(ifPolishing);
+  }
+  
+  public void setFlowcellId(String flowcellId) {
+    p.setFlowcellId(flowcellId);
+  }
+  
+  public void setKitNumber(String kitNumber) {
+    p.setKitNumber(kitNumber);
+  }
+  
+  public void setMode(String mode) {
+    p.setMode(mode);
+  }
+  
+  public void setMethod(String method) {
+    p.setMethod(method);
+  }
+  
+  public void setWorkspace(String workspace) {
+    p.setWorkspace(workspace);
+  }
+  
+  public void setThreads(String threads) {
+    p.setThreads(threads);
+  }
+  
+  public void setSelectedBarcode(String selectedBarcode) {
+    p.setSelectedBarcode(selectedBarcode);
   }
   
 }
