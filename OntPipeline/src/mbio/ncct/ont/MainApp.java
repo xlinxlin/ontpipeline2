@@ -620,6 +620,8 @@ public class MainApp extends Application {
       AdvancedPolishingController controller = loader.getController();
       controller.setDialogStage(dialogStage);
       controller.setPtimes(p.getPtimes());
+      controller.setBuscoData(p.getBuscoData());
+      controller.setIfBusco(p.getIfBusco());
       //controller.setIfVcf(p.getIfVcf());
       //controller.setPerson(person);
      
@@ -631,6 +633,8 @@ public class MainApp extends Application {
       //p.setIfVcf(controller.cVcf.isSelected());
       if (controller.isOK == 1) {
         p.setPtimes(controller.cbPtimes.getValue()); 
+        p.setBuscoData(controller.cbBuscoData.getValue());
+        p.setIfBusco(controller.cBusco.isSelected());
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -643,6 +647,7 @@ public class MainApp extends Application {
     System.out.println("HeadCrop:"+p.getHeadCrop());
     
     System.out.println("workspace"+p.getWorkspace());
+    
     /*
     String[] strArr = p.getSelectedBarcode().split(",");
     String formattedSelectedBarcode = "";

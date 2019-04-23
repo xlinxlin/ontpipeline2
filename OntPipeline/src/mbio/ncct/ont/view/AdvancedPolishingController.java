@@ -16,7 +16,7 @@ public class AdvancedPolishingController {
   @FXML
   public ChoiceBox<String> cbPtimes;
   @FXML
-  public ChoiceBox cbBuscoData;
+  public ChoiceBox<String> cbBuscoData;
   @FXML
   public CheckBox cBusco;
   
@@ -28,6 +28,14 @@ public class AdvancedPolishingController {
     //tfReadLength.setText("500");
     //tfHeadCrop.setText("50");
     //setInitialize()
+    cbBuscoData.setDisable(true);
+    cBusco.selectedProperty().addListener((observable, oldValue, newValue) -> {
+      if(cBusco.isSelected()) {
+        cbBuscoData.setDisable(false);
+      } else {
+        cbBuscoData.setDisable(true);
+      }
+    });
   }
   
   public void setDialogStage(Stage dialogStage) {
@@ -57,7 +65,31 @@ public class AdvancedPolishingController {
     cbPtimes.setValue(pTimes);
   }
   
-  public void setBuscoData () {
-    
+  public void setBuscoData (String buscoData) {
+    ArrayList<String> alDatabase = new ArrayList<String>();
+    alDatabase.add("Bacteria");
+    alDatabase.add("Proteobacteria");
+    alDatabase.add("Rhizobiales");
+    alDatabase.add("Beta_proteobacteria");
+    alDatabase.add("Gamma_proteobacteria");
+    alDatabase.add("Enterobacteriales");
+    alDatabase.add("Delta_Epsilon_proteobacteria");
+    alDatabase.add("Actinobacteria");
+    alDatabase.add("Cyanobacteria");
+    alDatabase.add("Firmicutes");
+    alDatabase.add("Clostridia");
+    alDatabase.add("Lactobacillales");
+    alDatabase.add("Bacillales");
+    alDatabase.add("Enterobacteriales");
+    alDatabase.add("Bacteroidetes");
+    alDatabase.add("Spirochaetes");
+    alDatabase.add("Tenericutes");
+    ObservableList<String> olDatabase = FXCollections.observableArrayList(alDatabase);
+    cbBuscoData.setItems(olDatabase);
+    cbBuscoData.setValue(buscoData);
+  }
+  
+  public void setIfBusco (boolean ifBusco) {
+    cBusco.setSelected(ifBusco);
   }
 }

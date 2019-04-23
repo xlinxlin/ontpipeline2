@@ -28,8 +28,8 @@ public class Pipeline {
   private final BooleanProperty ifSplitting = new SimpleBooleanProperty(false);
   private final BooleanProperty ifVcf = new SimpleBooleanProperty(false);
   private final StringProperty pTimes = new SimpleStringProperty("1");
-  private final BooleanProperty ifBusco = new SimpleBooleanProperty(true);
-  private final StringProperty buscoDatabase = new SimpleStringProperty("");
+  private final BooleanProperty ifBusco = new SimpleBooleanProperty(false);
+  private final StringProperty buscoDatabase = new SimpleStringProperty("Bacteria");
   private final BooleanProperty ifBasecalling = new SimpleBooleanProperty(true);
   private final BooleanProperty ifReadsFilter = new SimpleBooleanProperty(true);
   private final BooleanProperty ifAssembly = new SimpleBooleanProperty(true);
@@ -190,5 +190,21 @@ public class Pipeline {
   
   public Boolean getIfPolishing() {
     return ifPolishing.get();
+  }
+  
+  public String getBuscoData() {
+    return buscoDatabase.get();
+  }
+  
+  public void setBuscoData(String buscoDatabase) {
+    this.buscoDatabase.set(buscoDatabase);
+  }
+  
+  public void setIfBusco(Boolean ifBusco) {
+    this.ifBusco.set(ifBusco);
+  }
+  
+  public Boolean getIfBusco() {
+    return ifBusco.get();
   }
 }
