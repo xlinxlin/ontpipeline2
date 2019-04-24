@@ -25,7 +25,7 @@ public class Pipeline {
   private final StringProperty read1Workspace = new SimpleStringProperty("");
   private final StringProperty read2Workspace = new SimpleStringProperty("");
   private final BooleanProperty ifAdapterTrimming = new SimpleBooleanProperty(true);
-  private final BooleanProperty ifSplitting = new SimpleBooleanProperty(false);
+  private final BooleanProperty ifNoSplit = new SimpleBooleanProperty(false);
   private final BooleanProperty ifVcf = new SimpleBooleanProperty(false);
   private final StringProperty pTimes = new SimpleStringProperty("1");
   private final BooleanProperty ifBusco = new SimpleBooleanProperty(false);
@@ -35,12 +35,8 @@ public class Pipeline {
   private final BooleanProperty ifAssembly = new SimpleBooleanProperty(true);
   private final BooleanProperty ifPolishing = new SimpleBooleanProperty(true);
   
-  //public Pipeline() {
-  //}
   
   public String getWorkspace() {
-    //System.out.println(workspace+"123");
-    //this.workspace.set("hello world");
     return workspace.get();
   }
   
@@ -136,12 +132,12 @@ public class Pipeline {
     return ifAdapterTrimming.get();
   }
   
-  public void setIfSplitting(Boolean ifSplitting) {
-    this.ifSplitting.set(ifSplitting);
+  public void setIfNoSplit(Boolean ifNoSplit) {
+    this.ifNoSplit.set(ifNoSplit);
   }
   
-  public Boolean getIfSplitting() {
-    return ifSplitting.get();
+  public Boolean getIfNoSplit() {
+    return ifNoSplit.get();
   }
   
   public void setIfVcf(Boolean ifVcf) {

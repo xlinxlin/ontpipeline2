@@ -545,7 +545,7 @@ public class MainApp extends Application {
       controller.setReadLength(p.getReadLength());
       controller.setHeadCrop(p.getHeadCrop());
       controller.setIfAdapterTrimming(p.getIfAdapterTrimming());
-      controller.setIfSplitting(p.getIfSplitting());
+      controller.setIfSplitting(p.getIfNoSplit());
       //controller.setPerson(person);
      
       // Show the dialog and wait until the user closes it
@@ -558,7 +558,7 @@ public class MainApp extends Application {
         p.setReadLength(controller.tfReadLength.getText());
         p.setHeadCrop(controller.tfHeadCrop.getText());
         p.setIfAdapterTrimming(controller.cAdapterTrimming.isSelected());
-        p.setIfSplitting(controller.cSplitting.isSelected()); 
+        p.setIfNoSplit(controller.cSplitting.isSelected()); 
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -658,6 +658,41 @@ public class MainApp extends Application {
     p.setSelectedBarcode("barcode{" + formattedSelectedBarcode.substring(0, formattedSelectedBarcode.length()-1) + "}/");
     System.out.println("selectedBarcode"+p.getSelectedBarcode());
     */
+    Path path = Paths.get("/home/yan/git/repository/OntPipeline/pbs/pipelineWithLoop.pbs");
+    Path newPath = Paths.get("/home/yan/git/repository/OntPipeline/pbs/pipelineWithLoop_.pbs");
+    Charset charset = StandardCharsets.UTF_8;
+
+    String content = null;
+    try {
+      content = new String(Files.readAllBytes(path), charset);
+    } catch (IOException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    content = content.replaceAll("\\$WORKSPACE_PATH", p.getWorkspace())
+        .replaceAll("\\$IF_BASECALLING", p.getIfBasecalling().toString())
+        .replaceAll("\\$FLOWCELL_ID", p.getFlowcellId())
+        .replaceAll("\\$KIT_NUMBER", p.getKitNumber())
+        .replaceAll("\\$THREADS", p.getThreads())
+        .replaceAll("\\$BARCODEKIT", p.getBarcodeKit())
+        .replaceAll("\\$IF_ADAPTERTRIMMING", p.getIfAdapterTrimming().toString())
+        .replaceAll("\\$BARCODENUMBERS", p.getSelectedBarcode())
+        .replaceAll("\\$IF_READSFILTER", p.getIfReadsFilter().toString())
+        .replaceAll("\\$SCORE", p.getReadScore())
+        .replaceAll("\\$LENGTH", p.getReadLength())
+        .replaceAll("\\$HEADCROP", p.getHeadCrop())
+        .replaceAll("\\$IF_ASSEMBLY", p.getIfAssembly().toString())
+        .replaceAll("\\$MODE", p.getMode())
+        .replaceAll("\\$METHOD", p.getMethod())
+        .replaceAll("\\$IF_POLISHING", p.getIfPolishing().toString())
+        .replaceAll("\\$IF_BUSCO", p.getIfBusco().toString())
+        .replaceAll("\\$PTIMES", p.getPtimes());
+   try {
+      Files.write(newPath, content.getBytes(charset));
+    } catch (IOException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
   }
   
   public void setIfBasecalling(boolean ifAssembly) {
