@@ -682,6 +682,7 @@ public class MainApp extends Application {
         .replaceAll("\\$LENGTH", p.getReadLength())
         .replaceAll("\\$HEADCROP", p.getHeadCrop())
         .replaceAll("\\$IF_ASSEMBLY", p.getIfAssembly().toString())
+        .replaceAll("\\$IF_VCF", p.getIfAssembly().toString())
         .replaceAll("\\$MODE", p.getMode())
         .replaceAll("\\$METHOD", p.getMethod())
         .replaceAll("\\$IF_POLISHING", p.getIfPolishing().toString())

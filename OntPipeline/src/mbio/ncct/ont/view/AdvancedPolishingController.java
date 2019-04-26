@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class AdvancedPolishingController {
@@ -19,6 +20,8 @@ public class AdvancedPolishingController {
   public ChoiceBox<String> cbBuscoData;
   @FXML
   public CheckBox cBusco;
+  @FXML
+  public Label lbDatabase;
   
   public int isOK = 0;
   
@@ -29,11 +32,14 @@ public class AdvancedPolishingController {
     //tfHeadCrop.setText("50");
     //setInitialize()
     cbBuscoData.setDisable(true);
+    lbDatabase.setDisable(true);
     cBusco.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cBusco.isSelected()) {
         cbBuscoData.setDisable(false);
+        lbDatabase.setDisable(false);
       } else {
         cbBuscoData.setDisable(true);
+        lbDatabase.setDisable(true);
       }
     });
   }
