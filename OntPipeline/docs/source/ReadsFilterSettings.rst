@@ -31,4 +31,4 @@ _______________________
   * Default value: 50.
   * If you do not want to crop any reads, set the value to 0, or only a postive integer is acceptable.
   
-  .. [1] Porechop https://github.com/rrwick/Porechop
+ .. [1] Porechop https://github.com/rrwick/Porechop
