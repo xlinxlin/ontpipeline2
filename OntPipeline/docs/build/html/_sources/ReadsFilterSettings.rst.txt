@@ -26,6 +26,7 @@ Set a minimum read length to filter reads.
 
 Head Crop (Required)
 _______________________
+Set n nucleotides to be trimmed from start of read.
 
 .. note::
   * Default value: 50.
