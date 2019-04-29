@@ -10,6 +10,7 @@ Welcome to ontpipeline's documentation!
    :maxdepth: 2
 
    GetStarted.rst
+   InputFileStructure.rst
    GeneralSettings.rst
    BasecallingSettings.rst
    ReadsFilterSettings.rst

@@ -12,7 +12,7 @@ _____________________
 Set the number of threads to run the analysis.
 
 .. note::
-  * The program will automatically find the max number of threads available on the system and set it to the default value.
+  * Default value: 4.
 
 Barcodes (Optional)
 ______________________

@@ -5,7 +5,7 @@ __________________________
 Set polishing times.
 
 .. note::
-  * Set polishing time to 0 if you do not want to polish but need the Busco function.
+  * Set polishing time to 0 if you do not want to polish the assembly but need the BUSCO function.
   * Default value: 1.
   
 BUSCO settings (Optional)
