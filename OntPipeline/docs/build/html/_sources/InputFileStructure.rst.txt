@@ -13,10 +13,10 @@ Start the pipeline from Basecalling.
     ├── 2*
     │   ├── *.fast5
     │   └── ......  
-    ├── 1_read1*.fastq(.gz)
-    ├── 1_read2*.fastq(.gz)          
-    ├── 2_read1*.fastq(.gz)
-    └── 2_read2*.fastq(.gz)
+    ├── 1*_read1*.fastq(.gz)
+    ├── 1*_read2*.fastq(.gz)          
+    ├── 2*_read1*.fastq(.gz)
+    └── 2*_read2*.fastq(.gz)
 
 Start from Reads Filter
 _______________________
@@ -54,10 +54,10 @@ If you need adapter trimming
     │   └── unclassified
     |       ├── *.fastq
     |       └── ......
-    ├── 1_read1*.fastq(.gz)
-    ├── 1_read2*.fastq(.gz)          
-    ├── 2_read1*.fastq(.gz)
-    └── 2_read2*.fastq(.gz)
+    ├── 1*_read1*.fastq(.gz)
+    ├── 1*_read2*.fastq(.gz)          
+    ├── 2*_read1*.fastq(.gz)
+    └── 2*_read2*.fastq(.gz)
 
 If you do not need adapter trimming
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -70,10 +70,10 @@ If you do not need adapter trimming
     ├── 2*
     │   ├── *.fastq
     │   └── ......
-    ├── 1_read1*.fastq(.gz)
-    ├── 1_read2*.fastq(.gz)          
-    ├── 2_read1*.fastq(.gz)
-    └── 2_read2*.fastq(.gz)
+    ├── 1*_read1*.fastq(.gz)
+    ├── 1*_read2*.fastq(.gz)          
+    ├── 2*_read1*.fastq(.gz)
+    └── 2*_read2*.fastq(.gz)
 
 Start from Assembly
 ___________________
@@ -88,10 +88,10 @@ Start the pipeline from Assembly.
     ├── 2*
     │   ├── *.fastq
     │   └── ......
-    ├── 1_read1*.fastq(.gz)
-    ├── 1_read2*.fastq(.gz)          
-    ├── 2_read1*.fastq(.gz)
-    └── 2_read2*.fastq(.gz)
+    ├── 1*_read1*.fastq(.gz)
+    ├── 1*_read2*.fastq(.gz)          
+    ├── 2*_read1*.fastq(.gz)
+    └── 2*_read2*.fastq(.gz)
     
 Start from Polishing
 ____________________
@@ -105,7 +105,7 @@ Start the pipeline from Polishing.
     ├── 2*
     │   ├── *.fastq
     │   └── ......
-    ├── 1_read1*.fastq(.gz)
-    ├── 1_read2*.fastq(.gz)          
-    ├── 2_read1*.fastq(.gz)
-    └── 2_read2*.fastq(.gz)
+    ├── 1*_read1*.fastq(.gz)
+    ├── 1*_read2*.fastq(.gz)          
+    ├── 2*_read1*.fastq(.gz)
+    └── 2*_read2*.fastq(.gz)
