@@ -83,7 +83,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Input File Structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#start-from-basecalling">Start from Basecalling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#start-from-reads-filter">Start from Reads Filter</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#if-you-need-adapter-trimming">If you need adapter trimming:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#if-you-need-adapter-trimming">If you need adapter trimming</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#if-you-do-not-need-adapter-trimming">If you do not need adapter trimming</a></li>
 </ul>
 </li>
 </ul>
@@ -181,18 +182,50 @@
 <h2>Start from Reads Filter<a class="headerlink" href="#start-from-reads-filter" title="Permalink to this headline">¶</a></h2>
 <p>Start the pipeline from Reads Filter.</p>
 <div class="section" id="if-you-need-adapter-trimming">
-<h3>If you need adapter trimming:<a class="headerlink" href="#if-you-need-adapter-trimming" title="Permalink to this headline">¶</a></h3>
+<h3>If you need adapter trimming<a class="headerlink" href="#if-you-need-adapter-trimming" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>YourWorkSpace/
 ├── 1
 │   ├── barcode01
+|   |      ├── *.fastq
+|   |      └── ......
 │   ├── barcode02
+|   |      ├── *.fastq
+|   |      └── ......
 │   ├── ......
+|   |      ├── *.fastq
+|   |      └── ......
 │   └── unclassified
+|          ├── *.fastq
+|          └── ......
 ├── 2
 │   ├── barcode01
+|   |      ├── *.fastq
+|   |      └── ......
 │   ├── barcode02
+|   |      ├── *.fastq
+|   |      └── ......
 │   ├── ......
+|   |      ├── *.fastq
+|   |      └── ......
 │   └── unclassified
+|          ├── *.fastq
+|          └── ......
+├── 1_read1*.fastq(.gz)
+├── 1_read2*.fastq(.gz)
+├── 2_read1*.fastq(.gz)
+└── 2_read2*.fastq(.gz)
+</pre></div>
+</div>
+</div>
+<div class="section" id="if-you-do-not-need-adapter-trimming">
+<h3>If you do not need adapter trimming<a class="headerlink" href="#if-you-do-not-need-adapter-trimming" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>YourWorkSpace/
+├── 1
+│   ├── *.fastq
+│   └── ......
+├── 2
+│   ├── *.fastq
+│   └── ......
 ├── 1_read1*.fastq(.gz)
 ├── 1_read2*.fastq(.gz)
 ├── 2_read1*.fastq(.gz)

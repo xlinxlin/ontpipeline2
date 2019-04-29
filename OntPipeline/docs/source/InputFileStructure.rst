@@ -22,22 +22,54 @@ Start from Reads Filter
 _______________________
 Start the pipeline from Reads Filter.
 
-If you need adapter trimming:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If you need adapter trimming
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
    
     YourWorkSpace/
     ├── 1          
     │   ├── barcode01
+    |   |      ├── *.fastq
+    |   |      └── ......
     │   ├── barcode02
+    |   |      ├── *.fastq
+    |   |      └── ......
     │   ├── ......
+    |   |      ├── *.fastq
+    |   |      └── ......
     │   └── unclassified
+    |          ├── *.fastq
+    |          └── ......
     ├── 2
     │   ├── barcode01
+    |   |      ├── *.fastq
+    |   |      └── ......
     │   ├── barcode02
+    |   |      ├── *.fastq
+    |   |      └── ......
     │   ├── ......
+    |   |      ├── *.fastq
+    |   |      └── ......
     │   └── unclassified
+    |          ├── *.fastq
+    |          └── ......
+    ├── 1_read1*.fastq(.gz)
+    ├── 1_read2*.fastq(.gz)          
+    ├── 2_read1*.fastq(.gz)
+    └── 2_read2*.fastq(.gz)
+
+If you do not need adapter trimming
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+::
+   
+    YourWorkSpace/
+    ├── 1          
+    │   ├── *.fastq
+    │   └── ......
+    ├── 2
+    │   ├── *.fastq
+    │   └── ......
     ├── 1_read1*.fastq(.gz)
     ├── 1_read2*.fastq(.gz)          
     ├── 2_read1*.fastq(.gz)
