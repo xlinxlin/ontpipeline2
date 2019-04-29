@@ -14,3 +14,10 @@ Choose an assembly method.
 
 * Long-read-only assembly: Long-read-only assembly using only long reads.
 * Hybrid assembly: Hybrid assembly using both Illumina read and long reads. (Default)
+
+VCF (Optional)
+______________
+Produce a VCF by mapping the short reads to the final assembly if selected.
+
+.. note::
+  * Default: not selected.
