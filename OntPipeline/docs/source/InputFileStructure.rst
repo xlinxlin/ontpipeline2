@@ -5,17 +5,15 @@ ______________________
 Start the pipeline from Basecalling
 
 ::
-
-    project
-    ├── demo.py
-    ├── LICENCE.txt
-    ├── processes          
-    │   ├── area.py
-    │   └── bboxinout.py
-    ├── pywps.cfg          
-    ├── requirements.txt
-    ├── server.py          
-    ├── setup.py
-    ├── static
-    ├── templates
-    └── tests
+    $ tree YourWorkSpace
+    YourWorkSpace/
+    ├── 1          
+    │   ├── *.fast5
+    │   └── ......
+    ├── 2
+    │   ├── *.fast5
+    │   └── ......  
+    ├── 1_read1*.fastq(.gz)
+    ├── 1_read2*.fastq(.gz)          
+    ├── 2_read1*.fastq(.gz)
+    └── 2_read2*.fastq(.gz)
