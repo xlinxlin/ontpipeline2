@@ -1,13 +1,9 @@
 package mbio.ncct.ont.model;
 
-import mbio.ncct.ont.view.GeneralSettingsController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.fxml.FXMLLoader;
-import mbio.ncct.ont.view.BasecallingSettingsController;
-import mbio.ncct.ont.view.ReadsFilterSettingsController;
 
 public class Pipeline {
 
@@ -22,8 +18,8 @@ public class Pipeline {
   private final StringProperty headCrop = new SimpleStringProperty("50");
   private final StringProperty mode = new SimpleStringProperty("normal");
   private final StringProperty method = new SimpleStringProperty("Hybrid assembly");
-  private final StringProperty read1Workspace = new SimpleStringProperty("");
-  private final StringProperty read2Workspace = new SimpleStringProperty("");
+  //private final StringProperty read1Workspace = new SimpleStringProperty("");
+  //private final StringProperty read2Workspace = new SimpleStringProperty("");
   private final BooleanProperty ifAdapterTrimming = new SimpleBooleanProperty(true);
   private final BooleanProperty ifNoSplit = new SimpleBooleanProperty(false);
   private final BooleanProperty ifVcf = new SimpleBooleanProperty(false);

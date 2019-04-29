@@ -14,10 +14,7 @@ public class AdvancedAssemblyController {
 
   @FXML
   private void initialize() {
-    //tfReadScore.setText("9");
-    //tfReadLength.setText("500");
-    //tfHeadCrop.setText("50");
-    //setInitialize()
+    
   }
   
   public void setDialogStage(Stage dialogStage) {

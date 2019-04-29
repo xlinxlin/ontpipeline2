@@ -30,10 +30,6 @@ public class AdvancedReadsFilterController {
 
   @FXML
   private void initialize() {
-    //tfReadScore.setText("9");
-    //tfReadLength.setText("500");
-    //tfHeadCrop.setText("50");
-    //setInitialize()
     cAdapterTrimming.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cAdapterTrimming.isSelected()) {
         cSplitting.setDisable(false);
@@ -51,9 +47,6 @@ public class AdvancedReadsFilterController {
   
   @FXML
   private void OK() {
-    //tfReadScore.setText(tfReadScore.getText());
-    System.out.println(tfReadScore.getText().matches("\\d+"));
-    //dialogStage.close();
     if(tfReadScore.getText().matches("\\d+") && tfReadLength.getText().matches("\\d+") && tfHeadCrop.getText().matches("\\d+")) {
       isOK = 1;
       dialogStage.close();

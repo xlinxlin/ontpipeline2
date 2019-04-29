@@ -4,18 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.IndexedCheckModel;
-
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
-import mbio.ncct.ont.model.Pipeline;
 
 public class AdvancedBasecallingController {
   
@@ -30,19 +25,7 @@ public class AdvancedBasecallingController {
   
   @FXML
   private void initialize() throws IOException {
-    //ObservableList<String> olBarcodeKits = FXCollections.observableArrayList(getBarcodeKits());
-    //ccbBarcodeKits.getItems().addAll(olBarcodeKits);
-    //IndexedCheckModel<String> v = ccbBarcodeKits.getCheckModel();
-    //ccbBarcodeKits.checkModelProperty().setValue(v);
-    //v.check(2);
-    //ccbBarcodeKits.setCheckModel("123");
-    /*
-    ccbBarcodeKits.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
-      public void onChanged(ListChangeListener.Change<? extends String> c) {
-        System.out.println(ccbBarcodeKits.getCheckModel().getCheckedItems());
-      }
-    }); 
-    */
+    
   }
   
   public void setDialogStage(Stage dialogStage) {
@@ -67,7 +50,6 @@ public class AdvancedBasecallingController {
   private String OK() {
     String test = ccbBarcodeKits.getCheckModel().getCheckedItems().isEmpty() ? 
         "" : ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\"");
-    //p.setWorkspace(test);
     isOK = 1;
     dialogStage.close();
     return test;
@@ -82,7 +64,6 @@ public class AdvancedBasecallingController {
     ObservableList<String> olBarcodeKits = FXCollections.observableArrayList(getBarcodeKits());
     ccbBarcodeKits.getItems().addAll(olBarcodeKits);
     IndexedCheckModel<String> icm = ccbBarcodeKits.getCheckModel();
-    //System.out.println("String:"+barcodeKits);
     String[] strArrBarcodeKits = barcodeKits.replaceAll("\"", "").split(" ");
     for(int i=0;i<strArrBarcodeKits.length;i++) {
       icm.check(strArrBarcodeKits[i]);
