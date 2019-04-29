@@ -83,6 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="GeneralSettings.html">General Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Basecalling Settings</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Reads Filter Settings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#porechop-settings-1-optional">Porechop Settings  (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#read-score-required">Read Score (Required)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#read-length-required">Read Length (Required)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#head-crop-required">Head Crop (Required)</a></li>
@@ -156,6 +157,17 @@
             
   <div class="section" id="reads-filter-settings">
 <h1>Reads Filter Settings<a class="headerlink" href="#reads-filter-settings" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="porechop-settings-1-optional">
+<h2>Porechop Settings <a class="footnote-reference" href="#id2" id="id1">[1]</a> (Optional)<a class="headerlink" href="#porechop-settings-1-optional" title="Permalink to this headline">¶</a></h2>
+<p>Set Porechop options.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Select “I want to trim adapter” if you want to use Porechop to trim adapters. Defaut: selected.</li>
+<li>Select “I want to skip splitting reads based on middle adapters” if you do not want to splt reads when an adapter is found in the middle. Default: not selected.</li>
+</ul>
+</div>
+</div>
 <div class="section" id="read-score-required">
 <h2>Read Score (Required)<a class="headerlink" href="#read-score-required" title="Permalink to this headline">¶</a></h2>
 <p>Set a minimum average read quality score to filter the reads.</p>
@@ -182,10 +194,16 @@
 <h2>Head Crop (Required)<a class="headerlink" href="#head-crop-required" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<ul class="last simple">
+<ul class="simple">
 <li>Default value: 50.</li>
 <li>If you do not want to crop any reads, set the value to 0, or only a postive integer is acceptable.</li>
 </ul>
+<table class="last docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Porechop <a class="reference external" href="https://github.com/rrwick/Porechop">https://github.com/rrwick/Porechop</a></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
