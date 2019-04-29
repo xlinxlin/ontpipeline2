@@ -7,10 +7,10 @@ Start the pipeline from Basecalling.
 ::
    
     YourWorkSpace/
-    ├── 1          
+    ├── 1*          
     │   ├── *.fast5
     │   └── ......
-    ├── 2
+    ├── 2*
     │   ├── *.fast5
     │   └── ......  
     ├── 1_read1*.fastq(.gz)
@@ -28,7 +28,7 @@ If you need adapter trimming
 ::
    
     YourWorkSpace/
-    ├── 1          
+    ├── 1*          
     │   ├── barcode01
     |   |   ├── *.fastq
     |   |   └── ......
@@ -41,7 +41,7 @@ If you need adapter trimming
     │   └── unclassified
     |       ├── *.fastq
     |       └── ......
-    ├── 2
+    ├── 2*
     │   ├── barcode01
     |   |   ├── *.fastq
     |   |   └── ......
@@ -64,10 +64,10 @@ If you do not need adapter trimming
 ::
    
     YourWorkSpace/
-    ├── 1          
+    ├── 1*          
     │   ├── *.fastq
     │   └── ......
-    ├── 2
+    ├── 2*
     │   ├── *.fastq
     │   └── ......
     ├── 1_read1*.fastq(.gz)
@@ -82,10 +82,10 @@ Start the pipeline from Assembly.
 ::
    
     YourWorkSpace/
-    ├── 1          
+    ├── 1*          
     │   ├── *.fastq
     │   └── ......
-    ├── 2
+    ├── 2*
     │   ├── *.fastq
     │   └── ......
     ├── 1_read1*.fastq(.gz)
@@ -99,10 +99,10 @@ Start the pipeline from Polishing.
 ::
    
     YourWorkSpace/
-    ├── 1          
+    ├── 1*          
     │   ├── *.fastq
     │   └── ......
-    ├── 2
+    ├── 2*
     │   ├── *.fastq
     │   └── ......
     ├── 1_read1*.fastq(.gz)
