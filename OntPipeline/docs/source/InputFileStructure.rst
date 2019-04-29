@@ -5,7 +5,7 @@ ______________________
 Start the pipeline from Basecalling
 
 ::
-    $ tree YourWorkSpace
+   
     YourWorkSpace/
     ├── 1          
     │   ├── *.fast5
