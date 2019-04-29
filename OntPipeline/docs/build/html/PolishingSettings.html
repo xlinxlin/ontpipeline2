@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -9,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; ontpipeline2  documentation</title>
+  <title>Polishing Settings &mdash; ontpipeline2  documentation</title>
   
 
   
@@ -27,8 +26,10 @@
 
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="index" title="Index" href="#" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="FAQ" href="QandA.html" />
+    <link rel="prev" title="Assembly Settings" href="AssemblySettings.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -77,13 +78,17 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GetStarted.html">Get Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GeneralSettings.html">General Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Basecalling Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReadsFilterSettings.html">Reads Filter Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AssemblySettings.html">Assembly Settings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PolishingSettings.html">Polishing Settings</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Polishing Settings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#polishing-times-required">Polishing times (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#busco-settings-optional">BUSCO settings (Optional)</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="QandA.html">FAQ</a></li>
 </ul>
 
@@ -130,12 +135,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Index</li>
+      <li>Polishing Settings</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/PolishingSettings.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -147,11 +154,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- 
+  <div class="section" id="polishing-settings">
+<h1>Polishing Settings<a class="headerlink" href="#polishing-settings" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="polishing-times-required">
+<h2>Polishing times (Required)<a class="headerlink" href="#polishing-times-required" title="Permalink to this headline">¶</a></h2>
+<p>Set polishing times.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Set polishing time to 0 if you do not want to polish but need the Busco function.</li>
+<li>Default value: 1.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="busco-settings-optional">
+<h2>BUSCO settings (Optional)<a class="headerlink" href="#busco-settings-optional" title="Permalink to this headline">¶</a></h2>
+<p>Set BUSCO options.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Select “I want to use BUSCO for the assessement of genome assembly” if you want to use BUSCO. Default: not selected.</li>
+<li>Select a lineage dataset. Default: Bacteria.</li>
+</ul>
+</div>
+</div>
 </div>
 
 
@@ -159,6 +185,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="QandA.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="AssemblySettings.html" class="btn btn-neutral" title="Assembly Settings" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -14,4 +14,5 @@ Welcome to ontpipeline's documentation!
    BasecallingSettings.rst
    ReadsFilterSettings.rst
    AssemblySettings.rst
+   PolishingSettings.rst
    QandA.rst
