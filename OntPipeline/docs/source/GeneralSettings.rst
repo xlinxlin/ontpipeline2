@@ -5,7 +5,7 @@ _______________________
 Set the path to the folder where contains the .fast5 or .fastq files. 
 
 .. note::
-  * **Example:** :file:`/home/ynzhou/NCCTData/20181109_1435_20181109_VRE_I/fast5`
+  * **Example:** :file:`/home/ynzhou/NCCTData/20181109_1435_20181109_VRE_I/`
 
 Threads (Required)
 _____________________
