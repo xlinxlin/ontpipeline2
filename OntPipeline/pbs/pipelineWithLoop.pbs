@@ -48,7 +48,7 @@ do
   fi
 
   #Adaper Trimming
-  if $IF_ADAPTERTRIMMING ; then
+  if $IF_ADAPTERTRIMMING && $IF_READSFILTER ; then
     echo $(date) Adapter trimming by using Porechop starts.
     mkdir $outputPath/$m_AdapterTrimmedFiles
     source /opt/anaconda3/bin/activate porechop

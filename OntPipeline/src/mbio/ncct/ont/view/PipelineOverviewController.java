@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.event.ChangeListener;
 
@@ -188,9 +189,6 @@ public class PipelineOverviewController {
    */
   public void setMainApp(MainApp mainApp) {
       this.mainApp = mainApp;
-
-      // Add observable list data to the table
-      //personTable.setItems(mainApp.getPersonData());
   }
   
   public void setDialogStage(Stage dialogStage) {
@@ -203,50 +201,22 @@ public class PipelineOverviewController {
   
   @FXML
   private void handleAdvancedBasecalling() {
-      //boolean okClicked = mainApp.handleAdvancedBasecalling();
     mainApp.handleAdvancedBasecalling();
-      /*
-      if (okClicked) {
-          //mainApp.getPersonData().add(tempPerson);
-        System.out.println("OK");
-      }
-      */
   }
   
   @FXML
   private void handleAdvancedReadsFilter() {
-      //boolean okClicked = mainApp.handleAdvancedBasecalling();
     mainApp.handleAdvancedReadsFilter();
-      /*
-      if (okClicked) {
-          //mainApp.getPersonData().add(tempPerson);
-        System.out.println("OK");
-      }
-      */
   }
   
   @FXML
   private void handleStartPipeline() throws IOException {
-      //boolean okClicked = mainApp.handleAdvancedBasecalling();
     mainApp.handleStartPipeline();
-      /*
-      if (okClicked) {
-          //mainApp.getPersonData().add(tempPerson);
-        System.out.println("OK");
-      }
-      */
   }
   
   @FXML
   private void handleAdvancedAssembly() {
-      //boolean okClicked = mainApp.handleAdvancedBasecalling();
     mainApp.handleAdvancedAssembly();
-      /*
-      if (okClicked) {
-          //mainApp.getPersonData().add(tempPerson);
-        System.out.println("OK");
-      }
-      */
   }
   
   @FXML
@@ -257,6 +227,7 @@ public class PipelineOverviewController {
   private ArrayList<String> getFlowcellIds() throws IOException {
     String s = null;
     ArrayList<String> arFlowcellIds = new ArrayList<String>();
+    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
     Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
     BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -271,6 +242,7 @@ public class PipelineOverviewController {
   private ArrayList<String> getKitNumbers() throws IOException {
     String s = null;
     ArrayList<String> arKitNumbers = new ArrayList<String>();
+    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
     Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
     BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -292,7 +264,27 @@ public class PipelineOverviewController {
     if (selectedDirectory != null) {
       tfWorkspace.setText(selectedDirectory.toString());
       f = selectedDirectory.listFiles();
+      List<String> lF = new ArrayList<>();
+      
+      for (int i = 0; i < f.length; i++) {
+        lF.add(f.toString());
+        if (f[i].isFile()) {
+          System.out.println("File " + f[i].getName());
+        } else if (f[i].isDirectory()) {
+          //System.out.println("Directory " + f[i].getName());
+          if (f[i].getName().substring(0, 1).matches("[0-9]")) {
+            System.out.println("matches");
+          }
+        }
+      }
+      
+      for (int i=0;i<lF.size();i++) {
+        //lF.
+      }
+      
     } 
+    
+    //System.out.println("hello world");
     
     //gsModel.setWorkspace(tfWorkspace.getText());
     //File[] f = selectedDirectory.listFiles();

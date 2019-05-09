@@ -1,12 +1,17 @@
 package mbio.ncct.ont;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -58,6 +63,7 @@ public class MainApp extends Application {
     
     initRootLayout();
     showPipelineOverview();
+    //findCombinationFlowcellKit();
   }
     
     /**
@@ -129,11 +135,15 @@ public class MainApp extends Application {
       AdvancedBasecallingController controller = loader.getController();
       controller.setDialogStage(dialogStage);
       controller.setBarcodeKits(p.getBarcodeKit());
+      controller.setGuppyMode(p.getGuppyMode());
+      controller.setDevice(p.getDevice());
      
       // Show the dialog and wait until the user closes it
       dialogStage.showAndWait();
       if(controller.isOK == 1) {
         p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+        p.setGuppyMode(controller.cbGuppyMode.getValue());
+        p.setDevice(controller.cbDevice.getValue());
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -254,8 +264,19 @@ public class MainApp extends Application {
       }
       p.setSelectedBarcode("barcode{" + formattedSelectedBarcode.substring(0, formattedSelectedBarcode.length()-1) + "}/");
     }
- 
+    
+    if (p.getGuppyMode() == "fast") {
+      Map combinationFlowcellKit = findCombinationFlowcellKit();
+      System.out.println("value:" + combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())));
+      String v = combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString();
+      System.out.println("where bps is:" + combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString().indexOf("bps"));
+      int l = combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString().indexOf("bps");
+      System.out.println("substring:" + v.substring(0,l+3));
+    }
+    
+    
     Path path = Paths.get("/home/yan/git/repository/OntPipeline/pbs/pipelineWithLoop.pbs");
+    //Path path = Paths.get("/opt/ontpipeline/pbs/pipelineWithLoop.pbs");
     Path newPath = Paths.get(p.getWorkspace() + "/pipelineWithLoop_.pbs");
     Charset charset = StandardCharsets.UTF_8;
 
@@ -292,7 +313,8 @@ public class MainApp extends Application {
       // TODO Auto-generated catch block
       e1.printStackTrace();
     }
-    Process process = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub /home/yan/nextflowScripts/ont/adapterTrimming.pbs"});
+    //Process process = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub /home/yan/nextflowScripts/ont/adapterTrimming.pbs"});
+    //Process process = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_.pbs"});
   }
   
   public void setIfBasecalling(boolean ifAssembly) {
@@ -337,6 +359,28 @@ public class MainApp extends Application {
   
   public void setSelectedBarcode(String selectedBarcode) {
     p.setSelectedBarcode(selectedBarcode);
+  }
+  
+  public Map<String, String> findCombinationFlowcellKit() throws IOException{
+    String s = null;
+    Map<String, String> m = new HashMap<String, String>();
+    Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $1,$2,$3,$4}' " });
+    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
+    BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+    BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+    while ((s = stdInput.readLine()) != null ) {
+      if (s.length() > 3) {
+        String[] arr = s.replaceAll("included ", "").split(" ");
+        m.put(arr[0].concat(arr[1]), arr[2]);
+        //System.out.println(arr[2]);
+        //System.out.println("test " + s); 
+      }
+    }
+    for (Map.Entry<String, String> entry : m.entrySet()) {
+      //System.out.println(entry.getKey() + "/" + entry.getValue());
+    }
+    
+    return m;
   }
   
 }

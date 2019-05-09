@@ -30,6 +30,8 @@ public class Pipeline {
   private final BooleanProperty ifReadsFilter = new SimpleBooleanProperty(true);
   private final BooleanProperty ifAssembly = new SimpleBooleanProperty(true);
   private final BooleanProperty ifPolishing = new SimpleBooleanProperty(true);
+  private final StringProperty guppyMode = new SimpleStringProperty("high-accuracy");
+  private final StringProperty device = new SimpleStringProperty("PromethION");
   
   
   public String getWorkspace() {
@@ -110,6 +112,22 @@ public class Pipeline {
   
   public void setMode(String mode) {
     this.mode.set(mode);
+  }
+  
+  public String getGuppyMode() {
+    return guppyMode.get();
+  }
+  
+  public void setGuppyMode(String guppyMode) {
+    this.guppyMode.set(guppyMode);
+  }
+  
+  public String getDevice() {
+    return device.get();
+  }
+  
+  public void setDevice(String device) {
+    this.device.set(device);
   }
   
   public String getMethod() {
