@@ -265,13 +265,15 @@ public class MainApp extends Application {
       p.setSelectedBarcode("barcode{" + formattedSelectedBarcode.substring(0, formattedSelectedBarcode.length()-1) + "}/");
     }
     
-    if (p.getGuppyMode() == "fast") {
-      Map combinationFlowcellKit = findCombinationFlowcellKit();
-      System.out.println("value:" + combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())));
-      String v = combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString();
-      System.out.println("where bps is:" + combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString().indexOf("bps"));
-      int l = combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString().indexOf("bps");
-      System.out.println("substring:" + v.substring(0,l+3));
+    if (p.getFlowcellId() != "FLO-MIN107" && p.getGuppyMode() == "fast") {
+      Map<String, String> combinationFlowcellKit = findCombinationFlowcellKit();
+      //System.out.println("value:" + combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())));
+      String cfg = combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString();
+      //System.out.println("where bps is:" + combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString().indexOf("bps"));
+      int cfg_bps = combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString().indexOf("bps");
+      String cfgFile = cfg.substring(0, cfg_bps+3) + "_fast" + p.getDevice() == "PromethION" ? "_prom" : "" + ".cfg";
+      p.setIfGuppyFast(true);
+      p.setGuppyCfgFile("/opt/ont-guppy-cpu_3.0.3/data/" + cfgFile);
     }
     
     
@@ -306,9 +308,16 @@ public class MainApp extends Application {
         .replaceAll("\\$IF_POLISHING", p.getIfPolishing().toString())
         .replaceAll("\\$IF_BUSCO", p.getIfBusco().toString())
         .replaceAll("\\$LINEAGE", p.getBuscoData())
-        .replaceAll("\\$PTIMES", p.getPtimes());
+        .replaceAll("\\$PTIMES", p.getPtimes())
+        .replaceAll("\\$IF_GUPPYFAST", p.getIfGuppyFast().toString())
+        .replaceAll("\\$CFG_FILE", p.getGuppyCfgFile());
    try {
       Files.write(newPath, content.getBytes(charset));
+      /*
+      System.out.println("basecalling:" + p.getIfBasecalling().toString());
+      System.out.println("assembly:" + p.getIfAssembly().toString());
+      System.out.println("polishing:" + p.getIfPolishing().toString());
+      */
     } catch (IOException e1) {
       // TODO Auto-generated catch block
       e1.printStackTrace();
@@ -317,8 +326,8 @@ public class MainApp extends Application {
     //Process process = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_.pbs"});
   }
   
-  public void setIfBasecalling(boolean ifAssembly) {
-    p.setIfAssembly(ifAssembly);
+  public void setIfBasecalling(boolean ifBasecalling) {
+    p.setIfBasecalling(ifBasecalling);
   }
   
   public void setIfReadsFilter(boolean ifReadsFilter) {
@@ -365,6 +374,7 @@ public class MainApp extends Application {
     String s = null;
     Map<String, String> m = new HashMap<String, String>();
     Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $1,$2,$3,$4}' " });
+    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1,$2,$3,$4}' " });
     //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
     BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -372,14 +382,8 @@ public class MainApp extends Application {
       if (s.length() > 3) {
         String[] arr = s.replaceAll("included ", "").split(" ");
         m.put(arr[0].concat(arr[1]), arr[2]);
-        //System.out.println(arr[2]);
-        //System.out.println("test " + s); 
       }
     }
-    for (Map.Entry<String, String> entry : m.entrySet()) {
-      //System.out.println(entry.getKey() + "/" + entry.getValue());
-    }
-    
     return m;
   }
   

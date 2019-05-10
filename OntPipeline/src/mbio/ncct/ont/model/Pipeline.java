@@ -9,7 +9,7 @@ public class Pipeline {
 
   private final StringProperty workspace = new SimpleStringProperty("");
   private final StringProperty selectedBarcode = new SimpleStringProperty("");
-  private final StringProperty threads = new SimpleStringProperty("4");
+  private final StringProperty threads = new SimpleStringProperty("8");
   private final StringProperty flowcellId = new SimpleStringProperty("FLO-MIN106");
   private final StringProperty kitNumber = new SimpleStringProperty("SQK-LSK109");
   private final StringProperty barcodeKit = new SimpleStringProperty("");
@@ -32,6 +32,8 @@ public class Pipeline {
   private final BooleanProperty ifPolishing = new SimpleBooleanProperty(true);
   private final StringProperty guppyMode = new SimpleStringProperty("high-accuracy");
   private final StringProperty device = new SimpleStringProperty("PromethION");
+  private final BooleanProperty ifGuppyFast = new SimpleBooleanProperty(false);
+  private final StringProperty guppyCfgFile = new SimpleStringProperty("");
   
   
   public String getWorkspace() {
@@ -216,5 +218,21 @@ public class Pipeline {
   
   public Boolean getIfBusco() {
     return ifBusco.get();
+  }
+  
+  public void setIfGuppyFast(Boolean ifGuppyFast) {
+    this.ifBusco.set(ifGuppyFast);
+  }
+  
+  public Boolean getIfGuppyFast() {
+    return ifGuppyFast.get();
+  }
+  
+  public String getGuppyCfgFile() {
+    return guppyCfgFile.get();
+  }
+  
+  public void setGuppyCfgFile(String guppyCfgFile) {
+    this.guppyCfgFile.set(guppyCfgFile);
   }
 }

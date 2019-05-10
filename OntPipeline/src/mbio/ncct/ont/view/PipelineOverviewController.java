@@ -103,7 +103,7 @@ public class PipelineOverviewController {
     cAssembly.setSelected(true);
     cPolishing.setSelected(true);
     
-    tfThreads.setText("4");
+    tfThreads.setText("8");
     
     cBasecalling.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cBasecalling.isSelected()) {
