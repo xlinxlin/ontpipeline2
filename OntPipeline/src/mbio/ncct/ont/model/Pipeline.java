@@ -221,7 +221,7 @@ public class Pipeline {
   }
   
   public void setIfGuppyFast(Boolean ifGuppyFast) {
-    this.ifBusco.set(ifGuppyFast);
+    this.ifGuppyFast.set(ifGuppyFast);
   }
   
   public Boolean getIfGuppyFast() {

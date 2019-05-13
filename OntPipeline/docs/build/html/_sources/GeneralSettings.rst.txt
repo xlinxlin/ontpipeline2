@@ -2,17 +2,17 @@ General Settings
 ================
 Workspace (Required)
 _______________________
-Set the path to the folder where contains the .fast5 or .fastq files. 
+Set the path to your workspace. 
 
 .. note::
-  * **Example:** :file:`/home/ynzhou/NCCTData/20181109_1435_20181109_VRE_I/`
+  * **Example:** :file:`/home/ynzhou/path/to/your/workspace`
 
 Threads (Required)
 _____________________
 Set the number of threads to run the analysis.
 
 .. note::
-  * Default value: 4.
+  * Default value: 8.
 
 Barcodes (Optional)
 ______________________

@@ -15,6 +15,8 @@ import java.util.Map;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -265,13 +267,13 @@ public class MainApp extends Application {
       p.setSelectedBarcode("barcode{" + formattedSelectedBarcode.substring(0, formattedSelectedBarcode.length()-1) + "}/");
     }
     
-    if (p.getFlowcellId() != "FLO-MIN107" && p.getGuppyMode() == "fast") {
+    if ( !p.getFlowcellId().equals("FLO-MIN107") && p.getGuppyMode().equals("fast")) {
       Map<String, String> combinationFlowcellKit = findCombinationFlowcellKit();
       //System.out.println("value:" + combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())));
       String cfg = combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString();
       //System.out.println("where bps is:" + combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString().indexOf("bps"));
-      int cfg_bps = combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString().indexOf("bps");
-      String cfgFile = cfg.substring(0, cfg_bps+3) + "_fast" + p.getDevice() == "PromethION" ? "_prom" : "" + ".cfg";
+      int cfg_bps = cfg.indexOf("bps");
+      String cfgFile = ( cfg.substring(0, cfg_bps + 3) + "_fast" ) + ( p.getDevice().equals("PromethION") ? "_prom" : "" ) + ".cfg";
       p.setIfGuppyFast(true);
       p.setGuppyCfgFile("/opt/ont-guppy-cpu_3.0.3/data/" + cfgFile);
     }
@@ -302,7 +304,7 @@ public class MainApp extends Application {
         .replaceAll("\\$LENGTH", p.getReadLength())
         .replaceAll("\\$HEADCROP", p.getHeadCrop())
         .replaceAll("\\$IF_ASSEMBLY", p.getIfAssembly().toString())
-        .replaceAll("\\$IF_VCF", p.getIfAssembly().toString())
+        .replaceAll("\\$IF_VCF", p.getIfVcf().toString())
         .replaceAll("\\$MODE", p.getMode())
         .replaceAll("\\$METHOD", p.getMethod())
         .replaceAll("\\$IF_POLISHING", p.getIfPolishing().toString())
@@ -324,6 +326,10 @@ public class MainApp extends Application {
     }
     //Process process = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub /home/yan/nextflowScripts/ont/adapterTrimming.pbs"});
     //Process process = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_.pbs"});
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Submitted");
+    alert.setContentText("Your job has been submitted successfully.");
+    alert.showAndWait();
   }
   
   public void setIfBasecalling(boolean ifBasecalling) {
@@ -373,8 +379,8 @@ public class MainApp extends Application {
   public Map<String, String> findCombinationFlowcellKit() throws IOException{
     String s = null;
     Map<String, String> m = new HashMap<String, String>();
-    Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $1,$2,$3,$4}' " });
-    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1,$2,$3,$4}' " });
+    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $1,$2,$3,$4}' " });
+    Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1,$2,$3,$4}' " });
     //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
     BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));

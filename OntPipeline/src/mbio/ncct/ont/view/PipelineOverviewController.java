@@ -227,8 +227,8 @@ public class PipelineOverviewController {
   private ArrayList<String> getFlowcellIds() throws IOException {
     String s = null;
     ArrayList<String> arFlowcellIds = new ArrayList<String>();
-    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
-    Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
+    Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
+    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
     BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
     while ((s = stdInput.readLine()) != null ) {
@@ -242,8 +242,8 @@ public class PipelineOverviewController {
   private ArrayList<String> getKitNumbers() throws IOException {
     String s = null;
     ArrayList<String> arKitNumbers = new ArrayList<String>();
-    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
-    Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
+    Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
+    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
     BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
     while ((s = stdInput.readLine()) != null ) {
