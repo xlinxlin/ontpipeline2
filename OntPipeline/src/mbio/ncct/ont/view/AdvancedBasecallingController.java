@@ -13,6 +13,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
+/**
+ * This is the controller of the advanced basecalling settings.
+ *
+ * @author Yan Zhou
+ * created on 2019/05/14
+ */
 public class AdvancedBasecallingController {
   
   @FXML

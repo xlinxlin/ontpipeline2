@@ -10,6 +10,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * This is the controller of the advanced polishing settings.
+ *
+ * @author Yan Zhou
+ * created on 2019/05/14
+ */
 public class AdvancedPolishingController {
   
   private Stage dialogStage;
@@ -25,12 +31,11 @@ public class AdvancedPolishingController {
   
   public int isOK = 0;
   
+  /**
+   * Initializes the controller of advanced polishing settings.
+   */
   @FXML
   private void initialize() {
-    //tfReadScore.setText("9");
-    //tfReadLength.setText("500");
-    //tfHeadCrop.setText("50");
-    //setInitialize()
     cbBuscoData.setDisable(true);
     lbDatabase.setDisable(true);
     cBusco.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -44,21 +49,36 @@ public class AdvancedPolishingController {
     });
   }
   
+  
+  /**
+   * Set the advanced polishing setting dialog stage.
+   * @param dialogStage advanced polishing setting dialog stage
+   */
   public void setDialogStage(Stage dialogStage) {
     this.dialogStage = dialogStage;
   }
   
+  /**
+   * If OK button is clicked, return 1, close the advanced polishing setting dialog.
+   */
   @FXML
-  public void OK() {
+  private void OK() {
     isOK = 1;
     dialogStage.close();
   }
   
+  /**
+   * If Cancel button is clicked, return 0, close the advanced polishing setting dialog.
+   */
   @FXML
-  public void cancel() {
+  private void cancel() {
     dialogStage.close();
   }
   
+  /**
+   * Initializes and set the polishing times.
+   * @param pTimes the initial value of polishing times
+   */
   public void setPtimes(String pTimes) {
     ArrayList<String> alTimes = new ArrayList<String>();
     alTimes.add("0");
@@ -71,6 +91,10 @@ public class AdvancedPolishingController {
     cbPtimes.setValue(pTimes);
   }
   
+  /**
+   * Initializes and set the BUSCO database.
+   * @param buscoData the initial value of BUSCO database
+   */
   public void setBuscoData (String buscoData) {
     ArrayList<String> alDatabase = new ArrayList<String>();
     alDatabase.add("Bacteria");
@@ -95,6 +119,10 @@ public class AdvancedPolishingController {
     cbBuscoData.setValue(buscoData);
   }
   
+  /**
+   * Initializes and set if BUSCO check will be used or not.
+   * @param ifBusco true if BUSCO check will be used
+   */
   public void setIfBusco (boolean ifBusco) {
     cBusco.setSelected(ifBusco);
   }

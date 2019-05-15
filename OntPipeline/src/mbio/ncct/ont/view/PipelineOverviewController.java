@@ -25,6 +25,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mbio.ncct.ont.MainApp;
 
+/**
+ * This is the controller of the pipeline overview settings.
+ *
+ * @author Yan Zhou
+ * created on 2019/05/14
+ */
 public class PipelineOverviewController {
   
   private MainApp mainApp;
@@ -62,7 +68,6 @@ public class PipelineOverviewController {
   public Button btnPolishing;
   @FXML
   public TextField tfSelectedBarcode;
-  
   
   /**
    * Initializes the controller class. This method is automatically called

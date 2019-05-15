@@ -5,7 +5,7 @@ _______________________
 Set the path to your workspace. 
 
 .. note::
-  * **Example:** :file:`/home/ynzhou/path/to/your/workspace`
+  * **Example:** :file:`/path/to/your/workspace`
 
 Threads (Required)
 _____________________
