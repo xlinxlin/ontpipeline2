@@ -1,5 +1,9 @@
 package mbio.ncct.ont;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -45,6 +49,8 @@ public class MainApp extends Application {
   
   /** Initializes pipeline model. */
   public Pipeline p = new Pipeline();
+
+  private BufferedWriter writer;
     
   /**
    * Initializes the GUI.
@@ -331,10 +337,11 @@ public class MainApp extends Application {
     }
     //Process process = Runtime.getRuntime().exec(new String[] {"bash","-c","qsub /home/yan/nextflowScripts/ont/adapterTrimming.pbs"});
     try {
-      Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_.pbs"});
+      //Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_.pbs"});
     } catch (Exception e) {
       logger.error("Can not run .pbs file. " + e);
     }
+    createUserLog(p);
     Alert alert = new Alert(AlertType.INFORMATION);
     alert.setTitle("Submitted");
     alert.setContentText("Your job has been submitted successfully.");
@@ -458,9 +465,61 @@ public class MainApp extends Application {
     return m;
   }
   
- private String writeSummary() {
-   String str = null;
-   return str;
+ private void createUserLog(Pipeline p) {
+   String path = p.getWorkspace() + "/userlog.log";
+   File f = new File(path);
+   f.getParentFile().mkdirs(); 
+   try {
+    f.createNewFile();
+   } catch (Exception e) {
+     logger.error("Can not create user log file. " + e);
+   }
+   try {
+     writer = new BufferedWriter(new FileWriter(f, true));
+     writer.append("====General Settings====\n");
+     writer.append("Workspace: " + p.getWorkspace() + "\n");
+     writer.append("Threads: " + p.getThreads() + "\n");
+     writer.append("Barcodes: " + ( p.getSelectedBarcode().isEmpty() ? "all" :p.getSelectedBarcode() ) + "\n\n");
+     if (p.getIfBasecalling()) {
+       writer.append("====Basecalling Settings====\n");
+       writer.append("Flowcell ID: " + p.getFlowcellId() + " \n");
+       writer.append("Kit number: " + p.getKitNumber() + " \n");
+       writer.append("Guppy mode: " + p.getGuppyMode() + " \n");
+       writer.append("Device: " + p.getDevice() + " \n");
+       writer.append("Barcode kits: " + p.getBarcodeKit() + " \n\n"); 
+     } else {
+       writer.append("====No Basecalling====\n\n");
+     }
+     if (p.getIfReadsFilter()) {
+       writer.append("====Reads Filter Settings====\n");
+       writer.append("Read score: " + p.getReadScore() + " \n");
+       writer.append("Read length: " + p.getReadLength() + " \n");
+       writer.append("Head crop: " + p.getHeadCrop() + " \n");
+       writer.append("If adapter trimming: " + p.getIfAdapterTrimming() + " \n");
+       writer.append("If split reads: " + ( p.getIfAdapterTrimming() ? p.getIfNoSplit() : "") + " \n\n");
+     } else {
+       writer.append("====No Reads Filter====\n\n");
+     }
+     if (p.getIfAssembly()) {
+       writer.append("====Assembly Settings====\n");
+       writer.append("Assembly mode: " + p.getMode() + " \n");
+       writer.append("Assembly method: " + p.getMethod() + " \n");
+       writer.append("VCF: " + p.getIfVcf() + " \n\n");
+     } else {
+       writer.append("====No Assembly====\n\n");
+     }
+     if (p.getIfPolishing()) {
+       writer.append("====Polishing Settings====\n");
+       writer.append("Polishing times: " + p.getPtimes() + " \n");
+       writer.append("BUSCO: " + p.getIfBusco() + " \n");
+       writer.append("BUSCO database: " + ( p.getIfBusco() ? p.getBuscoData() : "" ) + " \n");
+     } else {
+       writer.append("====No Polishing====\n");
+     }
+     writer.close();
+   } catch (Exception e) {
+     logger.error("Can not create user log file. " +  e);
+   }
  }
   
 }
