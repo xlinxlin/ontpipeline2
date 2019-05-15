@@ -17,7 +17,7 @@
       <HBox layoutX="381.0" layoutY="184.0">
          <children>
             <Button mnemonicParsing="false" onAction="#Cancel" text="Cancel" />
-            <Button fx:id="btnAdBasecallApply" mnemonicParsing="false" onAction="#OK" prefHeight="26.0" prefWidth="63.0" text="OK" />
+            <Button mnemonicParsing="false" onAction="#OK" prefHeight="26.0" prefWidth="63.0" text="OK" />
          </children>
       </HBox>
       <Separator layoutX="29.0" layoutY="104.0" prefHeight="1.0" prefWidth="467.0" />

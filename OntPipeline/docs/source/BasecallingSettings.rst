@@ -4,9 +4,23 @@ Flowcell ID (Required)
 _________________________
 Choose the Flowcell ID from the select list.
 
-Kit Number (Requied)
-_______________________
+Kit Number (Required)
+________________________
 Choose the kit number from the select list.
+
+Mode (Required)
+________________
+Set the Guppy basecalling mode.
+
+.. note::
+  * Default value: high-accuracy.
+  
+Device (Required)
+_________________
+Set the sequencing device.
+
+.. note::
+  * Default value: PromethION.
 
 Barcode kit (Optional)
 _________________________

@@ -18,17 +18,26 @@ import javafx.stage.Stage;
  */
 public class AdvancedPolishingController {
   
+  /** The dialog stage for advanced polishing setting. */
   private Stage dialogStage;
   
+  /** The choice box for polishing times. */
   @FXML
   public ChoiceBox<String> cbPtimes;
+  
+  /** The choice box for BUSCO database. */
   @FXML
   public ChoiceBox<String> cbBuscoData;
+  
+  /** The check box for if BUSCO will be used. */
   @FXML
   public CheckBox cBusco;
+  
+  /** The label for BUSCO databse. */
   @FXML
   public Label lbDatabase;
   
+  /** Signal for if OK button is clicked. */
   public int isOK = 0;
   
   /**
@@ -48,7 +57,6 @@ public class AdvancedPolishingController {
       }
     });
   }
-  
   
   /**
    * Set the advanced polishing setting dialog stage.

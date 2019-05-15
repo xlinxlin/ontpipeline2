@@ -34,16 +34,16 @@ import mbio.ncct.ont.model.*;
  */
 public class MainApp extends Application {
   
-  /** Initialize log4j2. */
+  /** Initializes log4j2. */
   static Logger logger = LogManager.getLogger(MainApp.class);
   
-  /** Initialize primary stage. */
+  /** Initializes primary stage. */
   private Stage primaryStage;
   
-  /** Initialize root layout. */
+  /** Initializes root layout. */
   private BorderPane rootLayout;
   
-  /** Initialize pipeline model. */
+  /** Initializes pipeline model. */
   public Pipeline p = new Pipeline();
     
   /**

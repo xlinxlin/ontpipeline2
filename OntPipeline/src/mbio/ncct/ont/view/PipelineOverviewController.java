@@ -6,23 +6,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.event.ChangeListener;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import mbio.ncct.ont.MainApp;
 
 /**
@@ -33,57 +26,96 @@ import mbio.ncct.ont.MainApp;
  */
 public class PipelineOverviewController {
   
+  /** Initializes log4j2. */
+  static Logger logger = LogManager.getLogger(PipelineOverviewController.class);
+  
+  /** Initializes MainApp. */
   private MainApp mainApp;
 
-  private Stage dialogStage;
-  private boolean okClicked = false;
+  //private Stage dialogStage;
   
+  //private boolean okClicked = false;
+  
+  /** Initializes check box for basecalling. */
   @FXML
   private CheckBox cBasecalling;
+  
+  /** Initializes check box for reads filter. */
   @FXML
   private CheckBox cReadsFilter;
+ 
+  /** Initializes check box for assembly. */
   @FXML
   private CheckBox cAssembly;
+  
+  /** Initializes check box for polishing. */
   @FXML
   private CheckBox cPolishing;
+  
+  /** Initializes choice box for flowcell ID. */
   @FXML
   public ChoiceBox<String> cbFlowcellId = new ChoiceBox<String>() ;
+  
+  /** Initializes check box for kit number. */
   @FXML
   public ChoiceBox<String> cbKitNumber = new ChoiceBox<String>() ;
+  
+  /** Initializes check box for assembly mode. */
   @FXML
   public ChoiceBox<String> cbMode = new ChoiceBox<String>() ;
+  
+  /** Initializes check box for assembly method. */
   @FXML
   public ChoiceBox<String> cbMethod = new ChoiceBox<String>() ;
+  
+  /** Initializes text field for workspace. */
   @FXML
   public TextField tfWorkspace;
+  
+  /** Initializes text field for threads. */
   @FXML
   public TextField tfThreads;
+  
+  /** Initializes button for basecalling. */
   @FXML
   public Button btnBasecalling;
+  
+  /** Initializes button for reads filter. */
   @FXML
   public Button btnReadsFilter;
+  
+  /** Initializes button for assembly. */
   @FXML
   public Button btnAssembly;
+  
+  /** Initializes button for polishing. */
   @FXML
   public Button btnPolishing;
+  
+  /** Initializes text field for selected barcodes. */
   @FXML
   public TextField tfSelectedBarcode;
   
   /**
-   * Initializes the controller class. This method is automatically called
-   * after the fxml file has been loaded.
-   * @throws IOException 
+   * Initializes the controller of pipeline overview.
    */
   @FXML
-  private void initialize() throws IOException {   
-    ObservableList<String> olFlowcellIds = FXCollections.observableArrayList(getFlowcellIds());
+  private void initialize()  {   
+    ObservableList<String> olFlowcellIds = null;
+    try {
+      olFlowcellIds = FXCollections.observableArrayList(getFlowcellIds());
+    } catch (Exception e) {
+      logger.error("Can not get flowcell IDs. " + e);
+    }
     cbFlowcellId.setItems(olFlowcellIds);
     cbFlowcellId.getSelectionModel().selectFirst();
-    //cbFlowcellId.getSelectionModel().
-    //cbFlowcellId.getSelectionModel().se
-    ObservableList<String> olKitNumbers = FXCollections.observableArrayList(getKitNumbers());
+    ObservableList<String> olKitNumbers = null;
+    try {
+      olKitNumbers = FXCollections.observableArrayList(getKitNumbers());
+    } catch (Exception e) {
+      logger.error("Can not get kit numbers. " + e);
+    }
     cbKitNumber.setItems(olKitNumbers);
-    //cbKitNumber.getSelectionModel().selectFirst();
     if(olKitNumbers.contains("SQK-LSK109")) {
       cbKitNumber.getSelectionModel().select("SQK-LSK109");
     } else {
@@ -189,76 +221,119 @@ public class PipelineOverviewController {
 
   /**
    * Is called by the main application to give a reference back to itself.
-   * 
    * @param mainApp
    */
   public void setMainApp(MainApp mainApp) {
       this.mainApp = mainApp;
   }
   
-  public void setDialogStage(Stage dialogStage) {
-    this.dialogStage = dialogStage;
-  }
   
-  public boolean isOkClicked() {
-    return okClicked;
-  }
+  //public void setDialogStage(Stage dialogStage) {
+  //  this.dialogStage = dialogStage;
+  //}
   
+  
+  //public boolean isOkClicked() {
+  //  return okClicked;
+  //}
+  
+  /**
+   * Called when advanced basecalling button is clicked.
+   */
   @FXML
   private void handleAdvancedBasecalling() {
     mainApp.handleAdvancedBasecalling();
   }
   
+  /**
+   * Called when advanced reads filter button is clicked.
+   */
   @FXML
   private void handleAdvancedReadsFilter() {
     mainApp.handleAdvancedReadsFilter();
   }
   
+  /**
+   * Called when start pipeline button is clicked.
+   */
   @FXML
   private void handleStartPipeline() throws IOException {
     mainApp.handleStartPipeline();
   }
   
+  /**
+   * Called when advanced assembly button is clicked.
+   */
   @FXML
   private void handleAdvancedAssembly() {
     mainApp.handleAdvancedAssembly();
   }
   
+  /**
+   * Called when advanced polishing button is clicked.
+   */
   @FXML
   private void handleAdvancedPolishung() {
     mainApp.handleAdvancedPolishing();
   }
   
-  private ArrayList<String> getFlowcellIds() throws IOException {
+  /**
+   * Get all flowcell IDs.
+   * @return a String Array with all flowcell IDs 
+   */
+  private ArrayList<String> getFlowcellIds() {
     String s = null;
     ArrayList<String> arFlowcellIds = new ArrayList<String>();
-    Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
-    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
+    Process p = null;
+    try {
+      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
+    } catch (Exception e) {
+      logger.error("Can not get flowcell IDs. " + e);
+    }
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-    BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-    while ((s = stdInput.readLine()) != null ) {
-      if (s.isEmpty() == false) {
-        arFlowcellIds.add(s);
+    //BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+    try {
+      while ((s = stdInput.readLine()) != null ) {
+        if (s.isEmpty() == false) {
+          arFlowcellIds.add(s);
+        }
       }
+    } catch (Exception e) {
+      logger.error("Can not read flowcell IDs. " + e);
     }
     return arFlowcellIds;
   }
   
-  private ArrayList<String> getKitNumbers() throws IOException {
+  /**
+   * Get all kit numbers.
+   * @return a String Array with all kit numbers 
+   */
+  private ArrayList<String> getKitNumbers() {
     String s = null;
     ArrayList<String> arKitNumbers = new ArrayList<String>();
-    Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
-    //Process p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
+    Process p = null;
+    try {
+      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
+    } catch (Exception e) {
+      logger.error("Can not get kit numbers. " + e);
+    }
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-    BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-    while ((s = stdInput.readLine()) != null ) {
-      if (s.isEmpty() == false) {
-        arKitNumbers.add(s);
+    //BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+    try {
+      while ((s = stdInput.readLine()) != null ) {
+        if (s.isEmpty() == false) {
+          arKitNumbers.add(s);
+        }
       }
+    } catch (Exception e) {
+      logger.error("Can not read kit numbers. " + e);
     }
     return arKitNumbers;
   }
   
+  /**
+   * Called when select workspace button is clicked.
+   */
   @FXML
   private void selectWorkspaceHandler() {
     DirectoryChooser directoryChooser = new DirectoryChooser();
