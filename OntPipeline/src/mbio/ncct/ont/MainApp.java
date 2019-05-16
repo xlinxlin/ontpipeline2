@@ -1,6 +1,5 @@
 package mbio.ncct.ont;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javafx.application.Application;
@@ -29,7 +28,7 @@ public class MainApp extends Application {
   private BorderPane rootLayout;
     
   /**
-   * Initializes the GUI.
+   * Initializes GUI.
    * @param primaryStage the primary stage of the GUI.
    */
   @Override
@@ -66,7 +65,7 @@ public class MainApp extends Application {
     try {
       // Load pipeline overview.
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(MainApp.class.getResource("view/RootLayout_.fxml"));
+      loader.setLocation(MainApp.class.getResource("view/PipelineOverview.fxml"));
       AnchorPane pipelineOverview = (AnchorPane) loader.load();
         
       // Set overview into the center of root layout.

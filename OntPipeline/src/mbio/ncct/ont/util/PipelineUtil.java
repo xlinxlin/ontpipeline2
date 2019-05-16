@@ -13,12 +13,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import mbio.ncct.ont.model.Pipeline;
 
+/**
+ * This is the PipelineUtil class for utilities used in Pipeline.
+ * 
+ * @author Yan Zhou
+ * created on 2019/05/16
+ */
 public class PipelineUtil {
   
   /** Initialize log4j2. */
@@ -41,7 +45,7 @@ public class PipelineUtil {
     //BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
     try {
       while ((s = stdInput.readLine()) != null ) {
-        if (s.isEmpty() == false) {
+        if (!s.isEmpty()) {
           arFlowcellIds.add(s);
         }
       }
@@ -68,7 +72,7 @@ public class PipelineUtil {
     //BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
     try {
       while ((s = stdInput.readLine()) != null ) {
-        if (s.isEmpty() == false) {
+        if (!s.isEmpty()) {
           arKitNumbers.add(s);
         }
       }
@@ -177,7 +181,6 @@ public class PipelineUtil {
       logger.error("Can not write .pbs file. " + e);
     }
   }
-  
   
   /**
    * Create an user log file with all the input parameters.

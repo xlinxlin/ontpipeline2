@@ -2,7 +2,7 @@ FAQ
 ===
 What bioinformatics tools are used?
 ___________________________________
-* Guppy v2.3.1 https://community.nanoporetech.com
+* Guppy v3.0.3 https://community.nanoporetech.com
 * Porechop 0.2.3 https://github.com/rrwick/Porechop
 * NanoStat 1.1.2 https://github.com/wdecoster/nanostat
 * NanoFilt 2.2.0 https://github.com/wdecoster/nanofilt

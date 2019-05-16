@@ -112,19 +112,12 @@ public class PipelineOverviewController {
   @FXML
   private void initialize()  {   
     ObservableList<String> olFlowcellIds = null;
-    try {
-      olFlowcellIds = FXCollections.observableArrayList(pUtil.getFlowcellIds());
-    } catch (Exception e) {
-      logger.error("Can not get flowcell IDs. " + e);
-    }
+    olFlowcellIds = FXCollections.observableArrayList(pUtil.getFlowcellIds());
     cbFlowcellId.setItems(olFlowcellIds);
     cbFlowcellId.getSelectionModel().selectFirst();
+    
     ObservableList<String> olKitNumbers = null;
-    try {
-      olKitNumbers = FXCollections.observableArrayList(pUtil.getKitNumbers());
-    } catch (Exception e) {
-      logger.error("Can not get kit numbers. " + e);
-    }
+    olKitNumbers = FXCollections.observableArrayList(pUtil.getKitNumbers());
     cbKitNumber.setItems(olKitNumbers);
     if(olKitNumbers.contains("SQK-LSK109")) {
       cbKitNumber.getSelectionModel().select("SQK-LSK109");
@@ -132,6 +125,7 @@ public class PipelineOverviewController {
       cbKitNumber.getSelectionModel().selectFirst();
       p.setKitNumber(cbKitNumber.getSelectionModel().getSelectedItem());
     }
+    
     ArrayList<String> alMode = new ArrayList<String>();
     alMode.add("conservative");
     alMode.add("normal");
@@ -328,25 +322,6 @@ public class PipelineOverviewController {
   }
   
   /**
-   * Called when start pipeline button is clicked.
-   */
-  @FXML
-  private void handleStartPipeline()  {
-    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-    pUtil.createUserLog(p, timeStamp);
-    pUtil.createPbsFile(p, timeStamp);
-    try {
-      //Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
-    } catch (Exception e) {
-      logger.error("Can not run .pbs file. " + e);
-    }
-    Alert alert = new Alert(AlertType.INFORMATION);
-    alert.setTitle("Submitted");
-    alert.setContentText("Your job has been submitted successfully.");
-    alert.showAndWait();
-  }
-  
-  /**
    * Called when advanced assembly button is clicked.
    */
   @FXML
@@ -416,6 +391,25 @@ public class PipelineOverviewController {
     } catch (Exception e) {
       logger.error("Can not load advanced polishing view. " + e);
     }
+  }
+  
+  /**
+   * Called when start pipeline button is clicked.
+   */
+  @FXML
+  private void handleStartPipeline()  {
+    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+    pUtil.createUserLog(p, timeStamp);
+    pUtil.createPbsFile(p, timeStamp);
+    try {
+      //Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
+    } catch (Exception e) {
+      logger.error("Can not run .pbs file. " + e);
+    }
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Submitted");
+    alert.setContentText("Your job has been submitted successfully.");
+    alert.showAndWait();
   }
   
   /**

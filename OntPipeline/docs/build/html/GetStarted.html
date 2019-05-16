@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="General Settings" href="GeneralSettings.html" />
+    <link rel="next" title="Input File Structure" href="InputFileStructure.html" />
     <link rel="prev" title="Welcome to ontpipeline’s documentation!" href="index.html" /> 
 
   
@@ -82,21 +82,24 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Get Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#anaconda-installation">Anaconda Installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#guppy-installation">Guppy Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#guppy3-0-3-installation">Guppy3.0.3 Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#porechop-installation">Porechop Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nanostat-installation">NanoStat Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nanofilt-installation">NanoFilt Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#canu-installation">Canu Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#flye-installation">Flye Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#unicycler-installation">Unicycler Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#busco-installation">BUSCO Installation</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="InputFileStructure.html">Input File Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GeneralSettings.html">General Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Basecalling Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReadsFilterSettings.html">Reads Filter Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AssemblySettings.html">Assembly Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PolishingSettings.html">Polishing Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="QandA.html">FAQ</a></li>
 </ul>
 
@@ -170,15 +173,11 @@
 <h3>Anaconda Installation<a class="headerlink" href="#anaconda-installation" title="Permalink to this headline">¶</a></h3>
 <p>Installing on Linux <a class="reference external" href="https://docs.anaconda.com/anaconda/install/linux/">https://docs.anaconda.com/anaconda/install/linux/</a></p>
 </div>
-<div class="section" id="guppy-installation">
-<h3>Guppy Installation<a class="headerlink" href="#guppy-installation" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get update
-sudo apt-get install wget lsb-release
-<span class="nb">export</span> <span class="nv">PLATFORM</span><span class="o">=</span><span class="k">$(</span>lsb_release -cs<span class="k">)</span>
-wget -O- https://mirror.oxfordnanoportal.com/apt/ont-repo.pub <span class="p">|</span> sudo apt-key add -
-<span class="nb">echo</span> <span class="s2">&quot;deb http://mirror.oxfordnanoportal.com/apt </span><span class="si">${</span><span class="nv">PLATFORM</span><span class="si">}</span><span class="s2">-stable non-free&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/nanoporetech.sources.list
-sudo apt-get update
-apt-get install ont-guppy<span class="o">[</span>-cpu<span class="o">]</span>
+<div class="section" id="guppy3-0-3-installation">
+<h3>Guppy3.0.3 Installation<a class="headerlink" href="#guppy3-0-3-installation" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_3.0.3_linux64.tar.gz
+tar -xf ont-guppy-cpu_3.0.3_linux64.tar.gz
+sudo mv ont-guppy-cpu_3.0.3_linux64 /opt/ont-guppy-cpu_3.0.3
 </pre></div>
 </div>
 </div>
@@ -187,7 +186,7 @@ apt-get install ont-guppy<span class="o">[</span>-cpu<span class="o">]</span>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n porechop
 <span class="nb">source</span> /opt/anaconda3/bin/activate porechop
 /opt/anaconda3/bin/conda install -c bioconda porechop
-<span class="nb">source</span> /opt/anaconda3/bin/deactivate
+conda deactivate
 </pre></div>
 </div>
 </div>
@@ -196,7 +195,7 @@ apt-get install ont-guppy<span class="o">[</span>-cpu<span class="o">]</span>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n nanostat
 <span class="nb">source</span> /opt/anaconda3/bin/activate nanostat
 /opt/anaconda3/bin/conda install -c bioconda nanostat
-<span class="nb">source</span> /opt/anaconda3/bin/deactivate
+conda deactivate
 </pre></div>
 </div>
 </div>
@@ -205,7 +204,7 @@ apt-get install ont-guppy<span class="o">[</span>-cpu<span class="o">]</span>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n nanofilt
 <span class="nb">source</span> /opt/anaconda3/bin/activate nanofilt
 /opt/anaconda3/bin/conda install -c bioconda nanofilt
-<span class="nb">source</span> /opt/anaconda3/bin/deactivate
+conda deactivate
 </pre></div>
 </div>
 </div>
@@ -214,7 +213,7 @@ apt-get install ont-guppy<span class="o">[</span>-cpu<span class="o">]</span>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n canu
 <span class="nb">source</span> /opt/anaconda3/bin/activate canu
 /opt/anaconda3/bin/conda install -c bioconda canu
-<span class="nb">source</span> /opt/anaconda3/bin/deactivate
+conda deactivate
 </pre></div>
 </div>
 </div>
@@ -223,7 +222,7 @@ apt-get install ont-guppy<span class="o">[</span>-cpu<span class="o">]</span>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n flye
 <span class="nb">source</span> /opt/anaconda3/bin/activate flye
 /opt/anaconda3/bin/conda install -c bioconda flye
-<span class="nb">source</span> /opt/anaconda3/bin/deactivate
+conda deactivate
 </pre></div>
 </div>
 </div>
@@ -232,7 +231,16 @@ apt-get install ont-guppy<span class="o">[</span>-cpu<span class="o">]</span>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n unicycler
 <span class="nb">source</span> /opt/anaconda3/bin/activate unicylcer
 /opt/anaconda3/bin/conda install -c bioconda unicycler
-<span class="nb">source</span> /opt/anaconda3/bin/deactivate
+conda deactivate
+</pre></div>
+</div>
+</div>
+<div class="section" id="busco-installation">
+<h3>BUSCO Installation<a class="headerlink" href="#busco-installation" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n busco
+<span class="nb">source</span> /opt/anaconda3/bin/activate busco
+/opt/anaconda3/bin/conda install -c bioconda busco
+conda deactivate
 </pre></div>
 </div>
 </div>
@@ -247,7 +255,7 @@ apt-get install ont-guppy<span class="o">[</span>-cpu<span class="o">]</span>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="GeneralSettings.html" class="btn btn-neutral float-right" title="General Settings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="InputFileStructure.html" class="btn btn-neutral float-right" title="Input File Structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Welcome to ontpipeline’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
