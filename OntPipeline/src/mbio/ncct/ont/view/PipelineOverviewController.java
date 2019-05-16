@@ -217,7 +217,7 @@ public class PipelineOverviewController {
     tfThreads.textProperty().addListener((observable, oldValue, newValue) -> {
       p.setThreads(newValue);
     });
-    
+
     tfSelectedBarcode.textProperty().addListener((observable, oldValue, newValue) -> {
       p.setSelectedBarcode(newValue);
     });
@@ -398,25 +398,38 @@ public class PipelineOverviewController {
    */
   @FXML
   private void handleStartPipeline()  {
-    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-    pUtil.createUserLog(p, timeStamp);
-    pUtil.createPbsFile(p, timeStamp);
-    try {
-      //Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
-    } catch (Exception e) {
-      logger.error("Can not run .pbs file. " + e);
+    if (p.getWorkspace().isEmpty()) {
+      Alert alertEmptyDir = new Alert(AlertType.ERROR);
+      alertEmptyDir.setTitle("Empty workspace.");
+      alertEmptyDir.setContentText("Workspace can not be empty.");
+      alertEmptyDir.showAndWait();
+    } else if (!p.getThreads().matches(("\\d+"))){
+      Alert alertWrongThreads = new Alert(AlertType.ERROR);
+      alertWrongThreads.setTitle("Wrong threads.");
+      alertWrongThreads.setContentText("Threads should be an integer.");
+      alertWrongThreads.showAndWait();
+    } else {
+      String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+      pUtil.createUserLog(p, timeStamp);
+      pUtil.createPbsFile(p, timeStamp);
+      try {
+        //Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
+      } catch (Exception e) {
+        logger.error("Can not run .pbs file. " + e);
+      }
+      Alert alert = new Alert(AlertType.INFORMATION);
+      alert.setTitle("Submitted");
+      alert.setContentText("Your job has been submitted successfully.");
+      alert.showAndWait();
     }
-    Alert alert = new Alert(AlertType.INFORMATION);
-    alert.setTitle("Submitted");
-    alert.setContentText("Your job has been submitted successfully.");
-    alert.showAndWait();
   }
+    
   
   /**
    * Called when select workspace button is clicked.
    */
   @FXML
-  private void selectWorkspaceHandler() {
+  private void handleSelectWorkspace() {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File selectedDirectory = directoryChooser.showDialog(null);
     

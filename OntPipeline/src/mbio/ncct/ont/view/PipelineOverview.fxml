@@ -25,7 +25,7 @@
       <ChoiceBox fx:id="cbMethod" layoutX="323.0" layoutY="246.0" prefWidth="150.0" value="Hybrid assembly" />
       <Label layoutX="13.0" layoutY="54.0" text="Workspace" />
       <TextField fx:id="tfWorkspace" editable="false" layoutX="97.0" layoutY="49.0" prefHeight="26.0" prefWidth="431.0" />
-      <Button layoutX="514.0" layoutY="49.0" mnemonicParsing="false" onAction="#selectWorkspaceHandler" prefHeight="26.0" prefWidth="83.0" text="Browse" />
+      <Button layoutX="514.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSelectWorkspace" prefHeight="26.0" prefWidth="83.0" text="Browse" />
       <Label layoutX="33.0" layoutY="91.0" text="Threads" />
       <TextField fx:id="tfThreads" layoutX="98.0" layoutY="87.0" prefHeight="26.0" prefWidth="66.0" />
       <Label layoutX="189.0" layoutY="92.0" text="Barcodes" />
