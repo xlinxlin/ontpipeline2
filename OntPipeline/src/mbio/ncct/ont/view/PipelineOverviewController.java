@@ -1,22 +1,30 @@
 package mbio.ncct.ont.view;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mbio.ncct.ont.MainApp;
+import mbio.ncct.ont.model.Pipeline;
+import mbio.ncct.ont.util.PipelineUtil;
 
 /**
  * This is the controller of the pipeline overview settings.
@@ -26,15 +34,17 @@ import mbio.ncct.ont.MainApp;
  */
 public class PipelineOverviewController {
   
-  /** Initializes log4j2. */
+  /** Initialize log4j2. */
   static Logger logger = LogManager.getLogger(PipelineOverviewController.class);
   
-  /** Initializes MainApp. */
+  /** Initialize MainApp. */
   private MainApp mainApp;
 
-  //private Stage dialogStage;
+  /** Initialize PipelineUtil. */
+  private PipelineUtil pUtil = new PipelineUtil();
   
-  //private boolean okClicked = false;
+  /** Initialize Pipeline. */
+  private Pipeline p = new Pipeline();
   
   /** Initializes check box for basecalling. */
   @FXML
@@ -54,47 +64,47 @@ public class PipelineOverviewController {
   
   /** Initializes choice box for flowcell ID. */
   @FXML
-  public ChoiceBox<String> cbFlowcellId = new ChoiceBox<String>() ;
+  private ChoiceBox<String> cbFlowcellId = new ChoiceBox<String>() ;
   
   /** Initializes check box for kit number. */
   @FXML
-  public ChoiceBox<String> cbKitNumber = new ChoiceBox<String>() ;
+  private ChoiceBox<String> cbKitNumber = new ChoiceBox<String>() ;
   
   /** Initializes check box for assembly mode. */
   @FXML
-  public ChoiceBox<String> cbMode = new ChoiceBox<String>() ;
+  private ChoiceBox<String> cbMode = new ChoiceBox<String>() ;
   
   /** Initializes check box for assembly method. */
   @FXML
-  public ChoiceBox<String> cbMethod = new ChoiceBox<String>() ;
+  private ChoiceBox<String> cbMethod = new ChoiceBox<String>() ;
   
   /** Initializes text field for workspace. */
   @FXML
-  public TextField tfWorkspace;
+  private TextField tfWorkspace;
   
   /** Initializes text field for threads. */
   @FXML
-  public TextField tfThreads;
+  private TextField tfThreads;
   
   /** Initializes button for basecalling. */
   @FXML
-  public Button btnBasecalling;
+  private Button btnBasecalling;
   
   /** Initializes button for reads filter. */
   @FXML
-  public Button btnReadsFilter;
+  private Button btnReadsFilter;
   
   /** Initializes button for assembly. */
   @FXML
-  public Button btnAssembly;
+  private Button btnAssembly;
   
   /** Initializes button for polishing. */
   @FXML
-  public Button btnPolishing;
+  private Button btnPolishing;
   
   /** Initializes text field for selected barcodes. */
   @FXML
-  public TextField tfSelectedBarcode;
+  private TextField tfSelectedBarcode;
   
   /**
    * Initializes the controller of pipeline overview.
@@ -103,7 +113,7 @@ public class PipelineOverviewController {
   private void initialize()  {   
     ObservableList<String> olFlowcellIds = null;
     try {
-      olFlowcellIds = FXCollections.observableArrayList(getFlowcellIds());
+      olFlowcellIds = FXCollections.observableArrayList(pUtil.getFlowcellIds());
     } catch (Exception e) {
       logger.error("Can not get flowcell IDs. " + e);
     }
@@ -111,7 +121,7 @@ public class PipelineOverviewController {
     cbFlowcellId.getSelectionModel().selectFirst();
     ObservableList<String> olKitNumbers = null;
     try {
-      olKitNumbers = FXCollections.observableArrayList(getKitNumbers());
+      olKitNumbers = FXCollections.observableArrayList(pUtil.getKitNumbers());
     } catch (Exception e) {
       logger.error("Can not get kit numbers. " + e);
     }
@@ -120,7 +130,7 @@ public class PipelineOverviewController {
       cbKitNumber.getSelectionModel().select("SQK-LSK109");
     } else {
       cbKitNumber.getSelectionModel().selectFirst();
-      mainApp.setKitNumber(cbKitNumber.getSelectionModel().getSelectedItem());
+      p.setKitNumber(cbKitNumber.getSelectionModel().getSelectedItem());
     }
     ArrayList<String> alMode = new ArrayList<String>();
     alMode.add("conservative");
@@ -140,29 +150,29 @@ public class PipelineOverviewController {
     cAssembly.setSelected(true);
     cPolishing.setSelected(true);
     
-    tfThreads.setText("8");
+    tfThreads.setText(p.getThreads());
     
     cBasecalling.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cBasecalling.isSelected()) {
         cbFlowcellId.setDisable(false);
         cbKitNumber.setDisable(false);
         btnBasecalling.setDisable(false);
-        mainApp.setIfBasecalling(true);
+        p.setIfBasecalling(true);
       } else {
         cbFlowcellId.setDisable(true);
         cbKitNumber.setDisable(true);
         btnBasecalling.setDisable(true);
-        mainApp.setIfBasecalling(false);
+        p.setIfBasecalling(false);
       }
     });
     
     cReadsFilter.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cReadsFilter.isSelected()) {
         btnReadsFilter.setDisable(false);
-        mainApp.setIfReadsFilter(true);
+        p.setIfReadsFilter(true);
       } else {
         btnReadsFilter.setDisable(true);
-        mainApp.setIfReadsFilter(false);
+        p.setIfReadsFilter(false);
       }
     });
     
@@ -171,51 +181,51 @@ public class PipelineOverviewController {
         cbMode.setDisable(false);
         cbMethod.setDisable(false);
         btnAssembly.setDisable(false);
-        mainApp.setIfAssembly(true);
+        p.setIfAssembly(true);
       } else {
         cbMode.setDisable(true);
         cbMethod.setDisable(true);
         btnAssembly.setDisable(true);
-        mainApp.setIfAssembly(false);
+        p.setIfAssembly(false);
       }
     });
     
     cPolishing.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cPolishing.isSelected()) {
         btnPolishing.setDisable(false);
-        mainApp.setIfPolishing(true);
+        p.setIfPolishing(true);
       } else {
         btnPolishing.setDisable(true);
-        mainApp.setIfPolishing(false);
+        p.setIfPolishing(false);
       }
     });
     
     cbFlowcellId.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> {
-      mainApp.setFlowcellId(newValue);
+      p.setFlowcellId(newValue);
     });
     
     cbKitNumber.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> {
-      mainApp.setKitNumber(newValue);
+      p.setKitNumber(newValue);
     });
     
     cbMode.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> {
-      mainApp.setMode(newValue);
+      p.setMode(newValue);
     });
     
     cbMethod.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> {
-      mainApp.setMethod(newValue);
+      p.setMethod(newValue);
     });
     
     tfWorkspace.textProperty().addListener((observable, oldValue, newValue) -> {
-      mainApp.setWorkspace(newValue);
+      p.setWorkspace(newValue);
     });
     
     tfThreads.textProperty().addListener((observable, oldValue, newValue) -> {
-      mainApp.setThreads(newValue);
+      p.setThreads(newValue);
     });
     
     tfSelectedBarcode.textProperty().addListener((observable, oldValue, newValue) -> {
-      mainApp.setSelectedBarcode(newValue);
+      p.setSelectedBarcode(newValue);
     });
   }
 
@@ -224,7 +234,7 @@ public class PipelineOverviewController {
    * @param mainApp
    */
   public void setMainApp(MainApp mainApp) {
-      this.mainApp = mainApp;
+    this.mainApp = mainApp;
   }
   
   
@@ -242,7 +252,37 @@ public class PipelineOverviewController {
    */
   @FXML
   private void handleAdvancedBasecalling() {
-    mainApp.handleAdvancedBasecalling();
+    try {
+      // Load the fxml file and create a new stage for the popup dialog.
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(MainApp.class.getResource("view/AdvancedBasecallingView.fxml"));
+      AnchorPane page = (AnchorPane) loader.load();
+
+      // Create the dialog Stage.
+      Stage dialogStage = new Stage();
+      dialogStage.setTitle("Advanced Basecalling Setting");
+      dialogStage.initModality(Modality.WINDOW_MODAL);
+      dialogStage.initOwner(mainApp.primaryStage);
+      Scene scene = new Scene(page);
+      dialogStage.setScene(scene);
+
+      // Set the controller.
+      AdvancedBasecallingController controller = loader.getController();
+      controller.setDialogStage(dialogStage);
+      controller.setBarcodeKits(p.getBarcodeKit());
+      controller.setGuppyMode(p.getGuppyMode());
+      controller.setDevice(p.getDevice());
+     
+      // Show the dialog and wait until the user closes it.
+      dialogStage.showAndWait();
+      if(controller.isOK == 1) {
+        p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
+        p.setGuppyMode(controller.cbGuppyMode.getValue());
+        p.setDevice(controller.cbDevice.getValue());
+      }
+    } catch (Exception e) {
+      logger.error("Can not load advanced basecalling view. " + e);
+    }
   }
   
   /**
@@ -250,15 +290,60 @@ public class PipelineOverviewController {
    */
   @FXML
   private void handleAdvancedReadsFilter() {
-    mainApp.handleAdvancedReadsFilter();
+    try {
+      // Load the fxml file and create a new stage for the popup dialog.
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(MainApp.class.getResource("view/AdvancedReadsFilterView.fxml"));
+      AnchorPane page = (AnchorPane) loader.load();
+
+      // Create the dialog Stage.
+      Stage dialogStage = new Stage();
+      dialogStage.setTitle("Advanced Reads Filter Setting");
+      dialogStage.initModality(Modality.WINDOW_MODAL);
+      dialogStage.initOwner(mainApp.primaryStage);
+      Scene scene = new Scene(page);
+      dialogStage.setScene(scene);
+
+      // Set the controller.
+      AdvancedReadsFilterController controller = loader.getController();
+      controller.setDialogStage(dialogStage);
+      controller.setReadScore(p.getReadScore());
+      controller.setReadLength(p.getReadLength());
+      controller.setHeadCrop(p.getHeadCrop());
+      controller.setIfAdapterTrimming(p.getIfAdapterTrimming());
+      controller.setIfSplitting(p.getIfNoSplit());
+   
+      // Show the dialog and wait until the user closes it.
+      dialogStage.showAndWait();
+      if (controller.isOK == 1) {
+        p.setReadScore(controller.tfReadScore.getText());
+        p.setReadLength(controller.tfReadLength.getText());
+        p.setHeadCrop(controller.tfHeadCrop.getText());
+        p.setIfAdapterTrimming(controller.cAdapterTrimming.isSelected());
+        p.setIfNoSplit(controller.cSplitting.isSelected()); 
+      }
+    } catch (Exception e) {
+      logger.error("Can not load advanced reads filter view. " + e);
+    }
   }
   
   /**
    * Called when start pipeline button is clicked.
    */
   @FXML
-  private void handleStartPipeline() throws IOException {
-    mainApp.handleStartPipeline();
+  private void handleStartPipeline()  {
+    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+    pUtil.createUserLog(p, timeStamp);
+    pUtil.createPbsFile(p, timeStamp);
+    try {
+      //Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
+    } catch (Exception e) {
+      logger.error("Can not run .pbs file. " + e);
+    }
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Submitted");
+    alert.setContentText("Your job has been submitted successfully.");
+    alert.showAndWait();
   }
   
   /**
@@ -266,7 +351,33 @@ public class PipelineOverviewController {
    */
   @FXML
   private void handleAdvancedAssembly() {
-    mainApp.handleAdvancedAssembly();
+    try {
+      // Load the fxml file and create a new stage for the popup dialog.
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(MainApp.class.getResource("view/AdvancedAssemblyView.fxml"));
+      AnchorPane page = (AnchorPane) loader.load();
+
+      // Create the dialog Stage.
+      Stage dialogStage = new Stage();
+      dialogStage.setTitle("Advanced Assembly Setting");
+      dialogStage.initModality(Modality.WINDOW_MODAL);
+      dialogStage.initOwner(mainApp.primaryStage);
+      Scene scene = new Scene(page);
+      dialogStage.setScene(scene);
+
+      // Set the controller.
+      AdvancedAssemblyController controller = loader.getController();
+      controller.setDialogStage(dialogStage);
+      controller.setIfVcf(p.getIfVcf());
+     
+      // Show the dialog and wait until the user closes it.
+      dialogStage.showAndWait();
+      if (controller.isOK == 1) {
+        p.setIfVcf(controller.cVcf.isSelected()); 
+      }
+    } catch (Exception e) {
+      logger.error("Can not load advanced assembly view. " + e);
+    }
   }
   
   /**
@@ -274,61 +385,37 @@ public class PipelineOverviewController {
    */
   @FXML
   private void handleAdvancedPolishung() {
-    mainApp.handleAdvancedPolishing();
-  }
-  
-  /**
-   * Get all flowcell IDs.
-   * @return a String Array with all flowcell IDs 
-   */
-  private ArrayList<String> getFlowcellIds() {
-    String s = null;
-    ArrayList<String> arFlowcellIds = new ArrayList<String>();
-    Process p = null;
     try {
-      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
-    } catch (Exception e) {
-      logger.error("Can not get flowcell IDs. " + e);
-    }
-    BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-    //BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-    try {
-      while ((s = stdInput.readLine()) != null ) {
-        if (s.isEmpty() == false) {
-          arFlowcellIds.add(s);
-        }
+      // Load the fxml file and create a new stage for the popup dialog.
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(MainApp.class.getResource("view/AdvancedPolishingView.fxml"));
+      AnchorPane page = (AnchorPane) loader.load();
+
+      // Create the dialog Stage.
+      Stage dialogStage = new Stage();
+      dialogStage.setTitle("Advanced Polishing Setting");
+      dialogStage.initModality(Modality.WINDOW_MODAL);
+      dialogStage.initOwner(mainApp.primaryStage);
+      Scene scene = new Scene(page);
+      dialogStage.setScene(scene);
+
+      // Set the controller.
+      AdvancedPolishingController controller = loader.getController();
+      controller.setDialogStage(dialogStage);
+      controller.setPtimes(p.getPtimes());
+      controller.setBuscoData(p.getBuscoData());
+      controller.setIfBusco(p.getIfBusco());
+     
+      // Show the dialog and wait until the user closes it
+      dialogStage.showAndWait();
+      if (controller.isOK == 1) {
+        p.setPtimes(controller.cbPtimes.getValue()); 
+        p.setBuscoData(controller.cbBuscoData.getValue());
+        p.setIfBusco(controller.cBusco.isSelected());
       }
     } catch (Exception e) {
-      logger.error("Can not read flowcell IDs. " + e);
+      logger.error("Can not load advanced polishing view. " + e);
     }
-    return arFlowcellIds;
-  }
-  
-  /**
-   * Get all kit numbers.
-   * @return a String Array with all kit numbers 
-   */
-  private ArrayList<String> getKitNumbers() {
-    String s = null;
-    ArrayList<String> arKitNumbers = new ArrayList<String>();
-    Process p = null;
-    try {
-      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
-    } catch (Exception e) {
-      logger.error("Can not get kit numbers. " + e);
-    }
-    BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-    //BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-    try {
-      while ((s = stdInput.readLine()) != null ) {
-        if (s.isEmpty() == false) {
-          arKitNumbers.add(s);
-        }
-      }
-    } catch (Exception e) {
-      logger.error("Can not read kit numbers. " + e);
-    }
-    return arKitNumbers;
   }
   
   /**
@@ -360,33 +447,7 @@ public class PipelineOverviewController {
       
       for (int i=0;i<lF.size();i++) {
         //lF.
-      }
-      
+      }  
     } 
-    
-    //System.out.println("hello world");
-    
-    //gsModel.setWorkspace(tfWorkspace.getText());
-    //File[] f = selectedDirectory.listFiles();
-    /*
-    if (f!=null) {
-      String extension = f[f.length-1].getName().contains(".") ? f[f.length-1].getName().split("\\.")[1].toLowerCase() : "";
-      if(!extension.equals("fast5")&&!extension.equals("fastq")) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setContentText("Can not find .fast5 or .fastq file in this folder.");
-        alert.showAndWait();
-        tfWorkspace.setText("");
-      }
-    }
-    */
-    /*
-    if (f!=null) {
-      for(int i=0;i<f.length;i++) {
-        System.out.println(f[i].getName());
-      }
-    }
-    */
   }
 }
-
