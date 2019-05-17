@@ -12,83 +12,83 @@ import javafx.beans.property.StringProperty;
  * created on 2019/05/14
  */
 public class Pipeline {
-  /** Initialize and set the workspace. */
+  /** Initializes and sets the workspace. */
   private final StringProperty workspace = new SimpleStringProperty("");
   
-  /** Initialize and set the specified barcode(s). */
+  /** Initializes and sets the specified barcode(s). */
   private final StringProperty selectedBarcode = new SimpleStringProperty("");
   
-  /** Initialize and set the threads. */
+  /** Initializes and sets the threads. */
   private final StringProperty threads = new SimpleStringProperty("8");
   
-  /** Initialize and set the flowcell ID. */
+  /** Initializes and sets the flowcell ID. */
   private final StringProperty flowcellId = new SimpleStringProperty("FLO-MIN106");
   
-  /** Initialize and set the kit number. */
+  /** Initializes and sets the kit number. */
   private final StringProperty kitNumber = new SimpleStringProperty("SQK-LSK109");
   
-  /** Initialize and set the barcode kit(s). */
+  /** Initializes and sets the barcode kit(s). */
   private final StringProperty barcodeKit = new SimpleStringProperty("");
   
-  /** Initialize and set the read score for filter. */
+  /** Initializes and sets the read score for filter. */
   private final StringProperty readScore = new SimpleStringProperty("9");
   
-  /** Initialize and set the read length for filter. */
+  /** Initializes and sets the read length for filter. */
   private final StringProperty readLength = new SimpleStringProperty("500");
   
-  /** Initialize and set the head crop for filter. */
+  /** Initializes and sets the head crop for filter. */
   private final StringProperty headCrop = new SimpleStringProperty("50");
   
-  /** Initialize and set the assembly mode. */
+  /** Initializes and sets the assembly mode. */
   private final StringProperty mode = new SimpleStringProperty("normal");
   
-  /** Initialize and set the assembly method. */
+  /** Initializes and sets the assembly method. */
   private final StringProperty method = new SimpleStringProperty("Hybrid assembly");
   
-  /** Initialize and set if adapter trimming will be used. */
+  /** Initializes and sets if adapter trimming will be used. */
   private final BooleanProperty ifAdapterTrimming = new SimpleBooleanProperty(true);
   
-  /** Initialize and set if skip splitting reads based on middle adapters. */
+  /** Initializes and sets if skip splitting reads based on middle adapters. */
   private final BooleanProperty ifNoSplit = new SimpleBooleanProperty(false);
   
-  /** Initialize and set if a .vcf file will be output. */
+  /** Initializes and sets if a .vcf file will be output. */
   private final BooleanProperty ifVcf = new SimpleBooleanProperty(false);
   
-  /** Initialize and set the polishing times. */
+  /** Initializes and sets the polishing times. */
   private final StringProperty pTimes = new SimpleStringProperty("1");
   
-  /** Initialize and set if BUSCO check will be used. */
+  /** Initializes and sets if BUSCO check will be used. */
   private final BooleanProperty ifBusco = new SimpleBooleanProperty(false);
   
-  /** Initialize and set the database of BUSCO. */
+  /** Initializes and sets the database of BUSCO. */
   private final StringProperty buscoDatabase = new SimpleStringProperty("Bacteria");
   
-  /** Initialize and set if basecalling will be used. */
+  /** Initializes and sets if basecalling will be used. */
   private final BooleanProperty ifBasecalling = new SimpleBooleanProperty(true);
   
-  /** Initialize and set if reads filter will be used. */
+  /** Initializes and sets if reads filter will be used. */
   private final BooleanProperty ifReadsFilter = new SimpleBooleanProperty(true);
   
-  /** Initialize and set if assembly will be used. */
+  /** Initializes and sets if assembly will be used. */
   private final BooleanProperty ifAssembly = new SimpleBooleanProperty(true);
   
-  /** Initialize and set if polishing will be used. */
+  /** Initializes and sets if polishing will be used. */
   private final BooleanProperty ifPolishing = new SimpleBooleanProperty(true);
   
-  /** Initialize and set Guppy mode. */
+  /** Initializes and sets Guppy mode. */
   private final StringProperty guppyMode = new SimpleStringProperty("high-accuracy");
   
-  /** Initialize and set nanopore device. */
+  /** Initializes and sets nanopore device. */
   private final StringProperty device = new SimpleStringProperty("PromethION");
   
-  /** Initialize and set if Guppy fast mode will be used. */
+  /** Initializes and sets if Guppy fast mode will be used. */
   private final BooleanProperty ifGuppyFast = new SimpleBooleanProperty(false);
   
-  /** Initialize and set Guppy .cfg configuration file. */
+  /** Initializes and sets Guppy .cfg configuration file. */
   private final StringProperty guppyCfgFile = new SimpleStringProperty("");
   
   /**
-   * Get the workspace.
+   * Gets the workspace.
    * @return the String of workspace
    */
   public String getWorkspace() {
@@ -96,7 +96,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the workspace.
+   * Sets the workspace.
    * @param workspace the String of workspace
    */
   public void setWorkspace(String workspace) {
@@ -104,7 +104,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the specified barcode(s).
+   * Gets the specified barcode(s).
    * @return the String of the specified barcode(s)
    */
   public String getSelectedBarcode() {
@@ -112,7 +112,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the specified barcode(s).
+   * Sets the specified barcode(s).
    * @param selectedBarcode the String of the specified barcode(s)
    */
   public void setSelectedBarcode(String selectedBarcode) {
@@ -120,7 +120,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the threads.
+   * Gets the threads.
    * @return the String of threads
    */
   public String getThreads() {
@@ -128,7 +128,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the threads.
+   * Sets the threads.
    * @param threads the String of the threads
    */
   public void setThreads(String threads) {
@@ -136,7 +136,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the flowcell ID.
+   * Gets the flowcell ID.
    * @return the String of flowcell iD
    */
   public String getFlowcellId() {
@@ -144,7 +144,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the flowcell ID.
+   * Sets the flowcell ID.
    * @param flowcellId the String of the flowcell ID
    */
   public void setFlowcellId(String flowcellId) {
@@ -152,7 +152,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the kit number.
+   * Gets the kit number.
    * @return the String of kit number
    */
   public String getKitNumber() {
@@ -160,7 +160,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the kit number.
+   * Sets the kit number.
    * @param kitNumber the String of the kit number
    */
   public void setKitNumber(String kitNumber) {
@@ -168,7 +168,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the barcode kit(s).
+   * Gets the barcode kit(s).
    * @return the String of the barcode kit(s)
    */
   public String getBarcodeKit() {
@@ -176,7 +176,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the barcode kit(s).
+   * Sets the barcode kit(s).
    * @param barcodeKit the String of the barcode kit(s)
    */
   public void setBarcodeKit(String barcodeKit) {
@@ -184,7 +184,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the read score.
+   * Gets the read score.
    * @return the String of read score
    */
   public String getReadScore() {
@@ -192,7 +192,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the read score.
+   * Sets the read score.
    * @param readScore the String of the read score
    */
   public void setReadScore(String readScore) {
@@ -200,7 +200,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the read length.
+   * Gets the read length.
    * @return the String of the read length
    */
   public String getReadLength() {
@@ -208,7 +208,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the read length.
+   * Sets the read length.
    * @param readLength the String of the read length
    */
   public void setReadLength(String readLength) {
@@ -216,7 +216,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the head crop.
+   * Gets the head crop.
    * @return the String of the head crop
    */
   public String getHeadCrop() {
@@ -224,7 +224,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the head crop.
+   * Sets the head crop.
    * @param headCrop the String of the head crop
    */
   public void setHeadCrop(String headCrop) {
@@ -232,7 +232,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the assembly mode.
+   * Gets the assembly mode.
    * @return the String of the assembly mode
    */
   public String getMode() {
@@ -240,7 +240,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the assembly mode.
+   * Sets the assembly mode.
    * @param mode the String of the assembly mode
    */
   public void setMode(String mode) {
@@ -248,7 +248,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the Guppy mode.
+   * Gets the Guppy mode.
    * @return the String of the Guppy mode
    */
   public String getGuppyMode() {
@@ -256,7 +256,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the Guppy mode.
+   * Sets the Guppy mode.
    * @param guppyMode the String of the Guppy mode
    */
   public void setGuppyMode(String guppyMode) {
@@ -264,7 +264,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the nanopore device.
+   * Gets the nanopore device.
    * @return the String of the nanopore device
    */
   public String getDevice() {
@@ -272,7 +272,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the nanopore device.
+   * Sets the nanopore device.
    * @param device the String of the nanopore device
    */
   public void setDevice(String device) {
@@ -280,7 +280,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the assembly method.
+   * Gets the assembly method.
    * @return the String of the assembly method
    */
   public String getMethod() {
@@ -288,7 +288,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the assembly method.
+   * Sets the assembly method.
    * @param method the String of the assembly method
    */
   public void setMethod(String method) {
@@ -296,7 +296,7 @@ public class Pipeline {
   }
   
   /**
-   * Set if adapter trimming will be used.
+   * Sets if adapter trimming will be used.
    * @param ifAdapterTrimming the Boolean value of if adapter trimming will be used
    */
   public void setIfAdapterTrimming(Boolean ifAdapterTrimming) {
@@ -304,7 +304,7 @@ public class Pipeline {
   }
   
   /**
-   * Get if adapter trimming is used.
+   * Gets if adapter trimming is used.
    * @return the Boolean value of if adapter trimming is used
    */
   public Boolean getIfAdapterTrimming() {
@@ -312,7 +312,7 @@ public class Pipeline {
   }
   
   /**
-   * Set if split reads in Porechop.
+   * Sets if split reads in Porechop.
    * @param ifNoSplit the Boolean value of if split reads in Porechop
    */
   public void setIfNoSplit(Boolean ifNoSplit) {
@@ -320,7 +320,7 @@ public class Pipeline {
   }
   
   /**
-   * Get if split the reads in Porechop.
+   * Gets if split the reads in Porechop.
    * @return the Boolean value of if split the reads in Porechop
    */
   public Boolean getIfNoSplit() {
@@ -328,7 +328,7 @@ public class Pipeline {
   }
   
   /**
-   * Set if .vcf file will be produced.
+   * Sets if .vcf file will be produced.
    * @param ifVcf The Boolean value of if .vcf file will be produced.
    */
   public void setIfVcf(Boolean ifVcf) {
@@ -336,7 +336,7 @@ public class Pipeline {
   }
   
   /**
-   * Get if a .vcf file will be produced.
+   * Gets if a .vcf file will be produced.
    * @return the Boolean value of if if a .vcf file will be produced
    */
   public Boolean getIfVcf() {
@@ -344,7 +344,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the polishing times.
+   * Gets the polishing times.
    * @return the String of polishing times
    */
   public String getPtimes() {
@@ -352,7 +352,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the polishing times.
+   * Sets the polishing times.
    * @param pTimes The polishing times.
    */
   public void setPtimes(String pTimes) {
@@ -360,7 +360,7 @@ public class Pipeline {
   }
   
   /**
-   * Set if basecalling will be used.
+   * Sets if basecalling will be used.
    * @param ifBasecalling the Boolean value of if basecalling will be used
    */
   public void setIfBasecalling(Boolean ifBasecalling) {
@@ -368,7 +368,7 @@ public class Pipeline {
   }
   
   /**
-   * Get if basecalling will be used.
+   * Gets if basecalling will be used.
    * @return the String of if basecalling will be used
    */
   public Boolean getIfBasecalling() {
@@ -376,7 +376,7 @@ public class Pipeline {
   }
   
   /**
-   * Set if reads filter will be used.
+   * Sets if reads filter will be used.
    * @param ifReadsFilter the Boolean value of if reads filter will be used
    */
   public void setIfReadsFilter(Boolean ifReadsFilter) {
@@ -384,7 +384,7 @@ public class Pipeline {
   }
   
   /**
-   * Get if reads filter will be used.
+   * Gets if reads filter will be used.
    * @return the Boolean value of if reads filter will be used
    */
   public Boolean getIfReadsFilter() {
@@ -392,7 +392,7 @@ public class Pipeline {
   }
   
   /**
-   * Set if assembly will be used.
+   * Sets if assembly will be used.
    * @param ifAssembly the Boolean value of if assembly will be used
    */
   public void setIfAssembly(Boolean ifAssembly) {
@@ -400,7 +400,7 @@ public class Pipeline {
   }
   
   /**
-   * Get if assembly will be used.
+   * Gets if assembly will be used.
    * @return the Boolean value of if assembly will be used
    */
   public Boolean getIfAssembly() {
@@ -408,7 +408,7 @@ public class Pipeline {
   }
   
   /**
-   * Set if polishing will be used.
+   * Sets if polishing will be used.
    * @param ifPolishing the Boolean value of if polishing will be used
    */
   public void setIfPolishing(Boolean ifPolishing) {
@@ -416,7 +416,7 @@ public class Pipeline {
   }
   
   /**
-   * Get if polishing will be used.
+   * Gets if polishing will be used.
    * @return the Boolean value of if polishing will be used
    */
   public Boolean getIfPolishing() {
@@ -424,7 +424,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the database of BUSCO.
+   * Gets the database of BUSCO.
    * @return the String of the BUSCO database
    */
   public String getBuscoData() {
@@ -432,7 +432,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the BUSCO database.
+   * Sets the BUSCO database.
    * @param buscoDatabase the String of busco database
    */
   public void setBuscoData(String buscoDatabase) {
@@ -440,7 +440,7 @@ public class Pipeline {
   }
   
   /**
-   * Set if BUSCO will be used.
+   * Sets if BUSCO will be used.
    * @param ifBusco the Boolean value of if BUSCO will be used
    */
   public void setIfBusco(Boolean ifBusco) {
@@ -448,7 +448,7 @@ public class Pipeline {
   }
   
   /**
-   * Get if BUSCO will be used.
+   * Gets if BUSCO will be used.
    * @return the Boolean value of if BUSCO will be used
    */
   public Boolean getIfBusco() {
@@ -456,7 +456,7 @@ public class Pipeline {
   }
   
   /**
-   * Set if Guppy fast mode will be used.
+   * Sets if Guppy fast mode will be used.
    * @param ifGuppyFast the Boolean value of if Guppy fast mode will be used
    */
   public void setIfGuppyFast(Boolean ifGuppyFast) {
@@ -464,7 +464,7 @@ public class Pipeline {
   }
   
   /**
-   * Get if Guppy fast mode will be used.
+   * Gets if Guppy fast mode will be used.
    * @return the Boolean value of if Guppy fast mode will be used
    */
   public Boolean getIfGuppyFast() {
@@ -472,7 +472,7 @@ public class Pipeline {
   }
   
   /**
-   * Get the Guppy configuration file.
+   * Gets the Guppy configuration file.
    * @return the String of the Guppy configuration file
    */
   public String getGuppyCfgFile() {
@@ -480,7 +480,7 @@ public class Pipeline {
   }
   
   /**
-   * Set the Guppy configuration file.
+   * Sets the Guppy configuration file.
    * @param guppyCfgFile The String of the Guppy configuration file.
    */
   public void setGuppyCfgFile(String guppyCfgFile) {

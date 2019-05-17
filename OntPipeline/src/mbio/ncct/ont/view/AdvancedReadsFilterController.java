@@ -125,8 +125,8 @@ public class AdvancedReadsFilterController {
    * Set if adapter trimming will be used in check box.
    * @param ifAdapterTrimming If adapter trimming is selected.
    */
-  public void setIfAdapterTrimming(boolean ifApaterTrimming) {
-    cAdapterTrimming.setSelected(ifApaterTrimming);
+  public void setIfAdapterTrimming(boolean ifAdapterTrimming) {
+    cAdapterTrimming.setSelected(ifAdapterTrimming);
   }
   
   /**
