@@ -106,7 +106,7 @@ public class PipelineUtil {
         }
       }
     } catch (Exception e) {
-      logger.error("Can not read result from guppy_basecallerr --print_workflows . " + e);
+      logger.error("Can not read result from guppy_basecaller --print_workflows . " + e);
     }
     return m;
   }
