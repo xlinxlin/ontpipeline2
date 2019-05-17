@@ -93,7 +93,7 @@ public class PipelineUtil {
     try {
       p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1,$2,$3,$4}' " });
     } catch (Exception e) {
-      logger.error("Can not run command: guppy_basecallerr --print_workflows . " + e);
+      logger.error("Can not run command: guppy_basecaller --print_workflows . " + e);
     }
     //BufferedReader stdError = null;
     try {

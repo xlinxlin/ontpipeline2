@@ -225,7 +225,7 @@ public class PipelineOverviewController {
 
   /**
    * Is called by the main application to give a reference back to itself.
-   * @param mainApp
+   * @param mainApp Main app.
    */
   public void setMainApp(MainApp mainApp) {
     this.mainApp = mainApp;

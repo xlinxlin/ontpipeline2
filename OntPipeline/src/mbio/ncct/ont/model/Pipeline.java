@@ -329,7 +329,7 @@ public class Pipeline {
   
   /**
    * Set if .vcf file will be produced.
-   * @param ifCvf the Boolean value of if .vcf file will be produced
+   * @param ifVcf The Boolean value of if .vcf file will be produced.
    */
   public void setIfVcf(Boolean ifVcf) {
     this.ifVcf.set(ifVcf);
@@ -353,7 +353,7 @@ public class Pipeline {
   
   /**
    * Set the polishing times.
-   * @param ifCvf the Boolean value of if .vcf file will be produced
+   * @param pTimes The polishing times.
    */
   public void setPtimes(String pTimes) {
     this.pTimes.set(pTimes);
@@ -481,7 +481,7 @@ public class Pipeline {
   
   /**
    * Set the Guppy configuration file.
-   * @param ifGuppyFast the String of the Guppy configuration file
+   * @param guppyCfgFile The String of the Guppy configuration file.
    */
   public void setGuppyCfgFile(String guppyCfgFile) {
     this.guppyCfgFile.set(guppyCfgFile);

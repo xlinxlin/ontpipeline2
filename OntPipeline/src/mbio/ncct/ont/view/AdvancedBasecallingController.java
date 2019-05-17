@@ -63,6 +63,7 @@ public class AdvancedBasecallingController {
   
   /**
    * Set the dialog stage for advanced basecalling setting.
+   * @dialogStage Dialog stage.
    */
   public void setDialogStage(Stage dialogStage) {
     this.dialogStage = dialogStage;

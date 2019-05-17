@@ -99,6 +99,7 @@ public class AdvancedReadsFilterController {
   
   /**
    * Set the read score to the text field.
+   * @param readScore Filter on a minimum average read quality score.
    */
   public void setReadScore(String readScore) {
     tfReadScore.setText(readScore);
@@ -106,6 +107,7 @@ public class AdvancedReadsFilterController {
   
   /**
    * Set the read length to the text field.
+   * @param readLength Filter on a minimum read length
    */
   public void setReadLength(String readLength) {
     tfReadLength.setText(readLength);
@@ -113,6 +115,7 @@ public class AdvancedReadsFilterController {
   
   /**
    * Set the head crop to the text field.
+   * @param headCrop Trim n nucleotides from start of read.
    */
   public void setHeadCrop(String headCrop) {
     tfHeadCrop.setText(headCrop);
@@ -120,6 +123,7 @@ public class AdvancedReadsFilterController {
   
   /**
    * Set if adapter trimming will be used in check box.
+   * @param ifAdapterTrimming If adapter trimming is selected.
    */
   public void setIfAdapterTrimming(boolean ifApaterTrimming) {
     cAdapterTrimming.setSelected(ifApaterTrimming);
@@ -127,6 +131,7 @@ public class AdvancedReadsFilterController {
   
   /**
    * Set if split the reads in check box.
+   * @param ifSplitting If skip splitting reads based on middle adapters.
    */
   public void setIfSplitting(boolean ifSplitting) {
     cSplitting.setSelected(ifSplitting);
