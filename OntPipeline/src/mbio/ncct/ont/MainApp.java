@@ -76,7 +76,11 @@ public class MainApp extends Application {
       logger.error("Can not load pipeline overview layout. " + e);
     }
   }
-
+  
+  
+  public static void main(String[] args) {
+    launch(args);
+  }
   
     /**
      * Returns the main stage.
@@ -88,10 +92,6 @@ public class MainApp extends Application {
   }
   */
   
-  /*
-  public static void main(String[] args) {
-    launch(args);
-  }
-  */
+  
   
 }

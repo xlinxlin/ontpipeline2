@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -35,5 +36,6 @@
       <Separator layoutX="13.0" layoutY="231.0" prefHeight="8.0" prefWidth="578.0" />
       <Separator layoutX="15.0" layoutY="280.0" prefHeight="8.0" prefWidth="578.0" />
       <Separator layoutX="17.0" layoutY="331.0" prefHeight="8.0" prefWidth="578.0" />
+      <Hyperlink layoutX="19.0" layoutY="350.0" onAction="#handleOpenDocument" text="https://ontpipeline2.readthedocs.io/" />
    </children>
 </AnchorPane>

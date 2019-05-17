@@ -413,7 +413,7 @@ public class PipelineOverviewController {
       pUtil.createUserLog(p, timeStamp);
       pUtil.createPbsFile(p, timeStamp);
       try {
-        //Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
+        Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
       } catch (Exception e) {
         logger.error("Can not run .pbs file. " + e);
       }
@@ -423,8 +423,7 @@ public class PipelineOverviewController {
       alert.showAndWait();
     }
   }
-    
-  
+     
   /**
    * Called when select workspace button is clicked.
    */
@@ -433,13 +432,14 @@ public class PipelineOverviewController {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File selectedDirectory = directoryChooser.showDialog(null);
     
-    File[] f = null;
+    //File[] f = null;
     
     if (selectedDirectory != null) {
       tfWorkspace.setText(selectedDirectory.toString());
-      f = selectedDirectory.listFiles();
-      List<String> lF = new ArrayList<>();
+      //f = selectedDirectory.listFiles();
+      //List<String> lF = new ArrayList<>();
       
+      /*
       for (int i = 0; i < f.length; i++) {
         lF.add(f.toString());
         if (f[i].isFile()) {
@@ -454,7 +454,21 @@ public class PipelineOverviewController {
       
       for (int i=0;i<lF.size();i++) {
         //lF.
-      }  
+      } 
+      */
     } 
+  }
+  
+  /**
+   * Open the document in a browser.
+   */
+  @FXML
+  private void handleOpenDocument() {
+    try {
+      new ProcessBuilder("x-www-browser", "https://ontpipeline2.readthedocs.io/").start();
+      //new ProcessBuilder("x-www-browser", "docs/build/html/index.html").start();
+    } catch (Exception e) {
+      logger.error("Can not open document. " + e);
+    }
   }
 }

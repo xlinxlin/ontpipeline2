@@ -61,7 +61,7 @@ public class Pipeline {
   private final BooleanProperty ifBusco = new SimpleBooleanProperty(false);
   
   /** Initializes and sets the database of BUSCO. */
-  private final StringProperty buscoDatabase = new SimpleStringProperty("Bacteria");
+  private final StringProperty buscoDatabase = new SimpleStringProperty("bacteria");
   
   /** Initializes and sets if basecalling will be used. */
   private final BooleanProperty ifBasecalling = new SimpleBooleanProperty(true);
