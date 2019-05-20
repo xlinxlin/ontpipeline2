@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import mbio.ncct.ont.model.Pipeline;
 
 /**
@@ -89,10 +91,10 @@ public class PipelineUtil {
   }
   
   /**
-   * Finds all the combinations of flowcell ID and kit number.
+   * Gets all the combinations of flowcell ID and kit number.
    * @return a map with all the combinations of flowcell ID and kit number.
    */
-  public Map<String, String> findCombinationFlowcellKit() {
+  private Map<String, String> getCombinationFlowcellKit() {
     String s = null;
     Map<String, String> m = new HashMap<String, String>();
     Process p = null;
@@ -137,7 +139,7 @@ public class PipelineUtil {
       Map<String, String> combinationFlowcellKit = null;
       String cfg = null;
       try {
-        combinationFlowcellKit = findCombinationFlowcellKit();
+        combinationFlowcellKit = getCombinationFlowcellKit();
         cfg = combinationFlowcellKit.get(p.getFlowcellId().concat(p.getKitNumber())).toString();
       } catch (Exception e) {
         logger.error("Can not get the combinations of flowcell ID and kit number. " + e);
@@ -252,5 +254,18 @@ public class PipelineUtil {
     } catch (Exception e) {
       logger.error("Can not create user log file. " +  e);
     }
+  }
+  
+  /**
+   * Creates an alert dialog.
+   * @param alertType the alert type.
+   * @param alertTitle the dialog title.
+   * @param alertContent the dialog content.
+   */
+  public void createAlertDialog(AlertType alertType, String alertTitle, String alertContent) {
+    Alert alert = new Alert(alertType);
+    alert.setTitle(alertTitle);
+    alert.setContentText(alertContent);
+    alert.showAndWait();
   }
 }

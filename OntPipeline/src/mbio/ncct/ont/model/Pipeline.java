@@ -97,7 +97,7 @@ public class Pipeline {
   
   /**
    * Sets the workspace.
-   * @param workspace the String of workspace
+   * @param workspace the String of workspace.
    */
   public void setWorkspace(String workspace) {
     this.workspace.set(workspace);
@@ -105,7 +105,7 @@ public class Pipeline {
   
   /**
    * Gets the specified barcode(s).
-   * @return the String of the specified barcode(s)
+   * @return the String of the specified barcode(s).
    */
   public String getSelectedBarcode() {
     return selectedBarcode.get();
@@ -113,7 +113,7 @@ public class Pipeline {
   
   /**
    * Sets the specified barcode(s).
-   * @param selectedBarcode the String of the specified barcode(s)
+   * @param selectedBarcode the String of the specified barcode(s).
    */
   public void setSelectedBarcode(String selectedBarcode) {
     this.selectedBarcode.set(selectedBarcode);
@@ -121,7 +121,7 @@ public class Pipeline {
   
   /**
    * Gets the threads.
-   * @return the String of threads
+   * @return the String of threads.
    */
   public String getThreads() {
     return threads.get();
@@ -129,7 +129,7 @@ public class Pipeline {
   
   /**
    * Sets the threads.
-   * @param threads the String of the threads
+   * @param threads the String of the threads.
    */
   public void setThreads(String threads) {
     this.threads.set(threads);
@@ -137,7 +137,7 @@ public class Pipeline {
   
   /**
    * Gets the flowcell ID.
-   * @return the String of flowcell iD
+   * @return the String of flowcell ID.
    */
   public String getFlowcellId() {
     return flowcellId.get();
@@ -145,7 +145,7 @@ public class Pipeline {
   
   /**
    * Sets the flowcell ID.
-   * @param flowcellId the String of the flowcell ID
+   * @param flowcellId the String of the flowcell ID.
    */
   public void setFlowcellId(String flowcellId) {
     this.flowcellId.set(flowcellId);
@@ -153,7 +153,7 @@ public class Pipeline {
   
   /**
    * Gets the kit number.
-   * @return the String of kit number
+   * @return the String of kit number.
    */
   public String getKitNumber() {
     return kitNumber.get();
@@ -161,7 +161,7 @@ public class Pipeline {
   
   /**
    * Sets the kit number.
-   * @param kitNumber the String of the kit number
+   * @param kitNumber the String of the kit number.
    */
   public void setKitNumber(String kitNumber) {
     this.kitNumber.set(kitNumber);
@@ -169,7 +169,7 @@ public class Pipeline {
   
   /**
    * Gets the barcode kit(s).
-   * @return the String of the barcode kit(s)
+   * @return the String of the barcode kit(s).
    */
   public String getBarcodeKit() {
     return barcodeKit.get();
@@ -177,7 +177,7 @@ public class Pipeline {
   
   /**
    * Sets the barcode kit(s).
-   * @param barcodeKit the String of the barcode kit(s)
+   * @param barcodeKit the String of the barcode kit(s).
    */
   public void setBarcodeKit(String barcodeKit) {
     this.barcodeKit.set(barcodeKit);
@@ -185,7 +185,7 @@ public class Pipeline {
   
   /**
    * Gets the read quality score.
-   * @return the String of read score
+   * @return the String of read quality score.
    */
   public String getReadScore() {
     return readScore.get();
@@ -193,7 +193,7 @@ public class Pipeline {
   
   /**
    * Sets the read quality score.
-   * @param readScore the String of the read score
+   * @param readScore the String of the read quality score.
    */
   public void setReadScore(String readScore) {
     this.readScore.set(readScore);
@@ -201,7 +201,7 @@ public class Pipeline {
   
   /**
    * Gets the read length.
-   * @return the String of the read length
+   * @return the String of the read length.
    */
   public String getReadLength() {
     return readLength.get();
@@ -209,7 +209,7 @@ public class Pipeline {
   
   /**
    * Sets the read length.
-   * @param readLength the String of the read length
+   * @param readLength the String of the read length.
    */
   public void setReadLength(String readLength) {
     this.readLength.set(readLength);
@@ -217,7 +217,7 @@ public class Pipeline {
   
   /**
    * Gets the head crop.
-   * @return the String of the head crop
+   * @return the String of the head crop.
    */
   public String getHeadCrop() {
     return headCrop.get();
@@ -225,7 +225,7 @@ public class Pipeline {
   
   /**
    * Sets the head crop.
-   * @param headCrop the String of the head crop
+   * @param headCrop the String of the head crop.
    */
   public void setHeadCrop(String headCrop) {
     this.headCrop.set(headCrop);
@@ -233,7 +233,7 @@ public class Pipeline {
   
   /**
    * Gets the assembly mode.
-   * @return the String of the assembly mode
+   * @return the String of the assembly mode.
    */
   public String getMode() {
     return mode.get();
@@ -241,7 +241,7 @@ public class Pipeline {
   
   /**
    * Sets the assembly mode.
-   * @param mode the String of the assembly mode
+   * @param mode the String of the assembly mode.
    */
   public void setMode(String mode) {
     this.mode.set(mode);
@@ -249,7 +249,7 @@ public class Pipeline {
   
   /**
    * Gets the Guppy mode.
-   * @return the String of the Guppy mode
+   * @return the String of the Guppy mode.
    */
   public String getGuppyMode() {
     return guppyMode.get();
@@ -257,7 +257,7 @@ public class Pipeline {
   
   /**
    * Sets the Guppy mode.
-   * @param guppyMode the String of the Guppy mode
+   * @param guppyMode the String of the Guppy mode.
    */
   public void setGuppyMode(String guppyMode) {
     this.guppyMode.set(guppyMode);
@@ -265,7 +265,7 @@ public class Pipeline {
   
   /**
    * Gets the nanopore device.
-   * @return the String of the nanopore device
+   * @return the String of the nanopore device.
    */
   public String getDevice() {
     return device.get();
@@ -273,7 +273,7 @@ public class Pipeline {
   
   /**
    * Sets the nanopore device.
-   * @param device the String of the nanopore device
+   * @param device the String of the nanopore device.
    */
   public void setDevice(String device) {
     this.device.set(device);
@@ -281,7 +281,7 @@ public class Pipeline {
   
   /**
    * Gets the assembly method.
-   * @return the String of the assembly method
+   * @return the String of the assembly method.
    */
   public String getMethod() {
     return method.get();
@@ -289,7 +289,7 @@ public class Pipeline {
   
   /**
    * Sets the assembly method.
-   * @param method the String of the assembly method
+   * @param method the String of the assembly method.
    */
   public void setMethod(String method) {
     this.method.set(method);
@@ -297,7 +297,7 @@ public class Pipeline {
   
   /**
    * Sets if adapter trimming will be used.
-   * @param ifAdapterTrimming the Boolean value of if adapter trimming will be used
+   * @param ifAdapterTrimming the Boolean value of if adapter trimming will be used.
    */
   public void setIfAdapterTrimming(Boolean ifAdapterTrimming) {
     this.ifAdapterTrimming.set(ifAdapterTrimming);
@@ -305,7 +305,7 @@ public class Pipeline {
   
   /**
    * Gets if adapter trimming is used.
-   * @return the Boolean value of if adapter trimming is used
+   * @return the Boolean value of if adapter trimming is used.
    */
   public Boolean getIfAdapterTrimming() {
     return ifAdapterTrimming.get();
@@ -313,7 +313,7 @@ public class Pipeline {
   
   /**
    * Sets if split reads in Porechop.
-   * @param ifNoSplit the Boolean value of if split reads in Porechop
+   * @param ifNoSplit the Boolean value of if split reads in Porechop.
    */
   public void setIfNoSplit(Boolean ifNoSplit) {
     this.ifNoSplit.set(ifNoSplit);
@@ -321,7 +321,7 @@ public class Pipeline {
   
   /**
    * Gets if split the reads in Porechop.
-   * @return the Boolean value of if split the reads in Porechop
+   * @return the Boolean value of if split the reads in Porechop.
    */
   public Boolean getIfNoSplit() {
     return ifNoSplit.get();
@@ -337,7 +337,7 @@ public class Pipeline {
   
   /**
    * Gets if a .vcf file will be produced.
-   * @return the Boolean value of if if a .vcf file will be produced
+   * @return the Boolean value of if if a .vcf file will be produced.
    */
   public Boolean getIfVcf() {
     return ifVcf.get();
@@ -345,7 +345,7 @@ public class Pipeline {
   
   /**
    * Gets the polishing times.
-   * @return the String of polishing times
+   * @return the String of polishing times.
    */
   public String getPtimes() {
     return pTimes.get();
@@ -361,7 +361,7 @@ public class Pipeline {
   
   /**
    * Sets if basecalling will be used.
-   * @param ifBasecalling the Boolean value of if basecalling will be used
+   * @param ifBasecalling the Boolean value of if basecalling will be used.
    */
   public void setIfBasecalling(Boolean ifBasecalling) {
     this.ifBasecalling.set(ifBasecalling);
@@ -369,7 +369,7 @@ public class Pipeline {
   
   /**
    * Gets if basecalling will be used.
-   * @return the String of if basecalling will be used
+   * @return the String of if basecalling will be used.
    */
   public Boolean getIfBasecalling() {
     return ifBasecalling.get();
@@ -377,7 +377,7 @@ public class Pipeline {
   
   /**
    * Sets if reads filter will be used.
-   * @param ifReadsFilter the Boolean value of if reads filter will be used
+   * @param ifReadsFilter the Boolean value of if reads filter will be used.
    */
   public void setIfReadsFilter(Boolean ifReadsFilter) {
     this.ifReadsFilter.set(ifReadsFilter);
@@ -385,7 +385,7 @@ public class Pipeline {
   
   /**
    * Gets if reads filter will be used.
-   * @return the Boolean value of if reads filter will be used
+   * @return the Boolean value of if reads filter will be used.
    */
   public Boolean getIfReadsFilter() {
     return ifReadsFilter.get();
@@ -393,7 +393,7 @@ public class Pipeline {
   
   /**
    * Sets if assembly will be used.
-   * @param ifAssembly the Boolean value of if assembly will be used
+   * @param ifAssembly the Boolean value of if assembly will be used.
    */
   public void setIfAssembly(Boolean ifAssembly) {
     this.ifAssembly.set(ifAssembly);
@@ -401,7 +401,7 @@ public class Pipeline {
   
   /**
    * Gets if assembly will be used.
-   * @return the Boolean value of if assembly will be used
+   * @return the Boolean value of if assembly will be used.
    */
   public Boolean getIfAssembly() {
     return ifAssembly.get();
@@ -409,7 +409,7 @@ public class Pipeline {
   
   /**
    * Sets if polishing will be used.
-   * @param ifPolishing the Boolean value of if polishing will be used
+   * @param ifPolishing the Boolean value of if polishing will be used.
    */
   public void setIfPolishing(Boolean ifPolishing) {
     this.ifPolishing.set(ifPolishing);
@@ -417,7 +417,7 @@ public class Pipeline {
   
   /**
    * Gets if polishing will be used.
-   * @return the Boolean value of if polishing will be used
+   * @return the Boolean value of if polishing will be used.
    */
   public Boolean getIfPolishing() {
     return ifPolishing.get();
@@ -425,7 +425,7 @@ public class Pipeline {
   
   /**
    * Gets the database of BUSCO.
-   * @return the String of the BUSCO database
+   * @return the String of the BUSCO database.
    */
   public String getBuscoData() {
     return buscoDatabase.get();
@@ -433,7 +433,7 @@ public class Pipeline {
   
   /**
    * Sets the BUSCO database.
-   * @param buscoDatabase the String of busco database
+   * @param buscoDatabase the String of busco database.
    */
   public void setBuscoData(String buscoDatabase) {
     this.buscoDatabase.set(buscoDatabase);
@@ -441,7 +441,7 @@ public class Pipeline {
   
   /**
    * Sets if BUSCO will be used.
-   * @param ifBusco the Boolean value of if BUSCO will be used
+   * @param ifBusco the Boolean value of if BUSCO will be used.
    */
   public void setIfBusco(Boolean ifBusco) {
     this.ifBusco.set(ifBusco);
@@ -449,7 +449,7 @@ public class Pipeline {
   
   /**
    * Gets if BUSCO will be used.
-   * @return the Boolean value of if BUSCO will be used
+   * @return the Boolean value of if BUSCO will be used.
    */
   public Boolean getIfBusco() {
     return ifBusco.get();
@@ -457,7 +457,7 @@ public class Pipeline {
   
   /**
    * Sets if Guppy fast mode will be used.
-   * @param ifGuppyFast the Boolean value of if Guppy fast mode will be used
+   * @param ifGuppyFast the Boolean value of if Guppy fast mode will be used.
    */
   public void setIfGuppyFast(Boolean ifGuppyFast) {
     this.ifGuppyFast.set(ifGuppyFast);
@@ -465,7 +465,7 @@ public class Pipeline {
   
   /**
    * Gets if Guppy fast mode will be used.
-   * @return the Boolean value of if Guppy fast mode will be used
+   * @return the Boolean value of if Guppy fast mode will be used.
    */
   public Boolean getIfGuppyFast() {
     return ifGuppyFast.get();
@@ -473,7 +473,7 @@ public class Pipeline {
   
   /**
    * Gets the Guppy configuration file.
-   * @return the String of the Guppy configuration file
+   * @return the String of the Guppy configuration file.
    */
   public String getGuppyCfgFile() {
     return guppyCfgFile.get();

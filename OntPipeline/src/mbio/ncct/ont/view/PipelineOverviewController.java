@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -399,15 +398,11 @@ public class PipelineOverviewController {
   @FXML
   private void handleStartPipeline()  {
     if (p.getWorkspace().isEmpty()) {
-      Alert alertEmptyDir = new Alert(AlertType.ERROR);
-      alertEmptyDir.setTitle("Empty workspace.");
-      alertEmptyDir.setContentText("Workspace can not be empty.");
-      alertEmptyDir.showAndWait();
+      pUtil.createAlertDialog(AlertType.ERROR, "Empty workspace.", "Workspace can not be empty.");
     } else if (!p.getThreads().matches(("\\d+"))){
-      Alert alertWrongThreads = new Alert(AlertType.ERROR);
-      alertWrongThreads.setTitle("Wrong threads.");
-      alertWrongThreads.setContentText("Threads should be an integer.");
-      alertWrongThreads.showAndWait();
+      pUtil.createAlertDialog(AlertType.ERROR, "Wrong threads.", "Threads should be an integer.");
+    } else if (!p.getIfBasecalling() && !p.getIfReadsFilter() && !p.getIfAssembly() && !p.getIfPolishing()) {
+      pUtil.createAlertDialog(AlertType.ERROR, "Empty module.", "Please select at least one module.");
     } else {
       String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
       pUtil.createUserLog(p, timeStamp);
@@ -417,10 +412,7 @@ public class PipelineOverviewController {
       } catch (Exception e) {
         logger.error("Can not run .pbs file. " + e);
       }
-      Alert alert = new Alert(AlertType.INFORMATION);
-      alert.setTitle("Submitted");
-      alert.setContentText("Your job has been submitted successfully.");
-      alert.showAndWait();
+      pUtil.createAlertDialog(AlertType.INFORMATION, "Submitted.", "Your job has been submitted successfully.");
     }
   }
      
