@@ -86,8 +86,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#porechop-installation">Porechop Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nanostat-installation">NanoStat Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nanofilt-installation">NanoFilt Installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#canu-installation">Canu Installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#flye-installation">Flye Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#unicycler-installation">Unicycler Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#busco-installation">BUSCO Installation</a></li>
 </ul>
@@ -175,6 +173,7 @@
 </div>
 <div class="section" id="guppy3-0-3-installation">
 <h3>Guppy3.0.3 Installation<a class="headerlink" href="#guppy3-0-3-installation" title="Permalink to this headline">¶</a></h3>
+<p>Guppy is a bascalling tool.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_3.0.3_linux64.tar.gz
 tar -xf ont-guppy-cpu_3.0.3_linux64.tar.gz
 sudo mv ont-guppy-cpu_3.0.3_linux64 /opt/ont-guppy-cpu_3.0.3
@@ -183,6 +182,7 @@ sudo mv ont-guppy-cpu_3.0.3_linux64 /opt/ont-guppy-cpu_3.0.3
 </div>
 <div class="section" id="porechop-installation">
 <h3>Porechop Installation<a class="headerlink" href="#porechop-installation" title="Permalink to this headline">¶</a></h3>
+<p>Porechop is a adapter trimming tool.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n porechop
 <span class="nb">source</span> /opt/anaconda3/bin/activate porechop
 /opt/anaconda3/bin/conda install -c bioconda porechop
@@ -192,6 +192,7 @@ conda deactivate
 </div>
 <div class="section" id="nanostat-installation">
 <h3>NanoStat Installation<a class="headerlink" href="#nanostat-installation" title="Permalink to this headline">¶</a></h3>
+<p>NanoStat is a quality control tool.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n nanostat
 <span class="nb">source</span> /opt/anaconda3/bin/activate nanostat
 /opt/anaconda3/bin/conda install -c bioconda nanostat
@@ -201,6 +202,7 @@ conda deactivate
 </div>
 <div class="section" id="nanofilt-installation">
 <h3>NanoFilt Installation<a class="headerlink" href="#nanofilt-installation" title="Permalink to this headline">¶</a></h3>
+<p>NanoStat is a quality control tool.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n nanofilt
 <span class="nb">source</span> /opt/anaconda3/bin/activate nanofilt
 /opt/anaconda3/bin/conda install -c bioconda nanofilt
@@ -208,26 +210,9 @@ conda deactivate
 </pre></div>
 </div>
 </div>
-<div class="section" id="canu-installation">
-<h3>Canu Installation<a class="headerlink" href="#canu-installation" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n canu
-<span class="nb">source</span> /opt/anaconda3/bin/activate canu
-/opt/anaconda3/bin/conda install -c bioconda canu
-conda deactivate
-</pre></div>
-</div>
-</div>
-<div class="section" id="flye-installation">
-<h3>Flye Installation<a class="headerlink" href="#flye-installation" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n flye
-<span class="nb">source</span> /opt/anaconda3/bin/activate flye
-/opt/anaconda3/bin/conda install -c bioconda flye
-conda deactivate
-</pre></div>
-</div>
-</div>
 <div class="section" id="unicycler-installation">
 <h3>Unicycler Installation<a class="headerlink" href="#unicycler-installation" title="Permalink to this headline">¶</a></h3>
+<p>Unicycler is an assembly tool.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n unicycler
 <span class="nb">source</span> /opt/anaconda3/bin/activate unicylcer
 /opt/anaconda3/bin/conda install -c bioconda unicycler
@@ -237,6 +222,7 @@ conda deactivate
 </div>
 <div class="section" id="busco-installation">
 <h3>BUSCO Installation<a class="headerlink" href="#busco-installation" title="Permalink to this headline">¶</a></h3>
+<p>BUSCO is a</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n busco
 <span class="nb">source</span> /opt/anaconda3/bin/activate busco
 /opt/anaconda3/bin/conda install -c bioconda busco

@@ -89,7 +89,6 @@ public class AdvancedPolishingController {
    */
   public void setPtimes(String pTimes) {
     ArrayList<String> alTimes = new ArrayList<String>();
-    alTimes.add("0");
     alTimes.add("1");
     alTimes.add("2");
     alTimes.add("3");

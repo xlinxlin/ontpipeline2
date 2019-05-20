@@ -8,6 +8,8 @@ Installing on Linux https://docs.anaconda.com/anaconda/install/linux/
 
 Guppy3.0.3 Installation
 ^^^^^^^^^^^^^^^^^^^^^^^
+Guppy is a bascalling tool.
+
 .. code-block:: bash
 
   wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_3.0.3_linux64.tar.gz
@@ -16,6 +18,9 @@ Guppy3.0.3 Installation
 
 Porechop Installation
 ^^^^^^^^^^^^^^^^^^^^^
+
+Porechop is a adapter trimming tool.
+
 .. code-block:: bash
    
    /opt/anaconda3/bin/conda create -n porechop
@@ -25,6 +30,9 @@ Porechop Installation
 
 NanoStat Installation
 ^^^^^^^^^^^^^^^^^^^^^
+
+NanoStat is a quality control tool.
+
 .. code-block:: bash
 
    /opt/anaconda3/bin/conda create -n nanostat
@@ -34,6 +42,9 @@ NanoStat Installation
 
 NanoFilt Installation
 ^^^^^^^^^^^^^^^^^^^^^
+
+NanoStat is a quality control tool.
+
 .. code-block:: bash
 
    /opt/anaconda3/bin/conda create -n nanofilt
@@ -41,26 +52,12 @@ NanoFilt Installation
    /opt/anaconda3/bin/conda install -c bioconda nanofilt
    conda deactivate
 
-Canu Installation
-^^^^^^^^^^^^^^^^^
-.. code-block:: bash
-
-   /opt/anaconda3/bin/conda create -n canu
-   source /opt/anaconda3/bin/activate canu
-   /opt/anaconda3/bin/conda install -c bioconda canu
-   conda deactivate
-
-Flye Installation
-^^^^^^^^^^^^^^^^^
-.. code-block:: bash
-
-   /opt/anaconda3/bin/conda create -n flye
-   source /opt/anaconda3/bin/activate flye
-   /opt/anaconda3/bin/conda install -c bioconda flye
-   conda deactivate
 
 Unicycler Installation
 ^^^^^^^^^^^^^^^^^^^^^^
+
+Unicycler is an assembly tool.
+
 .. code-block:: bash
    
    /opt/anaconda3/bin/conda create -n unicycler
@@ -70,6 +67,9 @@ Unicycler Installation
 
 BUSCO Installation
 ^^^^^^^^^^^^^^^^^^
+
+BUSCO is a 
+
 .. code-block:: bash
    
    /opt/anaconda3/bin/conda create -n busco
