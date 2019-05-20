@@ -64,7 +64,7 @@ Unicycler is an assembly pipeline for bacterial genomes.
    /opt/anaconda3/bin/conda create -n unicycler
    source /opt/anaconda3/bin/activate unicylcer
    /opt/anaconda3/bin/conda install -c bioconda unicycler
-   /opt/anaconda3/bin/conda install -c bioconda bcftools // for .vcf file
+   /opt/anaconda3/bin/conda install -c bioconda bcftools # for .vcf file
    conda deactivate
 
 BUSCO Installation
