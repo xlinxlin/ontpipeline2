@@ -31,15 +31,15 @@ public class AdvancedAssemblyController {
   }
   
   /**
-   * Set the advanced assembly setting dialog stage.
-   * @param dialogStage advanced assembly setting dialog stage
+   * Sets the advanced assembly setting dialog stage.
+   * @param dialogStage advanced assembly setting dialog stage.
    */
   public void setDialogStage(Stage dialogStage) {
     this.dialogStage = dialogStage;
   }
   
   /**
-   * If OK button is clicked, set isOK to 1 and close the dialog.
+   * If OK button is clicked, sets isOK to 1 and closes the dialog.
    */
   @FXML
   private void OK() {
@@ -48,7 +48,7 @@ public class AdvancedAssemblyController {
   }
   
   /**
-   * If Cancel button is clicked, set isOK to 0 and close the dialog.
+   * If Cancel button is clicked, sets isOK to 0 and closes the dialog.
    */
   @FXML
   private void cancel() {
@@ -56,8 +56,8 @@ public class AdvancedAssemblyController {
   }
   
   /**
-   * Set the check box if a .vcf file will be produced.
-   * @param ifVcf the Boolean value of if a .vcf file will be produced
+   * Sets the check box if a .vcf file will be produced.
+   * @param ifVcf the Boolean value of if a .vcf file will be produced.
    */
   public void setIfVcf(boolean ifVcf) {
     cVcf.setSelected(ifVcf);

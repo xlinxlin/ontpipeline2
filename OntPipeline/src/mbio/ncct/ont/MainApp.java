@@ -19,7 +19,7 @@ import mbio.ncct.ont.view.PipelineOverviewController;
 public class MainApp extends Application {
   
   /** Initializes log4j2. */
-  static Logger logger = LogManager.getLogger(MainApp.class);
+  private static Logger logger = LogManager.getLogger(MainApp.class);
   
   /** Initializes primary stage. */
   public Stage primaryStage;

@@ -25,19 +25,25 @@ import mbio.ncct.ont.model.Pipeline;
  */
 public class PipelineUtil {
   
-  /** Initialize log4j2. */
-  static Logger logger = LogManager.getLogger(PipelineUtil.class);
+  /** Initializes log4j2. */
+  private static Logger logger = LogManager.getLogger(PipelineUtil.class);
+  
+  /** Sets Guppy location. */
+  private static String guppyUrl = "/opt/ont-guppy-cpu_3.0.3";
+  
+  /** Sets pbs file location. */
+  private static String pbsUrl = "/opt/ontpipeline/pbs/pipelineWithLoop.pbs";
   
   /**
-   * Get all flowcell IDs.
-   * @return a String Array with all flowcell IDs 
+   * Gets all flowcell IDs.
+   * @return a String Array with all flowcell IDs. 
    */
   public ArrayList<String> getFlowcellIds() {
     String s = null;
     ArrayList<String> arFlowcellIds = new ArrayList<String>();
     Process p = null;
     try {
-      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
+      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", guppyUrl + "/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1}' | sort | uniq" });
     } catch (Exception e) {
       logger.error("Can not get flowcell IDs. " + e);
     }
@@ -56,15 +62,15 @@ public class PipelineUtil {
   }
   
   /**
-   * Get all kit numbers.
-   * @return a String Array with all kit numbers 
+   * Gets all kit numbers.
+   * @return a String Array with all kit numbers.
    */
   public ArrayList<String> getKitNumbers() {
     String s = null;
     ArrayList<String> arKitNumbers = new ArrayList<String>();
     Process p = null;
     try {
-      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
+      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", guppyUrl + "/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $2}' | sort | uniq" });
     } catch (Exception e) {
       logger.error("Can not get kit numbers. " + e);
     }
@@ -83,15 +89,15 @@ public class PipelineUtil {
   }
   
   /**
-   * Find all the combinations of flowcell ID and kit number.
-   * @return Return a map with all the combinations of flowcell ID and kit number.
+   * Finds all the combinations of flowcell ID and kit number.
+   * @return a map with all the combinations of flowcell ID and kit number.
    */
   public Map<String, String> findCombinationFlowcellKit() {
     String s = null;
     Map<String, String> m = new HashMap<String, String>();
     Process p = null;
     try {
-      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1,$2,$3,$4}' " });
+      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", guppyUrl + "/bin/guppy_basecaller --print_workflows | awk 'NR>2 {print $1,$2,$3,$4}' " });
     } catch (Exception e) {
       logger.error("Can not run command: guppy_basecaller --print_workflows . " + e);
     }
@@ -120,7 +126,7 @@ public class PipelineUtil {
     if (!p.getSelectedBarcode().isEmpty()) {
       String[] strArr = p.getSelectedBarcode().split(",");
       String formattedSelectedBarcode = "";
-      for(int i=0;i<strArr.length;i++) {
+      for(int i=0; i<strArr.length; i++) {
         String formatted = String.format("%02d", Integer.valueOf(strArr[i])) + ",";
         formattedSelectedBarcode = formattedSelectedBarcode + formatted;
       }
@@ -139,10 +145,10 @@ public class PipelineUtil {
       int cfg_bps = cfg.indexOf("bps");
       String cfgFile = ( cfg.substring(0, cfg_bps + 3) + "_fast" ) + ( p.getDevice().equals("PromethION") ? "_prom" : "" ) + ".cfg";
       p.setIfGuppyFast(true);
-      p.setGuppyCfgFile("/opt/ont-guppy-cpu_3.0.3/data/" + cfgFile);
+      p.setGuppyCfgFile(guppyUrl + "/data/" + cfgFile);
     }
     
-    Path path = Paths.get("/opt/ontpipeline/pbs/pipelineWithLoop.pbs");
+    Path path = Paths.get(pbsUrl);
     Path newPath = Paths.get(p.getWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs");
     Charset charset = StandardCharsets.UTF_8;
 
@@ -183,9 +189,9 @@ public class PipelineUtil {
   }
   
   /**
-   * Create an user log file with all the input parameters.
-   * @param p A Pipeline object.
-   * @param timeStamp The current date and time yyyyMMdd_HHmmss.
+   * Creates an user log file with all the input parameters.
+   * @param p a Pipeline object.
+   * @param timeStamp the current date and time: yyyyMMdd_HHmmss.
    */
   public void createUserLog(Pipeline p, String timeStamp) {
     String path = p.getWorkspace() + "/userlog_" + timeStamp + ".log";
@@ -218,7 +224,9 @@ public class PipelineUtil {
         writer.append("Read length: " + p.getReadLength() + " \n");
         writer.append("Head crop: " + p.getHeadCrop() + " \n");
         writer.append("If adapter trimming: " + p.getIfAdapterTrimming() + " \n");
-        writer.append("If split reads: " + ( p.getIfAdapterTrimming() ? p.getIfNoSplit() : "") + " \n\n");
+        if (p.getIfAdapterTrimming()) {
+          writer.append("If split reads: " + p.getIfNoSplit() + "\n"); 
+        }
       } else {
         writer.append("====No Reads Filter====\n\n");
       }
@@ -234,7 +242,9 @@ public class PipelineUtil {
         writer.append("====Polishing Settings====\n");
         writer.append("Polishing times: " + p.getPtimes() + " \n");
         writer.append("BUSCO: " + p.getIfBusco() + " \n");
-        writer.append("BUSCO database: " + ( p.getIfBusco() ? p.getBuscoData() : "" ) + " \n");
+        if (p.getIfBusco()) {
+          writer.append("BUSCO database: " + p.getBuscoData() + " \n"); 
+        }
       } else {
         writer.append("====No Polishing====\n");
       }

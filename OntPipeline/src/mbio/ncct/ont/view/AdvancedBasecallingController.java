@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 public class AdvancedBasecallingController {
   
   /** Initializes log4j2. */
-  static Logger logger = LogManager.getLogger(AdvancedBasecallingController.class);
+  private static Logger logger = LogManager.getLogger(AdvancedBasecallingController.class);
   
   /** The check combo box for barcode kits . */
   @FXML
@@ -62,15 +62,15 @@ public class AdvancedBasecallingController {
   }
   
   /**
-   * Set the dialog stage for advanced basecalling setting.
-   * @param dialogStage Dialog stage.
+   * Sets the dialog stage for advanced basecalling setting.
+   * @param dialogStage dialog stage.
    */
   public void setDialogStage(Stage dialogStage) {
     this.dialogStage = dialogStage;
   }
 
   /**
-   * Get all barcode kits.
+   * Gets all barcode kits.
    * @return an Array List with all barcode kits.
    */
   private ArrayList<String> getBarcodeKits() {

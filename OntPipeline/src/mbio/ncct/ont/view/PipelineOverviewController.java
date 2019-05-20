@@ -33,16 +33,16 @@ import mbio.ncct.ont.util.PipelineUtil;
  */
 public class PipelineOverviewController {
   
-  /** Initialize log4j2. */
-  static Logger logger = LogManager.getLogger(PipelineOverviewController.class);
+  /** Initializes log4j2. */
+  private static Logger logger = LogManager.getLogger(PipelineOverviewController.class);
   
-  /** Initialize MainApp. */
+  /** Initializes MainApp. */
   private MainApp mainApp;
 
-  /** Initialize PipelineUtil. */
+  /** Initializes PipelineUtil. */
   private PipelineUtil pUtil = new PipelineUtil();
   
-  /** Initialize Pipeline. */
+  /** Initializes Pipeline. */
   private Pipeline p = new Pipeline();
   
   /** Initializes check box for basecalling. */
@@ -109,7 +109,8 @@ public class PipelineOverviewController {
    * Initializes the controller of pipeline overview.
    */
   @FXML
-  private void initialize()  {   
+  private void initialize()  { 
+    
     ObservableList<String> olFlowcellIds = null;
     olFlowcellIds = FXCollections.observableArrayList(pUtil.getFlowcellIds());
     cbFlowcellId.setItems(olFlowcellIds);
@@ -459,7 +460,7 @@ public class PipelineOverviewController {
   }
   
   /**
-   * Open the document in a browser.
+   * Opens the document in a browser.
    */
   @FXML
   private void handleOpenDocument() {

@@ -30,7 +30,7 @@ public class Pipeline {
   /** Initializes and sets the barcode kit(s). */
   private final StringProperty barcodeKit = new SimpleStringProperty("");
   
-  /** Initializes and sets the read score for filter. */
+  /** Initializes and sets the read quality score for filter. */
   private final StringProperty readScore = new SimpleStringProperty("9");
   
   /** Initializes and sets the read length for filter. */
@@ -184,7 +184,7 @@ public class Pipeline {
   }
   
   /**
-   * Gets the read score.
+   * Gets the read quality score.
    * @return the String of read score
    */
   public String getReadScore() {
@@ -192,7 +192,7 @@ public class Pipeline {
   }
   
   /**
-   * Sets the read score.
+   * Sets the read quality score.
    * @param readScore the String of the read score
    */
   public void setReadScore(String readScore) {
