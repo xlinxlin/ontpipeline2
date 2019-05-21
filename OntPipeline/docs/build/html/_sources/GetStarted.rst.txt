@@ -6,18 +6,19 @@ Anaconda Installation
 ^^^^^^^^^^^^^^^^^^^^^
 Installing on Linux https://docs.anaconda.com/anaconda/install/linux/
 
-JDK8 Installation
-^^^^^^^^^^^^^^^^^
-1. Download source pakage from Oracle: https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html 
+JDK8 Installation [9]_
+^^^^^^^^^^^^^^^^^^^^^^
+1. Download source pakage from Oracle. https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html 
 
-2. Extract JDK8 files to the target folder 
+
+2. Extract JDK8 files to the target folder.
 
 .. code-block:: bash
 
   sudo mkdir /usr/lib/jvm
   sudo tar -zxvf jdk-8u211-linux-x64.tar.gz -C /usr/lib/jvm
   
-3. Set environment variables for JDK8
+3. Set environment variables for JDK8.
 
 .. code-block:: bash
 
@@ -29,7 +30,7 @@ JDK8 Installation
   export PATH=${JAVA_HOME}/bin:$PATH
   source ~/.bashrc
 
-4. Set JDK8 to jdk-1.8.0_211 
+4. Set JDK8 to jdk-1.8.0_211.
 
 .. code-block:: bash
  
@@ -145,3 +146,4 @@ Seqtk is a fast and lightweight tool for processing sequences in the FASTA or FA
 .. [6] BUSCO v3 https://busco.ezlab.org
 .. [7] BWA https://github.com/lh3/bwa
 .. [8] Seqtk https://github.com/lh3/seqtk
+.. [9] Ubuntu 安装 JDK 7 / JDK8 的两种方式 https://www.cnblogs.com/a2211009/p/4265225.html
