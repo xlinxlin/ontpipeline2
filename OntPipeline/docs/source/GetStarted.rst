@@ -40,6 +40,14 @@ JDK8 Installation [9]_
   sudo update-alternatives --install /usr/bin/javah javah /usr/lib/jvm/jdk-1.8.0_211/bin/javah 300   
   sudo update-alternatives --install /usr/bin/javap javap /usr/lib/jvm/jdk-1.8.0_211/bin/javap 300
   sudo update-alternatives --config java
+  
+5. Test
+
+.. code-block:: bash
+  
+  java -version
+  
+If it shows java version "1.8.0_211" then it works.
 
 Guppy3.0.3 Installation
 ^^^^^^^^^^^^^^^^^^^^^^^
