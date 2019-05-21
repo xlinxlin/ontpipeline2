@@ -144,6 +144,8 @@ public class PipelineOverviewController {
     cPolishing.setSelected(true);
     
     tfThreads.setText(p.getThreads());
+    tfWorkspace.setPromptText("/path/to/your/workspace");
+    tfSelectedBarcode.setPromptText("e.g.1,2,3, or leave it blank for all barcodes.");
     
     cBasecalling.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cBasecalling.isSelected()) {

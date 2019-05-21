@@ -6,6 +6,40 @@ Anaconda Installation
 ^^^^^^^^^^^^^^^^^^^^^
 Installing on Linux https://docs.anaconda.com/anaconda/install/linux/
 
+JDK8 Installation
+^^^^^^^^^^^^^^^^^
+1. Download source pakage from Oracle: https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html 
+
+2. Extract JDK8 files to the target folder 
+
+.. code-block:: bash
+
+  sudo mkdir /usr/lib/jvm
+  sudo tar -zxvf jdk-8u211-linux-x64.tar.gz -C /usr/lib/jvm
+  
+3. Set environment variables for JDK8
+
+.. code-block:: bash
+
+  sudo vim ~/.bashrc
+  #set oracle jdk environment
+  export JAVA_HOME=/usr/lib/jvm/jdk-1.8.0_211
+  export JRE_HOME=${JAVA_HOME}/jre  
+  export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib  
+  export PATH=${JAVA_HOME}/bin:$PATH
+  source ~/.bashrc
+
+4. Set JDK8 to jdk-1.8.0_211 
+
+.. code-block:: bash
+ 
+  sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-1.8.0_211/bin/java 300  
+  sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk-1.8.0_211/bin/javac 300  
+  sudo update-alternatives --install /usr/bin/jar jar /usr/lib/jvm/jdk-1.8.0_211/bin/jar 300   
+  sudo update-alternatives --install /usr/bin/javah javah /usr/lib/jvm/jdk-1.8.0_211/bin/javah 300   
+  sudo update-alternatives --install /usr/bin/javap javap /usr/lib/jvm/jdk-1.8.0_211/bin/javap 300
+  sudo update-alternatives --config java
+
 Guppy3.0.3 Installation
 ^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -82,6 +82,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Get Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#anaconda-installation">Anaconda Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jdk8-installation">JDK8 Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#guppy3-0-3-installation">Guppy3.0.3 Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#porechop-installation">Porechop Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nanostat-installation">NanoStat Installation</a></li>
@@ -172,6 +173,40 @@
 <div class="section" id="anaconda-installation">
 <h3>Anaconda Installation<a class="headerlink" href="#anaconda-installation" title="Permalink to this headline">¶</a></h3>
 <p>Installing on Linux <a class="reference external" href="https://docs.anaconda.com/anaconda/install/linux/">https://docs.anaconda.com/anaconda/install/linux/</a></p>
+</div>
+<div class="section" id="jdk8-installation">
+<h3>JDK8 Installation<a class="headerlink" href="#jdk8-installation" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Download source pakage from Oracle: <a class="reference external" href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></li>
+<li>Extract JDK8 files to the target folder</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo mkdir /usr/lib/jvm
+sudo tar -zxvf jdk-8u211-linux-x64.tar.gz -C /usr/lib/jvm
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Set environment variables for JDK8</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo vim ~/.bashrc
+<span class="c1">#set oracle jdk environment</span>
+<span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/jdk-1.8.0_211
+<span class="nb">export</span> <span class="nv">JRE_HOME</span><span class="o">=</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/jre
+<span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span>.:<span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/lib:<span class="si">${</span><span class="nv">JRE_HOME</span><span class="si">}</span>/lib
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/bin:<span class="nv">$PATH</span>
+<span class="nb">source</span> ~/.bashrc
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Set JDK8 to jdk-1.8.0_211</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-1.8.0_211/bin/java <span class="m">300</span>
+sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk-1.8.0_211/bin/javac <span class="m">300</span>
+sudo update-alternatives --install /usr/bin/jar jar /usr/lib/jvm/jdk-1.8.0_211/bin/jar <span class="m">300</span>
+sudo update-alternatives --install /usr/bin/javah javah /usr/lib/jvm/jdk-1.8.0_211/bin/javah <span class="m">300</span>
+sudo update-alternatives --install /usr/bin/javap javap /usr/lib/jvm/jdk-1.8.0_211/bin/javap <span class="m">300</span>
+sudo update-alternatives --config java
+</pre></div>
+</div>
 </div>
 <div class="section" id="guppy3-0-3-installation">
 <h3>Guppy3.0.3 Installation<a class="headerlink" href="#guppy3-0-3-installation" title="Permalink to this headline">¶</a></h3>
