@@ -204,6 +204,7 @@ sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk-1.8.0_2
 sudo update-alternatives --install /usr/bin/jar jar /usr/lib/jvm/jdk-1.8.0_211/bin/jar <span class="m">300</span>
 sudo update-alternatives --install /usr/bin/javah javah /usr/lib/jvm/jdk-1.8.0_211/bin/javah <span class="m">300</span>
 sudo update-alternatives --install /usr/bin/javap javap /usr/lib/jvm/jdk-1.8.0_211/bin/javap <span class="m">300</span>
+<span class="c1">#set path to jdk-1.8.0_211</span>
 sudo update-alternatives --config java
 </pre></div>
 </div>
@@ -211,9 +212,12 @@ sudo update-alternatives --config java
 <li>Test</li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java -version
+<span class="c1"># The following messages should be showed if it works.</span>
+java version <span class="s2">&quot;1.8.0_211&quot;</span>
+Java<span class="o">(</span>TM<span class="o">)</span> SE Runtime Environment <span class="o">(</span>build <span class="m">1</span>.8.0_211-b12<span class="o">)</span>
+Java HotSpot<span class="o">(</span>TM<span class="o">)</span> <span class="m">64</span>-Bit Server VM <span class="o">(</span>build <span class="m">25</span>.211-b12, mixed mode<span class="o">)</span>
 </pre></div>
 </div>
-<p>If it shows java version “1.8.0_211” then it works.</p>
 </div>
 <div class="section" id="guppy3-0-3-installation">
 <h3>Guppy3.0.3 Installation<a class="headerlink" href="#guppy3-0-3-installation" title="Permalink to this headline">¶</a></h3>

@@ -39,15 +39,18 @@ JDK8 Installation [9]_
   sudo update-alternatives --install /usr/bin/jar jar /usr/lib/jvm/jdk-1.8.0_211/bin/jar 300   
   sudo update-alternatives --install /usr/bin/javah javah /usr/lib/jvm/jdk-1.8.0_211/bin/javah 300   
   sudo update-alternatives --install /usr/bin/javap javap /usr/lib/jvm/jdk-1.8.0_211/bin/javap 300
-  sudo update-alternatives --config java
+  #set path to jdk-1.8.0_211 
+  sudo update-alternatives --config java 
   
 5. Test
 
 .. code-block:: bash
   
   java -version
-  
-If it shows java version "1.8.0_211" then it works.
+  # The following messages should be showed if it works.
+  java version "1.8.0_211"
+  Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
+  Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
 
 Guppy3.0.3 Installation
 ^^^^^^^^^^^^^^^^^^^^^^^
