@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.controlsfx.control.CheckComboBox;
+import org.controlsfx.control.IndexedCheckModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +20,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mbio.ncct.ont.MainApp;
@@ -48,6 +52,10 @@ public class PipelineOverviewController {
   @FXML
   private CheckBox cBasecalling;
   
+  /** Initializes check box for demultiplexing. */
+  @FXML
+  private CheckBox cDemultiplexing;
+  
   /** Initializes check box for reads filter. */
   @FXML
   private CheckBox cReadsFilter;
@@ -76,9 +84,13 @@ public class PipelineOverviewController {
   @FXML
   private ChoiceBox<String> cbMethod = new ChoiceBox<String>() ;
   
-  /** Initializes text field for workspace. */
+  /** Initializes text field for Nanopore reads workspace. */
   @FXML
-  private TextField tfWorkspace;
+  private TextField tfNanoporeWorkspace;
+  
+  /** Initializes text field for Illumina reads workspace. */
+  @FXML
+  private TextField tfIlluminaWorkspace;
   
   /** Initializes text field for threads. */
   @FXML
@@ -104,6 +116,23 @@ public class PipelineOverviewController {
   @FXML
   private TextField tfSelectedBarcode;
   
+  /** Initializes text field for output path. */
+  @FXML
+  private TextField tfOutputPath;
+  
+  /** Initializes text field for prefix. */
+  @FXML
+  private TextField tfPrefix;
+  
+  /** Initializes text field for sample sheet. */
+  @FXML
+  private TextField tfSampleSheet;
+  
+  /** Initializes check combo box for barcode kits. */
+  @FXML
+  private CheckComboBox<String> ccbBarcodeKits = new CheckComboBox<String>();
+  
+  
   /**
    * Initializes the controller of pipeline overview.
    */
@@ -125,6 +154,14 @@ public class PipelineOverviewController {
       p.setKitNumber(cbKitNumber.getSelectionModel().getSelectedItem());
     }
     
+    ObservableList<String> olBarcodeKits = FXCollections.observableArrayList(pUtil.getBarcodeKits());
+    ccbBarcodeKits.getItems().addAll(olBarcodeKits);
+    IndexedCheckModel<String> icm = ccbBarcodeKits.getCheckModel();
+    String[] strArrBarcodeKits = p.getBarcodeKits().replaceAll("\"", "").split(" ");
+    for(int i=0;i<strArrBarcodeKits.length;i++) {
+      icm.check(strArrBarcodeKits[i]);
+    }
+    
     ArrayList<String> alMode = new ArrayList<String>();
     alMode.add("conservative");
     alMode.add("normal");
@@ -139,23 +176,28 @@ public class PipelineOverviewController {
     cbMethod.setItems(olMethod);
     
     cBasecalling.setSelected(true);
+    cDemultiplexing.setSelected(true);
     cReadsFilter.setSelected(true);
     cAssembly.setSelected(true);
     cPolishing.setSelected(true);
     
     tfThreads.setText(p.getThreads());
-    tfWorkspace.setPromptText("/path/to/your/workspace");
-    tfSelectedBarcode.setPromptText("e.g.1,2,3, or leave it blank for all barcodes.");
+    tfNanoporeWorkspace.setPromptText("/path/to/your/Nanopore/reads/folder");
+    tfIlluminaWorkspace.setPromptText("/path/to/your/Illumina/reads/folder");
+    tfOutputPath.setPromptText("/path/to/your/output/folder");
+    tfSampleSheet.setPromptText("/path/to/your/sample/sheet/file");
+    tfSelectedBarcode.setPromptText("e.g.1,2,3, leave blank for all barcodes.");
+    tfPrefix.setPromptText("e.g.ID");
     
     cBasecalling.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cBasecalling.isSelected()) {
         cbFlowcellId.setDisable(false);
-        cbKitNumber.setDisable(false);
+        cbKitNumber.setDisable(false); 
         btnBasecalling.setDisable(false);
         p.setIfBasecalling(true);
       } else {
         cbFlowcellId.setDisable(true);
-        cbKitNumber.setDisable(true);
+        cbKitNumber.setDisable(true); 
         btnBasecalling.setDisable(true);
         p.setIfBasecalling(false);
       }
@@ -211,8 +253,8 @@ public class PipelineOverviewController {
       p.setMethod(newValue);
     });
     
-    tfWorkspace.textProperty().addListener((observable, oldValue, newValue) -> {
-      p.setWorkspace(newValue);
+    tfNanoporeWorkspace.textProperty().addListener((observable, oldValue, newValue) -> {
+      p.setOntReadsWorkspace(newValue);
     });
     
     tfThreads.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -264,14 +306,13 @@ public class PipelineOverviewController {
       // Set the controller.
       AdvancedBasecallingController controller = loader.getController();
       controller.setDialogStage(dialogStage);
-      controller.setBarcodeKits(p.getBarcodeKit());
       controller.setGuppyMode(p.getGuppyMode());
       controller.setDevice(p.getDevice());
+      //controller.setIfOnlyDemultiplexing(p.getIfOnlyDemultiplexing());
      
       // Show the dialog and wait until the user closes it.
       dialogStage.showAndWait();
       if(controller.isOK == 1) {
-        p.setBarcodeKit(controller.ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\""));
         p.setGuppyMode(controller.cbGuppyMode.getValue());
         p.setDevice(controller.cbDevice.getValue());
       }
@@ -399,18 +440,20 @@ public class PipelineOverviewController {
    */
   @FXML
   private void handleStartPipeline()  {
-    if (p.getWorkspace().isEmpty()) {
+    if (p.getOntReadsWorkspace().isEmpty()) {
       pUtil.createAlertDialog(AlertType.ERROR, "Empty workspace.", "Workspace can not be empty.");
     } else if (!p.getThreads().matches(("\\d+"))){
       pUtil.createAlertDialog(AlertType.ERROR, "Wrong threads.", "Threads should be an integer.");
     } else if (!p.getIfBasecalling() && !p.getIfReadsFilter() && !p.getIfAssembly() && !p.getIfPolishing()) {
       pUtil.createAlertDialog(AlertType.ERROR, "Empty module.", "Please select at least one module.");
+    } else if (!p.getSelectedBarcode().matches("([123456789],{0,1})*")){
+      pUtil.createAlertDialog(AlertType.ERROR, "Wrong seleted barcodes.", "The format of selected barcodes is wrong.");
     } else {
       String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
       pUtil.createUserLog(p, timeStamp);
       pUtil.createPbsFile(p, timeStamp);
       try {
-        Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
+        Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getOntReadsWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
       } catch (Exception e) {
         logger.error("Can not run .pbs file. " + e);
       }
@@ -419,38 +462,43 @@ public class PipelineOverviewController {
   }
      
   /**
-   * Called when select workspace button is clicked.
+   * Called when select Nanopore reads workspace button is clicked.
    */
   @FXML
-  private void handleSelectWorkspace() {
+  private void handleSelectNanoporeWorkspace() {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File selectedDirectory = directoryChooser.showDialog(null);
-    
-    //File[] f = null;
-    
     if (selectedDirectory != null) {
-      tfWorkspace.setText(selectedDirectory.toString());
-      //f = selectedDirectory.listFiles();
-      //List<String> lF = new ArrayList<>();
-      
-      /*
-      for (int i = 0; i < f.length; i++) {
-        lF.add(f.toString());
-        if (f[i].isFile()) {
-          System.out.println("File " + f[i].getName());
-        } else if (f[i].isDirectory()) {
-          //System.out.println("Directory " + f[i].getName());
-          if (f[i].getName().substring(0, 1).matches("[0-9]")) {
-            System.out.println("matches");
-          }
-        }
+      if (pUtil.checkDirectory(selectedDirectory,"fast5") || pUtil.checkDirectory(selectedDirectory,"fastq")) {
+        tfNanoporeWorkspace.setText(selectedDirectory.toString()); 
+      } else {
+        pUtil.createAlertDialog(AlertType.ERROR, "Wrong ONT workspace.", "No .fast5/.fastq files found in this folder.");
       }
-      
-      for (int i=0;i<lF.size();i++) {
-        //lF.
-      } 
-      */
     } 
+  }
+  
+  /**
+   * Called when select Illumina reads workspace button is clicked.
+   */
+  @FXML
+  private void handleSelectIlluminaWorkspace() {
+    DirectoryChooser directoryChooser = new DirectoryChooser();
+    File selectedDirectory = directoryChooser.showDialog(null);
+    if (selectedDirectory != null) {
+      tfIlluminaWorkspace.setText(selectedDirectory.toString());
+    }
+  }
+  
+  /**
+   * Called when select output folder button is clicked.
+   */
+  @FXML
+  private void handleSelectOutputFolder() {
+    DirectoryChooser directoryChooser = new DirectoryChooser();
+    File selectedDirectory = directoryChooser.showDialog(null);
+    if (selectedDirectory != null) {
+      tfOutputPath.setText(selectedDirectory.toString());
+    }
   }
   
   /**
@@ -463,6 +511,22 @@ public class PipelineOverviewController {
       //new ProcessBuilder("x-www-browser", "docs/build/html/index.html").start();
     } catch (Exception e) {
       logger.error("Can not open document. " + e);
+    }
+  }
+  
+  /**
+   * Reads the sample sheet.
+   */
+  @FXML
+  private void handleReadSampleSheet() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters().addAll(
+        new ExtensionFilter("CSV/TSV Files", "*.csv", "*.CSV", "*.tsv", "*.TSV"));
+        //new ExtensionFilter("TSV Files", "*.tsv"));
+    File selectedFile = fileChooser.showOpenDialog(null);
+    if (selectedFile != null) {
+      tfSampleSheet.setText(selectedFile.toString());
+      pUtil.readSampleSheet(selectedFile.toString(), pUtil.getFileExtension(selectedFile.toString()));
     }
   }
 }

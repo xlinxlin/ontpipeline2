@@ -7,52 +7,68 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane minHeight="402.0" minWidth="616.0" prefHeight="402.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mbio.ncct.ont.view.PipelineOverviewController">
+<AnchorPane minHeight="391.0" minWidth="662.0" prefHeight="510.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mbio.ncct.ont.view.PipelineOverviewController">
    <children>
-      <CheckBox fx:id="cBasecalling" layoutX="14.0" layoutY="145.0" mnemonicParsing="false" text="Basecalling" AnchorPane.leftAnchor="14.0" />
-      <CheckBox fx:id="cReadsFilter" layoutX="12.0" layoutY="198.0" mnemonicParsing="false" text="Reads Filter" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="198.0" />
-      <CheckBox fx:id="cAssembly" layoutX="14.0" layoutY="250.0" mnemonicParsing="false" text="Assembly" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="250.0" />
-      <ChoiceBox fx:id="cbFlowcellId" layoutX="138.0" layoutY="144.0" prefWidth="150.0" >
+      <CheckBox fx:id="cBasecalling" layoutX="35.0" layoutY="202.0" mnemonicParsing="false" text="Base calling" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="202.0" />
+      <CheckBox fx:id="cReadsFilter" layoutX="35.0" layoutY="314.0" mnemonicParsing="false" text="Reads filter" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="314.0" />
+      <CheckBox fx:id="cAssembly" layoutX="35.0" layoutY="366.0" mnemonicParsing="false" text="Assembly" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="366.0" />
+      <ChoiceBox fx:id="cbFlowcellId" layoutX="168.0" layoutY="202.0" prefHeight="26.0" prefWidth="163.0" AnchorPane.leftAnchor="168.0" AnchorPane.topAnchor="202.0">
         <tooltip>
-          <Tooltip text="Flowcell ID."/>
+          <Tooltip text="Flowcell ID." />
         </tooltip>
       </ChoiceBox>
-      <ChoiceBox fx:id="cbKitNumber" layoutX="324.0" layoutY="143.0" prefWidth="150.0" >
+      <ChoiceBox fx:id="cbKitNumber" layoutX="365.0" layoutY="202.0" prefHeight="26.0" prefWidth="163.0" AnchorPane.leftAnchor="365.0" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="202.0">
         <tooltip>
-          <Tooltip text="Kit number."/>
+          <Tooltip text="Kit number." />
         </tooltip>
       </ChoiceBox>
-      <Button fx:id="btnReadsFilter" layoutX="516.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleAdvancedReadsFilter" text="Advanced" />
-      <Button fx:id="btnBasecalling" layoutX="515.0" layoutY="142.0" mnemonicParsing="false" onAction="#handleAdvancedBasecalling" text="Advanced" />
-      <CheckBox fx:id="cPolishing" layoutX="14.0" layoutY="302.0" mnemonicParsing="false" text="Polishing" AnchorPane.leftAnchor="14.0" />
-      <Button fx:id="btnAssembly" layoutX="515.0" layoutY="245.0" mnemonicParsing="false" onAction="#handleAdvancedAssembly" text="Advanced" />
-      <Button fx:id="btnPolishing" layoutX="514.0" layoutY="294.0" mnemonicParsing="false" onAction="#handleAdvancedPolishung" text="Advanced" />
-      <Button layoutX="516.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleStartPipeline" prefHeight="26.0" prefWidth="83.0" text="Start" />
-      <ChoiceBox fx:id="cbMode" layoutX="135.0" layoutY="247.0" prefWidth="150.0" value="normal" >
+      <Button fx:id="btnReadsFilter" layoutX="553.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleAdvancedReadsFilter" prefHeight="26.0" prefWidth="99.0" text="Advanced" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="314.0" />
+      <Button fx:id="btnBasecalling" layoutX="553.0" layoutY="202.0" mnemonicParsing="false" onAction="#handleAdvancedBasecalling" prefHeight="26.0" prefWidth="99.0" text="Advanced" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="202.0" />
+      <CheckBox fx:id="cPolishing" layoutX="35.0" layoutY="416.0" mnemonicParsing="false" text="Polishing" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="416.0" />
+      <Button fx:id="btnAssembly" layoutX="553.0" layoutY="366.0" mnemonicParsing="false" onAction="#handleAdvancedAssembly" prefHeight="26.0" prefWidth="99.0" text="Advanced" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="366.0" />
+      <Button fx:id="btnPolishing" layoutX="553.0" layoutY="416.0" mnemonicParsing="false" onAction="#handleAdvancedPolishung" prefHeight="26.0" prefWidth="99.0" text="Advanced" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="416.0" />
+      <Button layoutX="553.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleStartPipeline" prefHeight="26.0" prefWidth="99.0" text="Start" AnchorPane.rightAnchor="10.0" />
+      <ChoiceBox fx:id="cbMode" layoutX="168.0" layoutY="366.0" prefHeight="26.0" prefWidth="163.0" value="normal" AnchorPane.leftAnchor="168.0" AnchorPane.topAnchor="366.0">
         <tooltip>
-          <Tooltip text="Assembly mode."/>
+          <Tooltip text="Assembly mode." />
         </tooltip>
       </ChoiceBox>
-      <ChoiceBox fx:id="cbMethod" layoutX="323.0" layoutY="246.0" prefWidth="150.0" value="Hybrid assembly" >
+      <ChoiceBox fx:id="cbMethod" layoutX="365.0" layoutY="366.0" prefHeight="26.0" prefWidth="163.0" value="Hybrid assembly" AnchorPane.topAnchor="366.0">
         <tooltip>
-          <Tooltip text="Assembly method."/>
+          <Tooltip text="Assembly method." />
         </tooltip>
       </ChoiceBox>
-      <Label layoutX="13.0" layoutY="54.0" text="Workspace" />
-      <TextField fx:id="tfWorkspace" editable="false" layoutX="97.0" layoutY="49.0" prefHeight="26.0" prefWidth="431.0" />
-      <Button layoutX="514.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSelectWorkspace" prefHeight="26.0" prefWidth="83.0" text="Browse" />
-      <Label layoutX="33.0" layoutY="91.0" text="Threads" />
-      <TextField fx:id="tfThreads" layoutX="98.0" layoutY="87.0" prefHeight="26.0" prefWidth="66.0" />
-      <Label layoutX="189.0" layoutY="92.0" text="Barcodes" />
-      <TextField fx:id="tfSelectedBarcode" layoutX="255.0" layoutY="87.0" prefHeight="26.0" prefWidth="338.0" />
-      <Separator layoutX="14.0" layoutY="124.0" prefHeight="8.0" prefWidth="578.0" />
-      <Separator layoutX="13.0" layoutY="179.0" prefHeight="8.0" prefWidth="578.0" />
-      <Separator layoutX="13.0" layoutY="231.0" prefHeight="8.0" prefWidth="578.0" />
-      <Separator layoutX="15.0" layoutY="280.0" prefHeight="8.0" prefWidth="578.0" />
-      <Separator layoutX="17.0" layoutY="331.0" prefHeight="8.0" prefWidth="578.0" />
-      <Hyperlink layoutX="19.0" layoutY="350.0" onAction="#handleOpenDocument" text="https://ontpipeline2.readthedocs.io/" />
+      <Label layoutX="15.0" layoutY="55.0" text="Illumina folder" AnchorPane.rightAnchor="552.0" />
+      <TextField fx:id="tfIlluminaWorkspace" editable="false" layoutX="112.0" layoutY="50.0" prefHeight="26.0" prefWidth="441.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="50.0" />
+      <Button layoutX="553.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleSelectIlluminaWorkspace" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+      <Label layoutX="57.0" layoutY="155.0" text="Threads" AnchorPane.rightAnchor="552.0" AnchorPane.topAnchor="155.0" />
+      <TextField fx:id="tfThreads" layoutX="113.0" layoutY="152.0" prefHeight="26.0" prefWidth="35.0" AnchorPane.leftAnchor="113.0" AnchorPane.topAnchor="152.0" />
+      <Label layoutX="165.0" layoutY="155.0" text="Barcodes" AnchorPane.rightAnchor="436.0" AnchorPane.topAnchor="155.0" />
+      <TextField fx:id="tfSelectedBarcode" layoutX="230.0" layoutY="152.0" prefHeight="26.0" prefWidth="264.0" AnchorPane.topAnchor="152.0" />
+      <Separator layoutX="23.0" layoutY="185.0" prefHeight="8.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" />
+      <Separator layoutX="23.0" layoutY="240.0" prefHeight="8.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" />
+      <Separator layoutX="23.0" layoutY="349.0" prefHeight="8.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" />
+      <Separator layoutX="23.0" layoutY="401.0" prefHeight="8.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" />
+      <Separator layoutX="23.0" layoutY="449.0" prefHeight="8.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" />
+      <Hyperlink layoutX="23.0" layoutY="468.0" onAction="#handleOpenDocument" text="https://ontpipeline2.readthedocs.io/" AnchorPane.leftAnchor="23.0" />
+      <TextField fx:id="tfNanoporeWorkspace" editable="false" layoutX="112.0" layoutY="24.0" prefHeight="26.0" prefWidth="441.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="24.0" />
+      <Button layoutX="552.0" layoutY="24.0" mnemonicParsing="false" onAction="#handleSelectNanoporeWorkspace" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="24.0" />
+      <Label layoutX="41.0" layoutY="27.0" text="ONT folder" AnchorPane.rightAnchor="552.0" />
+      <Label layoutX="513.0" layoutY="155.0" text="Prefix" AnchorPane.rightAnchor="111.0" AnchorPane.topAnchor="155.0" />
+      <TextField fx:id="tfPrefix" layoutX="553.0" layoutY="152.0" prefHeight="26.0" prefWidth="99.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="152.0" />
+      <Label layoutX="27.0" layoutY="81.0" text="Output folder" AnchorPane.rightAnchor="552.0" />
+      <TextField fx:id="tfOutputPath" editable="false" layoutX="112.0" layoutY="76.0" prefHeight="26.0" prefWidth="441.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="109.0" />
+      <Button layoutX="551.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleSelectOutputFolder" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="76.0" />
+      <TextField fx:id="tfSampleSheet" layoutX="112.0" layoutY="102.0" prefHeight="26.0" prefWidth="440.0" AnchorPane.leftAnchor="113.0" />
+      <Button layoutX="552.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleReadSampleSheet" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" />
+      <Label layoutX="66.0" layoutY="107.0" text="Sample sheet" AnchorPane.rightAnchor="552.0" />
+      <Separator layoutX="23.0" layoutY="294.0" prefHeight="8.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" />
+      <CheckBox fx:id="cDemultiplexing" layoutX="34.0" layoutY="260.0" mnemonicParsing="false" text="Demultiplexing" AnchorPane.leftAnchor="35.0" />
+      <CheckComboBox fx:id="ccbBarcodeKits" layoutX="171.0" layoutY="256.0" prefHeight="26.0" prefWidth="363.0" AnchorPane.leftAnchor="168.0" AnchorPane.rightAnchor="134.0" />
+      <Button layoutX="553.0" layoutY="256.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="99.0" text="Advanced" />
    </children>
 </AnchorPane>

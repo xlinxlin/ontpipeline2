@@ -3,6 +3,7 @@ package mbio.ncct.ont.util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -12,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +36,8 @@ public class PipelineUtil {
   private static String guppyUrl = "/opt/ont-guppy-cpu_3.0.3";
   
   /** Sets pbs file location. */
-  private static String pbsUrl = "/opt/ontpipeline/pbs/pipelineWithLoop.pbs";
+  //private static String pbsUrl = "/opt/ontpipeline/pbs/pipelineWithLoop.pbs";
+  private static String pbsUrl = "/opt/ontpipeline/pbs/newPipeline.pbs";
   
   /**
    * Gets all flowcell IDs.
@@ -120,21 +123,38 @@ public class PipelineUtil {
   }
   
   /**
+   * Gets all barcode kits.
+   * @return an Array List with all barcode kits.
+   */
+  public ArrayList<String> getBarcodeKits() {
+    String s = null;
+    ArrayList<String> arBarcodeKits = new ArrayList<String>();
+    Process p = null;
+    try {
+      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_barcoder --print_kits | awk 'NR>1 {print $1}' | sort | uniq" });
+    } catch (Exception e) {
+      logger.error("Can not get barcode kits. " + e);
+    }
+    BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+    //BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+    try {
+      while ((s = stdInput.readLine()) != null ) {
+        if (s.isEmpty() == false) {
+          arBarcodeKits.add(s);
+        }
+      }
+    } catch (Exception e) {
+      logger.error("Can not read barcode kits. " + e);
+    }
+    return arBarcodeKits;
+  }
+  
+  /**
    * Create a .pbs file filled with the input parameters.
    * @param p A Pipeline object.
    * @param timeStamp The current date and time yyyyMMdd_HHmmss.
    */
   public void createPbsFile(Pipeline p, String timeStamp) {
-    if (!p.getSelectedBarcode().isEmpty()) {
-      String[] strArr = p.getSelectedBarcode().split(",");
-      String formattedSelectedBarcode = "";
-      for(int i=0; i<strArr.length; i++) {
-        String formatted = String.format("%02d", Integer.valueOf(strArr[i])) + ",";
-        formattedSelectedBarcode = formattedSelectedBarcode + formatted;
-      }
-      p.setSelectedBarcode("barcode{" + formattedSelectedBarcode.substring(0, formattedSelectedBarcode.length()-1) + "}/");
-    }
-    
     if ( !p.getFlowcellId().equals("FLO-MIN107") && p.getGuppyMode().equals("fast")) {
       Map<String, String> combinationFlowcellKit = null;
       String cfg = null;
@@ -151,7 +171,7 @@ public class PipelineUtil {
     }
     
     Path path = Paths.get(pbsUrl);
-    Path newPath = Paths.get(p.getWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs");
+    Path newPath = Paths.get(p.getOntReadsWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs");
     Charset charset = StandardCharsets.UTF_8;
 
     String content = null;
@@ -161,14 +181,14 @@ public class PipelineUtil {
       logger.error("Can not read the .pbs template. " + e);
     }
     
-    content = content.replaceAll("\\$WORKSPACE_PATH", p.getWorkspace())
+    content = content.replaceAll("\\$WORKSPACE_PATH", p.getOntReadsWorkspace())
         .replaceAll("\\$IF_BASECALLING", p.getIfBasecalling().toString())
         .replaceAll("\\$FLOWCELL_ID", p.getFlowcellId())
         .replaceAll("\\$KIT_NUMBER", p.getKitNumber())
         .replaceAll("\\$THREADS", p.getThreads())
-        .replaceAll("\\$BARCODEKIT", p.getBarcodeKit())
+        .replaceAll("\\$BARCODEKIT", p.getBarcodeKits())
         .replaceAll("\\$IF_ADAPTERTRIMMING", p.getIfAdapterTrimming().toString())
-        .replaceAll("\\$BARCODENUMBERS", p.getSelectedBarcode())
+        .replaceAll("\\$BARCODENUMBERS", formatSelectedBarcodes(p.getSelectedBarcode()))
         .replaceAll("\\$IF_READSFILTER", p.getIfReadsFilter().toString())
         .replaceAll("\\$SCORE", p.getReadScore())
         .replaceAll("\\$LENGTH", p.getReadLength())
@@ -196,7 +216,7 @@ public class PipelineUtil {
    * @param timeStamp the current date and time: yyyyMMdd_HHmmss.
    */
   public void createUserLog(Pipeline p, String timeStamp) {
-    String path = p.getWorkspace() + "/userlog_" + timeStamp + ".log";
+    String path = p.getOntReadsWorkspace() + "/userlog_" + timeStamp + ".log";
     File f = new File(path);
     f.getParentFile().mkdirs(); 
     try {
@@ -207,16 +227,16 @@ public class PipelineUtil {
     try {
       BufferedWriter writer = new BufferedWriter(new FileWriter(f, true));
       writer.append("====General Settings====\n");
-      writer.append("Workspace: " + p.getWorkspace() + "\n");
+      writer.append("Workspace: " + p.getOntReadsWorkspace() + "\n");
       writer.append("Threads: " + p.getThreads() + "\n");
-      writer.append("Barcodes: " + ( p.getSelectedBarcode().isEmpty() ? "all" :p.getSelectedBarcode() ) + "\n\n");
+      writer.append("Barcodes: " + ( p.getSelectedBarcode().isEmpty() ? "all" :formatSelectedBarcodes(p.getSelectedBarcode()) ) + "\n\n");
       if (p.getIfBasecalling()) {
         writer.append("====Basecalling Settings====\n");
         writer.append("Flowcell ID: " + p.getFlowcellId() + " \n");
         writer.append("Kit number: " + p.getKitNumber() + " \n");
         writer.append("Guppy mode: " + p.getGuppyMode() + " \n");
         writer.append("Device: " + p.getDevice() + " \n");
-        writer.append("Barcode kits: " + p.getBarcodeKit() + " \n\n"); 
+        writer.append("Barcode kits: " + p.getBarcodeKits() + " \n\n"); 
       } else {
         writer.append("====No Basecalling====\n\n");
       }
@@ -257,6 +277,31 @@ public class PipelineUtil {
   }
   
   /**
+   * Reads sample sheet and parses the content.
+   * @param sampleSheet the String of sample sheet file path.
+   * @param extension the String of sample sheet file extension.
+   * @return the String of formatted sample sheet content (HashMap in Bash).
+   */
+  public String readSampleSheet(String sampleSheet, String extension) {
+    String result = "";
+    String ch = (extension.equals("csv".toLowerCase()) ? "," : "\t");
+    try (BufferedReader br = new BufferedReader(new FileReader(sampleSheet))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] values = line.split(ch);
+            if(values[1].matches("barcode\\d+")) {
+              result = result + "['" + values[1] + "']='" + values[0] + "' ";  
+            }
+        }
+    } catch (Exception e) {
+      logger.error("Can not read sample sheet." + e);
+    } 
+    result = "(" + result + ")";
+    System.out.println(result);
+    return result;
+  }
+  
+  /**
    * Creates an alert dialog.
    * @param alertType the alert type.
    * @param alertTitle the dialog title.
@@ -267,5 +312,56 @@ public class PipelineUtil {
     alert.setTitle(alertTitle);
     alert.setContentText(alertContent);
     alert.showAndWait();
+  }
+  
+  /**
+   * Formats the String of selected barcodes.
+   * @param selectedBarcode selected barcodes.
+   * @return formatted String of selected barcodes.
+   */
+  private String formatSelectedBarcodes(String selectedBarcode) {
+    String result = null;
+    if (!selectedBarcode.isEmpty()) {
+      String[] strArr = selectedBarcode.split(",");
+      String formattedSelectedBarcode = "";
+      for(int i=0; i<strArr.length; i++) {
+        String formatted = String.format("%02d", Integer.valueOf(strArr[i])) + ",";
+        formattedSelectedBarcode = formattedSelectedBarcode + formatted;
+      }
+      result = "barcode{" + formattedSelectedBarcode.substring(0, formattedSelectedBarcode.length()-1) + "}/";
+    }
+    return result;
+  }
+  
+  /**
+   * Checks if the folder has the correct files with the given extension.
+   * @param selectedDirectory the given directory to be checked.
+   * @param extension the given extension to be checked in the directory
+   * @return the Boolean value if the check has been passed.
+   */
+  public Boolean checkDirectory(File selectedDirectory, String extension) {
+    boolean result = false;
+    File[] f = selectedDirectory.listFiles();
+    for (int i = 0; i < f.length; i++) {
+      if (f[i].isFile() && getFileExtension(f[i].getName()).toLowerCase().equals(extension)) {
+        result = true;
+        break;
+      } 
+    }
+    return result;
+  }
+  
+  /**
+   * Gets the extension of a given file.
+   * @param fileName the String of file name.
+   * @return the String of extension of a given file.
+   */
+  public String getFileExtension(String fileName) {
+    String extension = "";
+    int i = fileName.lastIndexOf('.');
+    if (i > 0) {
+      extension = fileName.substring(i+1);
+    }
+    return extension;
   }
 }

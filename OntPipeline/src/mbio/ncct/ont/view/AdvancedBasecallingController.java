@@ -1,13 +1,7 @@
 package mbio.ncct.ont.view;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.controlsfx.control.CheckComboBox;
-import org.controlsfx.control.IndexedCheckModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,19 +9,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
 /**
- * This is the controller of the advanced basecalling settings.
+ * This is the controller of the advanced base calling settings.
  *
  * @author Yan Zhou
  * created on 2019/05/14
  */
 public class AdvancedBasecallingController {
-  
-  /** Initializes log4j2. */
-  private static Logger logger = LogManager.getLogger(AdvancedBasecallingController.class);
-  
-  /** The check combo box for barcode kits . */
-  @FXML
-  public CheckComboBox<String> ccbBarcodeKits = new CheckComboBox<String>() ;
   
   /** The choice box for Guppy mode. */
   @FXML
@@ -44,7 +31,7 @@ public class AdvancedBasecallingController {
   public int isOK = 0;
   
   /**
-   * Initializes the controller of advanced basecalling settings.
+   * Initializes the controller of advanced base calling settings.
    */
   @FXML
   private void initialize() {
@@ -62,51 +49,20 @@ public class AdvancedBasecallingController {
   }
   
   /**
-   * Sets the dialog stage for advanced basecalling setting.
+   * Sets the dialog stage for advanced base calling setting.
    * @param dialogStage dialog stage.
    */
   public void setDialogStage(Stage dialogStage) {
     this.dialogStage = dialogStage;
   }
-
-  /**
-   * Gets all barcode kits.
-   * @return an Array List with all barcode kits.
-   */
-  private ArrayList<String> getBarcodeKits() {
-    String s = null;
-    ArrayList<String> arBarcodeKits = new ArrayList<String>();
-    Process p = null;
-    try {
-      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_barcoder --print_kits | awk 'NR>1 {print $1}' | sort | uniq" });
-    } catch (Exception e) {
-      logger.error("Can not get barcode kits. " + e);
-    }
-    BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-    //BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-    try {
-      while ((s = stdInput.readLine()) != null ) {
-        if (s.isEmpty() == false) {
-          arBarcodeKits.add(s);
-        }
-      }
-    } catch (Exception e) {
-      logger.error("Can not read barcode kits. " + e);
-    }
-    return arBarcodeKits;
-  }
   
   /**
    * Called if OK button is clicked, set isOK to 1 and close the dialog.
-   * @return String of all barcode kits.
    */
   @FXML
-  private String OK() {
-    String sBarcodeKits = ccbBarcodeKits.getCheckModel().getCheckedItems().isEmpty() ? 
-        "" : ccbBarcodeKits.getCheckModel().getCheckedItems().toString().replace(",", "").replaceAll("\\[|\\]", "\"");
+  private void OK() {
     isOK = 1;
     dialogStage.close();
-    return sBarcodeKits;
   }
   
   /**
@@ -118,21 +74,7 @@ public class AdvancedBasecallingController {
   }
   
   /**
-   * Set selected barcode kits into the box.
-   * @param barcodeKits String of selected barcode kits
-   */
-  public void setBarcodeKits(String barcodeKits) {
-    ObservableList<String> olBarcodeKits = FXCollections.observableArrayList(getBarcodeKits());
-    ccbBarcodeKits.getItems().addAll(olBarcodeKits);
-    IndexedCheckModel<String> icm = ccbBarcodeKits.getCheckModel();
-    String[] strArrBarcodeKits = barcodeKits.replaceAll("\"", "").split(" ");
-    for(int i=0;i<strArrBarcodeKits.length;i++) {
-      icm.check(strArrBarcodeKits[i]);
-    }
-  }
-  
-  /**
-   * Set Guppy mode.
+   * Sets Guppy mode.
    * @param guppyMode String of Guppy mode.
    */
   public void setGuppyMode(String guppyMode) {
@@ -140,7 +82,7 @@ public class AdvancedBasecallingController {
   }
   
   /**
-  * Set ONT device.
+  * Sets ONT device.
   * @param device String of ONT device.
   */
   public void setDevice(String device) {

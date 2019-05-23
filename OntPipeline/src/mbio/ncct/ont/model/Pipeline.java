@@ -12,14 +12,26 @@ import javafx.beans.property.StringProperty;
  * created on 2019/05/14
  */
 public class Pipeline {
-  /** Initializes and sets the workspace. */
-  private final StringProperty workspace = new SimpleStringProperty("");
+  /** Initializes and sets the ONT reads workspace. */
+  private final StringProperty ontReadsWorkspace = new SimpleStringProperty("");
+  
+  /** Initializes and sets the Illunima reads workspace. */
+  private final StringProperty illuminaReadsWorkspace = new SimpleStringProperty("");
+  
+  /** Initializes and sets the output path. */
+  private final StringProperty outputPath = new SimpleStringProperty("");
+  
+  /** Initializes and sets the sample sheet file path. */
+  private final StringProperty sampleSheet = new SimpleStringProperty("");
   
   /** Initializes and sets the specified barcode(s). */
   private final StringProperty selectedBarcode = new SimpleStringProperty("");
   
   /** Initializes and sets the threads. */
   private final StringProperty threads = new SimpleStringProperty("8");
+  
+  /** Initializes and sets the prefix. */
+  private final StringProperty prefix = new SimpleStringProperty("");
   
   /** Initializes and sets the flowcell ID. */
   private final StringProperty flowcellId = new SimpleStringProperty("FLO-MIN106");
@@ -28,7 +40,7 @@ public class Pipeline {
   private final StringProperty kitNumber = new SimpleStringProperty("SQK-LSK109");
   
   /** Initializes and sets the barcode kit(s). */
-  private final StringProperty barcodeKit = new SimpleStringProperty("");
+  private final StringProperty barcodeKits = new SimpleStringProperty("");
   
   /** Initializes and sets the read quality score for filter. */
   private final StringProperty readScore = new SimpleStringProperty("9");
@@ -84,23 +96,90 @@ public class Pipeline {
   /** Initializes and sets if Guppy fast mode will be used. */
   private final BooleanProperty ifGuppyFast = new SimpleBooleanProperty(false);
   
+  /** Initializes and sets if demultiplexing will be used. */
+  private final BooleanProperty ifDemultiplexing = new SimpleBooleanProperty(false);
+  
   /** Initializes and sets Guppy .cfg configuration file. */
   private final StringProperty guppyCfgFile = new SimpleStringProperty("");
   
   /**
-   * Gets the workspace.
-   * @return the String of workspace
+   * Gets the ONT reads workspace.
+   * @return the String of ONT reads workspace
    */
-  public String getWorkspace() {
-    return workspace.get();
+  public String getOntReadsWorkspace() {
+    return ontReadsWorkspace.get();
   }
   
   /**
-   * Sets the workspace.
-   * @param workspace the String of workspace.
+   * Sets the ONT reads workspace.
+   * @param ontReadsWorkspace the String of ONT reads workspace.
    */
-  public void setWorkspace(String workspace) {
-    this.workspace.set(workspace);
+  public void setOntReadsWorkspace(String ontReadsWorkspace) {
+    this.ontReadsWorkspace.set(ontReadsWorkspace);
+  }
+  
+  /**
+   * Gets the Illumina reads workspace.
+   * @return the String of Illumina reads workspace
+   */
+  public String getIlluminaReadsWorkspace() {
+    return illuminaReadsWorkspace.get();
+  }
+  
+  /**
+   * Sets the Illumina reads workspace.
+   * @param illuminaReadsWorkspace the String of Illumina reads workspace.
+   */
+  public void setIlluminaReadsWorkspace(String illuminaReadsWorkspace) {
+    this.illuminaReadsWorkspace.set(illuminaReadsWorkspace);
+  }
+  
+  /**
+   * Gets the output path.
+   * @return the String of output path.
+   */
+  public String getOutputPath() {
+    return outputPath.get();
+  }
+  
+  /**
+   * Sets the output path.
+   * @param outputPath the String of output path.
+   */
+  public void setOutputPath(String outputPath) {
+    this.outputPath.set(outputPath);
+  }
+  
+  /**
+   * Gets the sample sheet file path.
+   * @return the String of sample sheet file path.
+   */
+  public String getSampleSheet() {
+    return sampleSheet.get();
+  }
+  
+  /**
+   * Sets the sample sheet file path.
+   * @param sampleSheet the String of sample sheet file path.
+   */
+  public void setSampleSheet(String sampleSheet) {
+    this.sampleSheet.set(sampleSheet);
+  }
+  
+  /**
+   * Gets the prefix.
+   * @return the String of prefix.
+   */
+  public String getPrefix() {
+    return prefix.get();
+  }
+  
+  /**
+   * Sets the prefix.
+   * @param prefix the String of prefix.
+   */
+  public void setPrefix(String prefix) {
+    this.prefix.set(prefix);
   }
   
   /**
@@ -171,16 +250,16 @@ public class Pipeline {
    * Gets the barcode kit(s).
    * @return the String of the barcode kit(s).
    */
-  public String getBarcodeKit() {
-    return barcodeKit.get();
+  public String getBarcodeKits() {
+    return barcodeKits.get();
   }
   
   /**
    * Sets the barcode kit(s).
-   * @param barcodeKit the String of the barcode kit(s).
+   * @param barcodeKits the String of the barcode kit(s).
    */
-  public void setBarcodeKit(String barcodeKit) {
-    this.barcodeKit.set(barcodeKit);
+  public void setBarcodeKits(String barcodeKits) {
+    this.barcodeKits.set(barcodeKits);
   }
   
   /**
@@ -469,6 +548,22 @@ public class Pipeline {
    */
   public Boolean getIfGuppyFast() {
     return ifGuppyFast.get();
+  }
+  
+  /**
+   * Sets if demultiplexing will be used.
+   * @param ifDemultiplexing the Boolean value of if demultiplexing will be used.
+   */
+  public void setIfDemultiplexing(Boolean ifDemultiplexing) {
+    this.ifDemultiplexing.set(ifDemultiplexing);
+  }
+  
+  /**
+   * Gets if demultiplexing will be used.
+   * @return the Boolean value of if demultiplexing will be used.
+   */
+  public Boolean getIfDemultiplexing() {
+    return ifDemultiplexing.get();
   }
   
   /**
