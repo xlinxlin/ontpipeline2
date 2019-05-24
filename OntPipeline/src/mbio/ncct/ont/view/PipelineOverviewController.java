@@ -308,7 +308,6 @@ public class PipelineOverviewController {
       controller.setDialogStage(dialogStage);
       controller.setGuppyMode(p.getGuppyMode());
       controller.setDevice(p.getDevice());
-      //controller.setIfOnlyDemultiplexing(p.getIfOnlyDemultiplexing());
      
       // Show the dialog and wait until the user closes it.
       dialogStage.showAndWait();
@@ -441,19 +440,29 @@ public class PipelineOverviewController {
   @FXML
   private void handleStartPipeline()  {
     if (p.getOntReadsWorkspace().isEmpty()) {
-      pUtil.createAlertDialog(AlertType.ERROR, "Empty workspace.", "Workspace can not be empty.");
+      pUtil.createAlertDialog(AlertType.ERROR, "Empty Nanopore reads foler.", "Nanopore reads folder can not be empty.");
+    } else if (p.getOutputPath().isEmpty()) {
+      pUtil.createAlertDialog(AlertType.ERROR, "Empty output foler.", "Output folder can not be empty.");
     } else if (!p.getThreads().matches(("\\d+"))){
-      pUtil.createAlertDialog(AlertType.ERROR, "Wrong threads.", "Threads should be an integer.");
+      pUtil.createAlertDialog(AlertType.ERROR, "Wrong threads.", "Threads should be a positive integer.");
     } else if (!p.getIfBasecalling() && !p.getIfReadsFilter() && !p.getIfAssembly() && !p.getIfPolishing()) {
       pUtil.createAlertDialog(AlertType.ERROR, "Empty module.", "Please select at least one module.");
     } else if (!p.getSelectedBarcode().matches("([123456789],{0,1})*")){
       pUtil.createAlertDialog(AlertType.ERROR, "Wrong seleted barcodes.", "The format of selected barcodes is wrong.");
+    } else if (p.getIfBasecalling() && !pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fast5")) {
+      pUtil.createAlertDialog(AlertType.ERROR, "Wrong input files.", "Base calling runs only with .fast5 files");
+    } else if (p.getMethod().equals("Hybrid assembly") && p.getIlluminaReadsWorkspace().isEmpty()) {
+      pUtil.createAlertDialog(AlertType.ERROR, "No Illumina reads found.", "Hybrid assembly requires Illumina reads.");
+    } else if (p.getIfPolishing() && p.getIlluminaReadsWorkspace().isEmpty()) {
+      pUtil.createAlertDialog(AlertType.ERROR, "No Illumina reads found.", "Polishing requires Illumina reads.");
+    } else if (pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fast5") && !p.getIfBasecalling()) {
+      pUtil.createAlertDialog(AlertType.ERROR, "Base calling required.", "Base calling is required since you provide .fast5 files.");
     } else {
       String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
       pUtil.createUserLog(p, timeStamp);
       pUtil.createPbsFile(p, timeStamp);
       try {
-        Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getOntReadsWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
+        //Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getOntReadsWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
       } catch (Exception e) {
         logger.error("Can not run .pbs file. " + e);
       }
@@ -469,7 +478,7 @@ public class PipelineOverviewController {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File selectedDirectory = directoryChooser.showDialog(null);
     if (selectedDirectory != null) {
-      if (pUtil.checkDirectory(selectedDirectory,"fast5") || pUtil.checkDirectory(selectedDirectory,"fastq")) {
+      if (pUtil.checkDirectoryValidity(selectedDirectory,"fast5") || pUtil.checkDirectoryValidity(selectedDirectory,"fastq")) {
         tfNanoporeWorkspace.setText(selectedDirectory.toString()); 
       } else {
         pUtil.createAlertDialog(AlertType.ERROR, "Wrong ONT workspace.", "No .fast5/.fastq files found in this folder.");
@@ -484,6 +493,7 @@ public class PipelineOverviewController {
   private void handleSelectIlluminaWorkspace() {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File selectedDirectory = directoryChooser.showDialog(null);
+    pUtil.checkIlluminaReads(selectedDirectory);
     if (selectedDirectory != null) {
       tfIlluminaWorkspace.setText(selectedDirectory.toString());
     }
@@ -523,10 +533,14 @@ public class PipelineOverviewController {
     fileChooser.getExtensionFilters().addAll(
         new ExtensionFilter("CSV/TSV Files", "*.csv", "*.CSV", "*.tsv", "*.TSV"));
         //new ExtensionFilter("TSV Files", "*.tsv"));
-    File selectedFile = fileChooser.showOpenDialog(null);
-    if (selectedFile != null) {
-      tfSampleSheet.setText(selectedFile.toString());
-      pUtil.readSampleSheet(selectedFile.toString(), pUtil.getFileExtension(selectedFile.toString()));
+    File sampleSheetFile = fileChooser.showOpenDialog(null);
+    if (sampleSheetFile != null) {
+      if (!pUtil.readSampleSheet(sampleSheetFile.toString(), pUtil.getFileExtension(sampleSheetFile.toString())).equals("wrong")) {
+        tfSampleSheet.setText(sampleSheetFile.toString());
+        p.setSampleSheetContent(pUtil.readSampleSheet(sampleSheetFile.toString(), pUtil.getFileExtension(sampleSheetFile.toString())));
+      } else {
+        pUtil.createAlertDialog(AlertType.ERROR, "Wrong sample sheet.", "The format of sample sheet is wrong.");
+      };
     }
   }
 }

@@ -13,7 +13,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -284,20 +283,21 @@ public class PipelineUtil {
    */
   public String readSampleSheet(String sampleSheet, String extension) {
     String result = "";
-    String ch = (extension.equals("csv".toLowerCase()) ? "," : "\t");
-    try (BufferedReader br = new BufferedReader(new FileReader(sampleSheet))) {
+    if (checkSampleSheet(sampleSheet, extension)) {
+      String ch = (extension.equals("csv".toLowerCase()) ? "," : "\t");
+      try (BufferedReader br = new BufferedReader(new FileReader(sampleSheet))) {
         String line;
         while ((line = br.readLine()) != null) {
-            String[] values = line.split(ch);
-            if(values[1].matches("barcode\\d+")) {
-              result = result + "['" + values[1] + "']='" + values[0] + "' ";  
-            }
+          String[] values = line.split(ch);
+          result = result + "['" + values[1] + "']='" + values[0] + "' ";  
         }
-    } catch (Exception e) {
-      logger.error("Can not read sample sheet." + e);
-    } 
-    result = "(" + result + ")";
-    System.out.println(result);
+      } catch (Exception e) {
+        logger.error("Can not read sample sheet." + e);
+      } 
+      result = "(" + result + ")"; 
+    } else {
+      result = "wrong";
+    }
     return result;
   }
   
@@ -339,7 +339,7 @@ public class PipelineUtil {
    * @param extension the given extension to be checked in the directory
    * @return the Boolean value if the check has been passed.
    */
-  public Boolean checkDirectory(File selectedDirectory, String extension) {
+  public Boolean checkDirectoryValidity(File selectedDirectory, String extension) {
     boolean result = false;
     File[] f = selectedDirectory.listFiles();
     for (int i = 0; i < f.length; i++) {
@@ -363,5 +363,62 @@ public class PipelineUtil {
       extension = fileName.substring(i+1);
     }
     return extension;
+  }
+  
+  /**
+   * Checks if the sample sheet has the correct content.
+   * @param sampleSheet the String of sample sheet file path
+   * @param extension the String of the sample sheet extension.
+   * @return the Boolean value if the sample sheet correct is..
+   */
+  private Boolean checkSampleSheet(String sampleSheet, String extension) {
+    Boolean result = true;
+    ArrayList<String> sampleNames = new ArrayList<String>();
+    ArrayList<String> barcodeNames = new ArrayList<String>();
+    String ch = (extension.equals("csv".toLowerCase()) ? "," : "\t");
+    try (BufferedReader br = new BufferedReader(new FileReader(sampleSheet))) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        String[] values = line.split(ch);
+        if (!values[1].matches("barcode\\d+") || sampleNames.contains(values[0]) || barcodeNames.contains(values[1])) {
+          result = false;
+          break;
+        } else {
+          sampleNames.add(values[0]);
+          barcodeNames.add(values[1]); 
+        }
+      }
+    } catch (Exception e) {
+      logger.error("Can not read sample sheet." + e);
+    }
+    return result;
+  }
+  
+  
+  public Boolean checkIlluminaReads(File illuminaDirectory) {
+    Boolean result = true;
+    File[] f = illuminaDirectory.listFiles();
+    ArrayList<String> alFR1 = new ArrayList<String>();
+    ArrayList<String> alFR2 = new ArrayList<String>();
+    for (int i = 0; i < f.length; i++) {
+      String prefix = f[i].getName().substring(0, f[i].getName().indexOf("_"));
+      //System.out.println(prefix);
+      if(f[i].getName().matches(".*R1.*") && !alFR1.contains(prefix)) {
+        System.out.println("R1"+prefix);
+        alFR1.add(prefix);
+      } else if (f[i].getName().matches(".*R2.*") && !alFR2.contains(prefix)) {
+        alFR2.add(prefix);
+        System.out.println("R2"+prefix);
+      } else {
+        result = false;
+        break;
+      }
+      //System.out.println(f[i].getName().toString());
+    }
+    if ( !alFR1.containsAll(alFR2) || !alFR2.containsAll(alFR1)) {
+      result = false;
+    }
+    System.out.println(result);
+    return result;
   }
 }

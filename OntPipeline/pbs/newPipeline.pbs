@@ -144,12 +144,12 @@ for f in *.fastq ; do
       cp -r ~/tmp_assembly_$currentDate/"$pf"_Assembly $OUTPUTPATH/Analysis_$currentDate/Assembly
     else
       echo $(date) [$pf] Hybrid assembly starts. 
-      cp --no-preserve=mode $ILLUMINAWORKSPACE/"$pf"*read1* ~/tmp_assembly
-      cp --no-preserve=mode $ILLUMINAWORKSPACE/"$pf"*read2* ~/tmp_assembly
+      cp --no-preserve=mode $ILLUMINAWORKSPACE/"$pf"*R1* ~/tmp_assembly
+      cp --no-preserve=mode $ILLUMINAWORKSPACE/"$pf"*R2* ~/tmp_assembly
       if $IF_VCF ; then
-        unicycler -1 ~/tmp_assembly_$currentDate/"$pf"*read1* -2 ~/tmp_assembly_$currentDate/"$pf"*read1* -l ~/tmp_assembly_$currentDate/"$pf"*.fastq -o ~/tmp_assembly_$currentDate/"$pf"_Assembly -t $THREADS --mode $MODE --vcf > $OUTPUTPATH/Analysis_$currentDate/Logs/"$pf"_assembly.log
+        unicycler -1 ~/tmp_assembly_$currentDate/"$pf"*R1* -2 ~/tmp_assembly_$currentDate/"$pf"*R1* -l ~/tmp_assembly_$currentDate/"$pf"*.fastq -o ~/tmp_assembly_$currentDate/"$pf"_Assembly -t $THREADS --mode $MODE --vcf > $OUTPUTPATH/Analysis_$currentDate/Logs/"$pf"_assembly.log
       else
-        unicycler -1 ~/tmp_assembly_$currentDate/"$pf"*read1* -2 ~/tmp_assembly_$currentDate/"$pf"*read1* -l ~/tmp_assembly_$currentDate/"$pf"*.fastq -o ~/tmp_assembly_$currentDate/"$pf"_Assembly -t $THREADS --mode $MODE > $OUTPUTPATH/Analysis_$currentDate/Logs/"$pf"_assembly.log
+        unicycler -1 ~/tmp_assembly_$currentDate/"$pf"*R1* -2 ~/tmp_assembly_$currentDate/"$pf"*R1* -l ~/tmp_assembly_$currentDate/"$pf"*.fastq -o ~/tmp_assembly_$currentDate/"$pf"_Assembly -t $THREADS --mode $MODE > $OUTPUTPATH/Analysis_$currentDate/Logs/"$pf"_assembly.log
       fi
       cp -r ~/tmp_assembly_$currentDate/"$pf"_Assembly $OUTPUTPATH/Analysis_$currentDate
     fi
@@ -186,7 +186,7 @@ for f in *.fastq ; do
       fi
       echo $(date) [$pf] Align Illumina reads to the Nanopore assembly.
       bwa index $OUTPUTPATH/Analysis_$currentDate/"$pf"_Polishing/assembly_"$i".fasta >> $OUTPUTPATH/Analysis_$currentDate/Logs/"$pf"_polishing_"$i".log
-      bwa mem -t $THREADS $OUTPUTPATH/Analysis_$currentDate/"$pf"_Polishing/assembly_"$i".fasta $ILLUMINAWORKSPACE/"$pf"_read1* $ILLUMINAWORKSPACE/"$pf"_read2* > $OUTPUTPATH/Analysis_$currentDate/"$pf"_Polishing/aln_"$i".sam
+      bwa mem -t $THREADS $OUTPUTPATH/Analysis_$currentDate/"$pf"_Polishing/assembly_"$i".fasta $ILLUMINAWORKSPACE/"$pf"*R1* $ILLUMINAWORKSPACE/"$pf"*R2* > $OUTPUTPATH/Analysis_$currentDate/"$pf"_Polishing/aln_"$i".sam
       conda deactivate
       source /opt/anaconda3/bin/activate unicycler
       samtools sort $OUTPUTPATH/Analysis_$currentDate/"$pf"_Polishing/aln_"$i".sam -o $OUTPUTPATH/Analysis_$currentDate/"$pf"_Polishing/aln_"$i".sorted.bam >> $OUTPUTPATH/Analysis_$currentDate/Logs/"$pf"_polishing_"$i".log

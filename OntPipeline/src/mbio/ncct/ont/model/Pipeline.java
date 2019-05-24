@@ -22,7 +22,10 @@ public class Pipeline {
   private final StringProperty outputPath = new SimpleStringProperty("");
   
   /** Initializes and sets the sample sheet file path. */
-  private final StringProperty sampleSheet = new SimpleStringProperty("");
+  private final StringProperty sampleSheetPath = new SimpleStringProperty("");
+  
+  /** Initializes and sets the sample sheet file content. */
+  private final StringProperty sampleSheetContent = new SimpleStringProperty("");
   
   /** Initializes and sets the specified barcode(s). */
   private final StringProperty selectedBarcode = new SimpleStringProperty("");
@@ -154,16 +157,32 @@ public class Pipeline {
    * Gets the sample sheet file path.
    * @return the String of sample sheet file path.
    */
-  public String getSampleSheet() {
-    return sampleSheet.get();
+  public String getSampleSheetPath() {
+    return sampleSheetPath.get();
   }
   
   /**
    * Sets the sample sheet file path.
-   * @param sampleSheet the String of sample sheet file path.
+   * @param sampleSheetPath the String of sample sheet file path.
    */
-  public void setSampleSheet(String sampleSheet) {
-    this.sampleSheet.set(sampleSheet);
+  public void setSampleSheetPath(String sampleSheetPath) {
+    this.sampleSheetPath.set(sampleSheetPath);
+  }
+  
+  /**
+   * Gets the sample sheet content.
+   * @return the String of sample sheet content.
+   */
+  public String getSampleSheetContent() {
+    return sampleSheetContent.get();
+  }
+  
+  /**
+   * Sets the sample sheet content.
+   * @param sampleSheetContent the String of sample sheet content.
+   */
+  public void setSampleSheetContent(String sampleSheetContent) {
+    this.sampleSheetContent.set(sampleSheetContent);
   }
   
   /**
