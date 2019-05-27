@@ -69,6 +69,5 @@
       <Separator layoutX="23.0" layoutY="294.0" prefHeight="8.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" />
       <CheckBox fx:id="cDemultiplexing" layoutX="34.0" layoutY="260.0" mnemonicParsing="false" text="Demultiplexing" AnchorPane.leftAnchor="35.0" />
       <CheckComboBox fx:id="ccbBarcodeKits" layoutX="171.0" layoutY="256.0" prefHeight="26.0" prefWidth="363.0" AnchorPane.leftAnchor="168.0" AnchorPane.rightAnchor="134.0" />
-      <Button layoutX="553.0" layoutY="256.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="99.0" text="Advanced" />
    </children>
 </AnchorPane>

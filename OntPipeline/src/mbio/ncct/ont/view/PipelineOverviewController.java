@@ -203,6 +203,16 @@ public class PipelineOverviewController {
       }
     });
     
+    cDemultiplexing.selectedProperty().addListener((observable, oldValue, newValue) -> {
+      if (cDemultiplexing.isSelected()) {
+        ccbBarcodeKits.setDisable(false);
+        p.setIfDemultiplexing(true);
+      } else {
+        ccbBarcodeKits.setDisable(true);
+        p.setIfDemultiplexing(false);
+      }
+    });
+    
     cReadsFilter.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cReadsFilter.isSelected()) {
         btnReadsFilter.setDisable(false);
@@ -263,6 +273,10 @@ public class PipelineOverviewController {
 
     tfSelectedBarcode.textProperty().addListener((observable, oldValue, newValue) -> {
       p.setSelectedBarcode(newValue);
+    });
+    
+    tfPrefix.textProperty().addListener((observable, oldValue, newValue) -> {
+      p.setPrefix(newValue);
     });
   }
 
@@ -440,9 +454,9 @@ public class PipelineOverviewController {
   @FXML
   private void handleStartPipeline()  {
     if (p.getOntReadsWorkspace().isEmpty()) {
-      pUtil.createAlertDialog(AlertType.ERROR, "Empty Nanopore reads foler.", "Nanopore reads folder can not be empty.");
+      pUtil.createAlertDialog(AlertType.ERROR, "Empty Nanopore reads folder.", "Nanopore reads folder can not be empty.");
     } else if (p.getOutputPath().isEmpty()) {
-      pUtil.createAlertDialog(AlertType.ERROR, "Empty output foler.", "Output folder can not be empty.");
+      pUtil.createAlertDialog(AlertType.ERROR, "Empty output folder.", "Output folder can not be empty.");
     } else if (!p.getThreads().matches(("\\d+"))){
       pUtil.createAlertDialog(AlertType.ERROR, "Wrong threads.", "Threads should be a positive integer.");
     } else if (!p.getIfBasecalling() && !p.getIfReadsFilter() && !p.getIfAssembly() && !p.getIfPolishing()) {
@@ -451,7 +465,7 @@ public class PipelineOverviewController {
       pUtil.createAlertDialog(AlertType.ERROR, "Wrong seleted barcodes.", "The format of selected barcodes is wrong.");
     } else if (p.getIfBasecalling() && !pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fast5")) {
       pUtil.createAlertDialog(AlertType.ERROR, "Wrong input files.", "Base calling runs only with .fast5 files");
-    } else if (p.getMethod().equals("Hybrid assembly") && p.getIlluminaReadsWorkspace().isEmpty()) {
+    } else if (p.getIfAssembly() && p.getMethod().equals("Hybrid assembly") && p.getIlluminaReadsWorkspace().isEmpty()) {
       pUtil.createAlertDialog(AlertType.ERROR, "No Illumina reads found.", "Hybrid assembly requires Illumina reads.");
     } else if (p.getIfPolishing() && p.getIlluminaReadsWorkspace().isEmpty()) {
       pUtil.createAlertDialog(AlertType.ERROR, "No Illumina reads found.", "Polishing requires Illumina reads.");
@@ -462,7 +476,7 @@ public class PipelineOverviewController {
       pUtil.createUserLog(p, timeStamp);
       pUtil.createPbsFile(p, timeStamp);
       try {
-        //Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getOntReadsWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
+        Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getOutputPath() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
       } catch (Exception e) {
         logger.error("Can not run .pbs file. " + e);
       }
@@ -493,9 +507,15 @@ public class PipelineOverviewController {
   private void handleSelectIlluminaWorkspace() {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File selectedDirectory = directoryChooser.showDialog(null);
-    pUtil.checkIlluminaReads(selectedDirectory);
     if (selectedDirectory != null) {
-      tfIlluminaWorkspace.setText(selectedDirectory.toString());
+      //Object checkResult[] = pUtil.checkIlluminaReads(selectedDirectory);
+      //if ((Boolean)checkResult[0]) {
+      if ((Boolean) pUtil.checkIlluminaReads(selectedDirectory)[0]) {
+        tfIlluminaWorkspace.setText(selectedDirectory.toString()); 
+        p.setIlluminaReadsWorkspace(selectedDirectory.toString());
+      } else {
+        pUtil.createAlertDialog(AlertType.ERROR, "Wrong Illumina workspace.", "This folder is not valid.");
+      }
     }
   }
   
@@ -508,6 +528,7 @@ public class PipelineOverviewController {
     File selectedDirectory = directoryChooser.showDialog(null);
     if (selectedDirectory != null) {
       tfOutputPath.setText(selectedDirectory.toString());
+      p.setOutputPath(selectedDirectory.toString());
     }
   }
   

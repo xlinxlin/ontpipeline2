@@ -100,7 +100,7 @@ public class Pipeline {
   private final BooleanProperty ifGuppyFast = new SimpleBooleanProperty(false);
   
   /** Initializes and sets if demultiplexing will be used. */
-  private final BooleanProperty ifDemultiplexing = new SimpleBooleanProperty(false);
+  private final BooleanProperty ifDemultiplexing = new SimpleBooleanProperty(true);
   
   /** Initializes and sets Guppy .cfg configuration file. */
   private final StringProperty guppyCfgFile = new SimpleStringProperty("");

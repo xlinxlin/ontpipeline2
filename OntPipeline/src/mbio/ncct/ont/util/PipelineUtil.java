@@ -36,7 +36,7 @@ public class PipelineUtil {
   
   /** Sets pbs file location. */
   //private static String pbsUrl = "/opt/ontpipeline/pbs/pipelineWithLoop.pbs";
-  private static String pbsUrl = "/opt/ontpipeline/pbs/newPipeline.pbs";
+  private static String pbsUrl = "/opt/ontpipeline/pbs/pipelineWithLoop.pbs";
   
   /**
    * Gets all flowcell IDs.
@@ -170,7 +170,7 @@ public class PipelineUtil {
     }
     
     Path path = Paths.get(pbsUrl);
-    Path newPath = Paths.get(p.getOntReadsWorkspace() + "/pipelineWithLoop_" + timeStamp + ".pbs");
+    Path newPath = Paths.get(p.getOutputPath() + "/pipelineWithLoop_" + timeStamp + ".pbs");
     Charset charset = StandardCharsets.UTF_8;
 
     String content = null;
@@ -180,14 +180,19 @@ public class PipelineUtil {
       logger.error("Can not read the .pbs template. " + e);
     }
     
-    content = content.replaceAll("\\$WORKSPACE_PATH", p.getOntReadsWorkspace())
+    content = content.replaceAll("\\$ONTWORKSPACE", p.getOntReadsWorkspace())
+        .replaceAll("\\$ILLUMINAWORKSPACE", p.getIlluminaReadsWorkspace())
+        .replaceAll("\\$OUTPUTPATH", p.getOutputPath())
         .replaceAll("\\$IF_BASECALLING", p.getIfBasecalling().toString())
         .replaceAll("\\$FLOWCELL_ID", p.getFlowcellId())
         .replaceAll("\\$KIT_NUMBER", p.getKitNumber())
         .replaceAll("\\$THREADS", p.getThreads())
+        .replaceAll("\\$IF_DEMULTIPLEXING", p.getIfDemultiplexing().toString())
+        .replaceAll("\\$SAMPLESHEET", p.getSampleSheetContent())
+        .replaceAll("\\$PREFIX", p.getPrefix().isEmpty() ? "barcode" : p.getPrefix())
         .replaceAll("\\$BARCODEKIT", p.getBarcodeKits())
         .replaceAll("\\$IF_ADAPTERTRIMMING", p.getIfAdapterTrimming().toString())
-        .replaceAll("\\$BARCODENUMBERS", formatSelectedBarcodes(p.getSelectedBarcode()))
+        .replaceAll("\\$BARCODENUMBERS", p.getSelectedBarcode().isEmpty() ? "" : formatSelectedBarcodes(p.getSelectedBarcode()))
         .replaceAll("\\$IF_READSFILTER", p.getIfReadsFilter().toString())
         .replaceAll("\\$SCORE", p.getReadScore())
         .replaceAll("\\$LENGTH", p.getReadLength())
@@ -215,7 +220,7 @@ public class PipelineUtil {
    * @param timeStamp the current date and time: yyyyMMdd_HHmmss.
    */
   public void createUserLog(Pipeline p, String timeStamp) {
-    String path = p.getOntReadsWorkspace() + "/userlog_" + timeStamp + ".log";
+    String path = p.getOutputPath() + "/userlog_" + timeStamp + ".log";
     File f = new File(path);
     f.getParentFile().mkdirs(); 
     try {
@@ -226,19 +231,29 @@ public class PipelineUtil {
     try {
       BufferedWriter writer = new BufferedWriter(new FileWriter(f, true));
       writer.append("====General Settings====\n");
-      writer.append("Workspace: " + p.getOntReadsWorkspace() + "\n");
+      writer.append("Nanopore reads directory: " + p.getOntReadsWorkspace() + "\n");
+      writer.append("Illumina reads directory: " + (p.getIlluminaReadsWorkspace().isEmpty() ? "Not given." : p.getIlluminaReadsWorkspace()) + "\n");
+      writer.append("Output directory: " + p.getOutputPath() + "\n");
+      writer.append("Sample sheet path: " + (p.getSampleSheetPath().isEmpty() ? "Not given." : p.getSampleSheetPath()) + "\n");
+      writer.append("Prefix: " + (p.getPrefix().isEmpty() ? "Not given (default: \"barcode\")." : p.getPrefix()) + "\n");
       writer.append("Threads: " + p.getThreads() + "\n");
-      writer.append("Barcodes: " + ( p.getSelectedBarcode().isEmpty() ? "all" :formatSelectedBarcodes(p.getSelectedBarcode()) ) + "\n\n");
+      writer.append("Selected barcodes: " + ( p.getSelectedBarcode().isEmpty() ? "Default: all. " :formatSelectedBarcodes(p.getSelectedBarcode()) ) + "\n\n");
       if (p.getIfBasecalling()) {
         writer.append("====Basecalling Settings====\n");
         writer.append("Flowcell ID: " + p.getFlowcellId() + " \n");
         writer.append("Kit number: " + p.getKitNumber() + " \n");
         writer.append("Guppy mode: " + p.getGuppyMode() + " \n");
         writer.append("Device: " + p.getDevice() + " \n");
-        writer.append("Barcode kits: " + p.getBarcodeKits() + " \n\n"); 
       } else {
         writer.append("====No Basecalling====\n\n");
       }
+      if (p.getIfDemultiplexing()) {
+        writer.append("====Basecalling Settings====\n");
+        writer.append("Barcode kits: " + (p.getBarcodeKits().isEmpty() ? "" : p.getBarcodeKits()) + " \n\n"); 
+      } else {
+        writer.append("====No Demultiplexing====\n");
+      }
+      
       if (p.getIfReadsFilter()) {
         writer.append("====Reads Filter Settings====\n");
         writer.append("Read score: " + p.getReadScore() + " \n");
@@ -287,6 +302,7 @@ public class PipelineUtil {
       String ch = (extension.equals("csv".toLowerCase()) ? "," : "\t");
       try (BufferedReader br = new BufferedReader(new FileReader(sampleSheet))) {
         String line;
+        line = br.readLine();
         while ((line = br.readLine()) != null) {
           String[] values = line.split(ch);
           result = result + "['" + values[1] + "']='" + values[0] + "' ";  
@@ -295,8 +311,39 @@ public class PipelineUtil {
         logger.error("Can not read sample sheet." + e);
       } 
       result = "(" + result + ")"; 
+      //System.out.println(result);
     } else {
       result = "wrong";
+    }
+    return result;
+  }
+  
+  /**
+   * Checks if the sample sheet has the correct content.
+   * @param sampleSheet the String of sample sheet file path
+   * @param extension the String of the sample sheet extension.
+   * @return the Boolean value if the sample sheet correct is..
+   */
+  private Boolean checkSampleSheet(String sampleSheet, String extension) {
+    Boolean result = true;
+    ArrayList<String> sampleNames = new ArrayList<String>();
+    ArrayList<String> barcodeNames = new ArrayList<String>();
+    String ch = (extension.equals("csv".toLowerCase()) ? "," : "\t");
+    try (BufferedReader br = new BufferedReader(new FileReader(sampleSheet))) {
+      String line;
+      line = br.readLine();
+      while ((line = br.readLine()) != null) {
+        String[] values = line.split(ch);
+        if (!values[1].matches("barcode\\d+") || sampleNames.contains(values[0]) || barcodeNames.contains(values[1])) {
+          result = false;
+          break;
+        } else {
+          sampleNames.add(values[0]);
+          barcodeNames.add(values[1]); 
+        }
+      }
+    } catch (Exception e) {
+      logger.error("Can not read sample sheet." + e);
     }
     return result;
   }
@@ -366,59 +413,29 @@ public class PipelineUtil {
   }
   
   /**
-   * Checks if the sample sheet has the correct content.
-   * @param sampleSheet the String of sample sheet file path
-   * @param extension the String of the sample sheet extension.
-   * @return the Boolean value if the sample sheet correct is..
+   * Checks the Illumina reads folder.
+   * @param illuminaDirectory the path to the Illumina reads folder.
+   * @return an Object[2] with two values, Object[0]: if the folder is valid and Object[1]: pairs of Illumina reads. 
    */
-  private Boolean checkSampleSheet(String sampleSheet, String extension) {
-    Boolean result = true;
-    ArrayList<String> sampleNames = new ArrayList<String>();
-    ArrayList<String> barcodeNames = new ArrayList<String>();
-    String ch = (extension.equals("csv".toLowerCase()) ? "," : "\t");
-    try (BufferedReader br = new BufferedReader(new FileReader(sampleSheet))) {
-      String line;
-      while ((line = br.readLine()) != null) {
-        String[] values = line.split(ch);
-        if (!values[1].matches("barcode\\d+") || sampleNames.contains(values[0]) || barcodeNames.contains(values[1])) {
-          result = false;
-          break;
-        } else {
-          sampleNames.add(values[0]);
-          barcodeNames.add(values[1]); 
-        }
-      }
-    } catch (Exception e) {
-      logger.error("Can not read sample sheet." + e);
-    }
-    return result;
-  }
-  
-  
-  public Boolean checkIlluminaReads(File illuminaDirectory) {
-    Boolean result = true;
+  public Object[] checkIlluminaReads(File illuminaDirectory) {
+    Boolean validity = true;
     File[] f = illuminaDirectory.listFiles();
     ArrayList<String> alFR1 = new ArrayList<String>();
     ArrayList<String> alFR2 = new ArrayList<String>();
     for (int i = 0; i < f.length; i++) {
       String prefix = f[i].getName().substring(0, f[i].getName().indexOf("_"));
-      //System.out.println(prefix);
-      if(f[i].getName().matches(".*R1.*") && !alFR1.contains(prefix)) {
-        System.out.println("R1"+prefix);
+      if(f[i].getName().matches(".*R1.*\\.fastq\\.gz") && !alFR1.contains(prefix)) {
         alFR1.add(prefix);
-      } else if (f[i].getName().matches(".*R2.*") && !alFR2.contains(prefix)) {
+      } else if (f[i].getName().matches(".*R2.*\\.fastq\\.gz") && !alFR2.contains(prefix)) {
         alFR2.add(prefix);
-        System.out.println("R2"+prefix);
       } else {
-        result = false;
+        validity = false;
         break;
       }
-      //System.out.println(f[i].getName().toString());
     }
     if ( !alFR1.containsAll(alFR2) || !alFR2.containsAll(alFR1)) {
-      result = false;
+      validity = false;
     }
-    System.out.println(result);
-    return result;
+    return new Object[]{validity, alFR1.size()};
   }
 }
