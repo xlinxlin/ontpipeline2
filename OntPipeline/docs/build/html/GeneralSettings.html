@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Basecalling Settings" href="BasecallingSettings.html" />
+    <link rel="next" title="Base Calling Settings" href="BasecallingSettings.html" />
     <link rel="prev" title="Input File Structure" href="InputFileStructure.html" /> 
 
   
@@ -82,12 +82,17 @@
 <li class="toctree-l1"><a class="reference internal" href="GetStarted.html">Get Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="InputFileStructure.html">Input File Structure</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">General Settings</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#workspace-required">Workspace (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ont-dir-required">ONT Dir. (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illumina-dir-optional">Illumina Dir. (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output-dir-required">Output Dir. (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-sheet-optional">Sample sheet. (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prefix-optional">Prefix. (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#threads-required">Threads (Required)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#barcodes-optional">Barcodes (Optional)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Basecalling Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Base Calling Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DemultiplexingSettings.html">Demultiplexing Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReadsFilterSettings.html">Reads Filter Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AssemblySettings.html">Assembly Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PolishingSettings.html">Polishing Settings</a></li>
@@ -158,13 +163,57 @@
             
   <div class="section" id="general-settings">
 <h1>General Settings<a class="headerlink" href="#general-settings" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="workspace-required">
-<h2>Workspace (Required)<a class="headerlink" href="#workspace-required" title="Permalink to this headline">¶</a></h2>
-<p>Set the path to your workspace.</p>
+<div class="section" id="ont-dir-required">
+<h2>ONT Dir. (Required)<a class="headerlink" href="#ont-dir-required" title="Permalink to this headline">¶</a></h2>
+<p>Set the path to the Nanopore reads directory.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
-<li><strong>Example:</strong> <code class="file docutils literal notranslate"><span class="pre">/path/to/your/workspace</span></code></li>
+<li><strong>Example:</strong> <code class="file docutils literal notranslate"><span class="pre">/path/to/your/ONT/reads/directory</span></code></li>
+</ul>
+</div>
+</div>
+<div class="section" id="illumina-dir-optional">
+<h2>Illumina Dir. (Optional)<a class="headerlink" href="#illumina-dir-optional" title="Permalink to this headline">¶</a></h2>
+<p>Set the path to the Illumina reads directory.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><strong>Example:</strong> <code class="file docutils literal notranslate"><span class="pre">/path/to/your/Illumina/reads/directory</span></code></li>
+<li>Required if “hybrid-assembly” or/and “polishing” is used.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="output-dir-required">
+<h2>Output Dir. (Required)<a class="headerlink" href="#output-dir-required" title="Permalink to this headline">¶</a></h2>
+<p>Set the path to the output directory.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><strong>Example:</strong> <code class="file docutils literal notranslate"><span class="pre">/path/to/your/output/directory</span></code></li>
+<li>Required if “hybrid-assembly” or/and “polishing” is used.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="sample-sheet-optional">
+<h2>Sample sheet. (Optional)<a class="headerlink" href="#sample-sheet-optional" title="Permalink to this headline">¶</a></h2>
+<p>Set the path to the sample sheet file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>The sample sheet must be in .csv or .tsv format.</li>
+<li>The sample name does not allowed contain “_”.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="prefix-optional">
+<h2>Prefix. (Optional)<a class="headerlink" href="#prefix-optional" title="Permalink to this headline">¶</a></h2>
+<p>Set the prefix for the Nanopore reads after demultiplexing.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li><strong>Example:</strong> ID .</li>
+<li>Default value: barcode .</li>
 </ul>
 </div>
 </div>
@@ -199,7 +248,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="BasecallingSettings.html" class="btn btn-neutral float-right" title="Basecalling Settings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="BasecallingSettings.html" class="btn btn-neutral float-right" title="Base Calling Settings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="InputFileStructure.html" class="btn btn-neutral" title="Input File Structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
