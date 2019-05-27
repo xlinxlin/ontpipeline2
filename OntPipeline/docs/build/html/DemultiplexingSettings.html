@@ -85,6 +85,9 @@
 <li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Base Calling Settings</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Demultiplexing Settings</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#barcode-kit-optional">Barcode kit (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#records-per-fastq-1-default">records_per_fastq  (Default)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recursive-1-default">recursive  (Default)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trim-barcodes-default">trim_barcodes (Default)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ReadsFilterSettings.html">Reads Filter Settings</a></li>
@@ -167,6 +170,40 @@
 <li>Multiple selections possible.</li>
 </ul>
 </div>
+</div>
+<div class="section" id="records-per-fastq-1-default">
+<h2>records_per_fastq <a class="footnote-reference" href="#id3" id="id1">[1]</a> (Default)<a class="headerlink" href="#records-per-fastq-1-default" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>select value: 0.</li>
+<li>Use a single file (per worker, per run id).</li>
+</ul>
+</div>
+</div>
+<div class="section" id="recursive-1-default">
+<h2>recursive <a class="footnote-reference" href="#id3" id="id2">[1]</a> (Default)<a class="headerlink" href="#recursive-1-default" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Set value: search for input files recursively.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="trim-barcodes-default">
+<h2>trim_barcodes (Default)<a class="headerlink" href="#trim-barcodes-default" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Trim the barcodes from the output sequences in the .fastq files.</li>
+</ul>
+</div>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> How to configure Guppy parameters <a class="reference external" href="https://community.nanoporetech.com/protocols/Guppy-protocol-preRev/v/gpb_2003_v1_revg_14dec2018/how-to-configure-guppy-parameters">https://community.nanoporetech.com/protocols/Guppy-protocol-preRev/v/gpb_2003_v1_revg_14dec2018/how-to-configure-guppy-parameters</a></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 

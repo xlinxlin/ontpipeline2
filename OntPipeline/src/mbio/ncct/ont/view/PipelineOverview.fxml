@@ -42,7 +42,7 @@
           <Tooltip text="Assembly method." />
         </tooltip>
       </ChoiceBox>
-      <Label layoutX="15.0" layoutY="55.0" text="Illumina folder" AnchorPane.rightAnchor="552.0" />
+      <Label layoutX="15.0" layoutY="55.0" text="Illumina Dir." AnchorPane.rightAnchor="552.0" />
       <TextField fx:id="tfIlluminaWorkspace" editable="false" layoutX="112.0" layoutY="50.0" prefHeight="26.0" prefWidth="441.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="50.0" />
       <Button layoutX="553.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleSelectIlluminaWorkspace" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
       <Label layoutX="57.0" layoutY="155.0" text="Threads" AnchorPane.rightAnchor="552.0" AnchorPane.topAnchor="155.0" />
@@ -57,10 +57,10 @@
       <Hyperlink layoutX="23.0" layoutY="468.0" onAction="#handleOpenDocument" text="https://ontpipeline2.readthedocs.io/" AnchorPane.leftAnchor="23.0" />
       <TextField fx:id="tfNanoporeWorkspace" editable="false" layoutX="112.0" layoutY="24.0" prefHeight="26.0" prefWidth="441.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="24.0" />
       <Button layoutX="552.0" layoutY="24.0" mnemonicParsing="false" onAction="#handleSelectNanoporeWorkspace" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="24.0" />
-      <Label layoutX="41.0" layoutY="27.0" text="ONT folder" AnchorPane.rightAnchor="552.0" />
+      <Label layoutX="41.0" layoutY="27.0" text="ONT Dir." AnchorPane.rightAnchor="552.0" />
       <Label layoutX="513.0" layoutY="155.0" text="Prefix" AnchorPane.rightAnchor="111.0" AnchorPane.topAnchor="155.0" />
       <TextField fx:id="tfPrefix" layoutX="553.0" layoutY="152.0" prefHeight="26.0" prefWidth="99.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="152.0" />
-      <Label layoutX="27.0" layoutY="81.0" text="Output folder" AnchorPane.rightAnchor="552.0" />
+      <Label layoutX="27.0" layoutY="81.0" text="Output Dir." AnchorPane.rightAnchor="552.0" />
       <TextField fx:id="tfOutputPath" editable="false" layoutX="112.0" layoutY="76.0" prefHeight="26.0" prefWidth="441.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="109.0" />
       <Button layoutX="551.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleSelectOutputFolder" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="76.0" />
       <TextField fx:id="tfSampleSheet" layoutX="112.0" layoutY="102.0" prefHeight="26.0" prefWidth="440.0" AnchorPane.leftAnchor="113.0" />
