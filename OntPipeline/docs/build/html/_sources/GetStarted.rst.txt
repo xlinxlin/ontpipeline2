@@ -22,12 +22,13 @@ JDK8 Installation [9]_
 
 .. code-block:: bash
 
-  sudo vim ~/.bashrc
+  sudo nano ~/.bashrc
   #set oracle jdk environment
   export JAVA_HOME=/usr/lib/jvm/jdk-1.8.0_211
   export JRE_HOME=${JAVA_HOME}/jre  
   export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib  
   export PATH=${JAVA_HOME}/bin:$PATH
+  #make changes take effect immediately
   source ~/.bashrc
 
 4. Set JDK8 to jdk-1.8.0_211.

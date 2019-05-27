@@ -13,6 +13,7 @@ Welcome to ontpipeline's documentation!
    InputFileStructure.rst
    GeneralSettings.rst
    BasecallingSettings.rst
+   DemultiplexingSettings.rst
    ReadsFilterSettings.rst
    AssemblySettings.rst
    PolishingSettings.rst

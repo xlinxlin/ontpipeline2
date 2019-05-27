@@ -97,7 +97,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="InputFileStructure.html">Input File Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GeneralSettings.html">General Settings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Basecalling Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Base Calling Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DemultiplexingSettings.html">Demultiplexing Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ReadsFilterSettings.html">Reads Filter Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AssemblySettings.html">Assembly Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PolishingSettings.html">Polishing Settings</a></li>
@@ -187,12 +188,13 @@ sudo tar -zxvf jdk-8u211-linux-x64.tar.gz -C /usr/lib/jvm
 <ol class="arabic simple" start="3">
 <li>Set environment variables for JDK8.</li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo vim ~/.bashrc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo nano ~/.bashrc
 <span class="c1">#set oracle jdk environment</span>
 <span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/jdk-1.8.0_211
 <span class="nb">export</span> <span class="nv">JRE_HOME</span><span class="o">=</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/jre
 <span class="nb">export</span> <span class="nv">CLASSPATH</span><span class="o">=</span>.:<span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/lib:<span class="si">${</span><span class="nv">JRE_HOME</span><span class="si">}</span>/lib
 <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/bin:<span class="nv">$PATH</span>
+<span class="c1">#make changes take effect immediately</span>
 <span class="nb">source</span> ~/.bashrc
 </pre></div>
 </div>

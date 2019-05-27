@@ -1,5 +1,5 @@
-Basecalling Settings
-====================
+Base Calling Settings
+=====================
 Flowcell ID (Required)
 _________________________
 Choose the Flowcell ID from the select list.
@@ -21,14 +21,6 @@ Set the sequencing device.
 
 .. note::
   * Default value: PromethION.
-
-Barcode kit (Optional)
-_________________________
-Choose the barcode kit(s) from the list if used.
-
-.. note::
-  * If no barcode kit was used, leave it blank.
-  * Multiple selections possible.
 
 cpu_threads_per_caller [1]_ (Default)
 _____________________________________
