@@ -1,5 +1,8 @@
 Assembly Settings
 =================
+
+.. image:: /img/AssemblySettings.png
+
 Mode (Required)
 _______________
 Choose an assembly mode. 
@@ -14,6 +17,8 @@ Choose an assembly method.
 
 * Long-read-only assembly: Long-read-only assembly using only long reads.
 * Hybrid assembly: Hybrid assembly using both Illumina read and long reads. (Default)
+
+.. image:: /img/AdvancedAssemblySettings.png
 
 VCF (Optional)
 ______________

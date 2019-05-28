@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.IndexedCheckModel;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +49,7 @@ public class PipelineOverviewController {
   /** Initializes Pipeline. */
   private Pipeline p = new Pipeline();
   
-  /** Initializes check box for basecalling. */
+  /** Initializes check box for base calling. */
   @FXML
   private CheckBox cBasecalling;
   
@@ -96,7 +97,7 @@ public class PipelineOverviewController {
   @FXML
   private TextField tfThreads;
   
-  /** Initializes button for basecalling. */
+  /** Initializes button for base calling. */
   @FXML
   private Button btnBasecalling;
   
@@ -182,9 +183,9 @@ public class PipelineOverviewController {
     cPolishing.setSelected(true);
     
     tfThreads.setText(p.getThreads());
-    tfNanoporeWorkspace.setPromptText("/path/to/your/Nanopore/reads/folder");
-    tfIlluminaWorkspace.setPromptText("/path/to/your/Illumina/reads/folder");
-    tfOutputPath.setPromptText("/path/to/your/output/folder");
+    tfNanoporeWorkspace.setPromptText("/path/to/your/Nanopore/reads/directory");
+    tfIlluminaWorkspace.setPromptText("/path/to/your/Illumina/reads/directory");
+    tfOutputPath.setPromptText("/path/to/your/output/directory");
     tfSampleSheet.setPromptText("/path/to/your/sample/sheet/file");
     tfSelectedBarcode.setPromptText("e.g.1,2,3, leave blank for all barcodes.");
     tfPrefix.setPromptText("e.g.ID");
@@ -267,6 +268,14 @@ public class PipelineOverviewController {
       p.setOntReadsWorkspace(newValue);
     });
     
+    tfIlluminaWorkspace.textProperty().addListener((observable, oldValue, newValue) -> {
+      p.setIlluminaReadsWorkspace(newValue);
+    });
+    
+    tfOutputPath.textProperty().addListener((observable, oldValue, newValue) -> {
+      p.setOutputPath(newValue);
+    });
+    
     tfThreads.textProperty().addListener((observable, oldValue, newValue) -> {
       p.setThreads(newValue);
     });
@@ -277,6 +286,12 @@ public class PipelineOverviewController {
     
     tfPrefix.textProperty().addListener((observable, oldValue, newValue) -> {
       p.setPrefix(newValue);
+    });
+    
+    ccbBarcodeKits.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+      public void onChanged(ListChangeListener.Change<? extends String> c) {
+        p.setBarcodeKits(pUtil.formatBarcodeKits(ccbBarcodeKits.getCheckModel().getCheckedItems().toString()));
+      }
     });
   }
 
@@ -495,7 +510,7 @@ public class PipelineOverviewController {
       if (pUtil.checkDirectoryValidity(selectedDirectory,"fast5") || pUtil.checkDirectoryValidity(selectedDirectory,"fastq")) {
         tfNanoporeWorkspace.setText(selectedDirectory.toString()); 
       } else {
-        pUtil.createAlertDialog(AlertType.ERROR, "Wrong ONT workspace.", "No .fast5/.fastq files found in this folder.");
+        pUtil.createAlertDialog(AlertType.ERROR, "Wrong ONT workspace.", "No .fast5/.fastq files found in this directory.");
       }
     } 
   }
@@ -508,19 +523,23 @@ public class PipelineOverviewController {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File selectedDirectory = directoryChooser.showDialog(null);
     if (selectedDirectory != null) {
-      //Object checkResult[] = pUtil.checkIlluminaReads(selectedDirectory);
-      //if ((Boolean)checkResult[0]) {
-      if ((Boolean) pUtil.checkIlluminaReads(selectedDirectory)[0]) {
+      if (pUtil.checkIlluminaReads(selectedDirectory)) {
         tfIlluminaWorkspace.setText(selectedDirectory.toString()); 
-        p.setIlluminaReadsWorkspace(selectedDirectory.toString());
+        if (pUtil.getIlluminaReadsPrefix(selectedDirectory).size() == 1) {
+          tfPrefix.setText(pUtil.getIlluminaReadsPrefix(selectedDirectory).get(0));
+        } else {
+          tfPrefix.setText("");
+        }
       } else {
-        pUtil.createAlertDialog(AlertType.ERROR, "Wrong Illumina workspace.", "This folder is not valid.");
+        pUtil.createAlertDialog(AlertType.ERROR, "Wrong Illumina directory.", "This directory is not valid.");
+        tfIlluminaWorkspace.setText(""); 
+        tfPrefix.setText("");
       }
     }
   }
   
   /**
-   * Called when select output folder button is clicked.
+   * Called when select output directory button is clicked.
    */
   @FXML
   private void handleSelectOutputFolder() {
@@ -528,7 +547,6 @@ public class PipelineOverviewController {
     File selectedDirectory = directoryChooser.showDialog(null);
     if (selectedDirectory != null) {
       tfOutputPath.setText(selectedDirectory.toString());
-      p.setOutputPath(selectedDirectory.toString());
     }
   }
   
@@ -539,7 +557,6 @@ public class PipelineOverviewController {
   private void handleOpenDocument() {
     try {
       new ProcessBuilder("x-www-browser", "https://ontpipeline2.readthedocs.io/").start();
-      //new ProcessBuilder("x-www-browser", "docs/build/html/index.html").start();
     } catch (Exception e) {
       logger.error("Can not open document. " + e);
     }
@@ -553,12 +570,13 @@ public class PipelineOverviewController {
     FileChooser fileChooser = new FileChooser();
     fileChooser.getExtensionFilters().addAll(
         new ExtensionFilter("CSV/TSV Files", "*.csv", "*.CSV", "*.tsv", "*.TSV"));
-        //new ExtensionFilter("TSV Files", "*.tsv"));
     File sampleSheetFile = fileChooser.showOpenDialog(null);
     if (sampleSheetFile != null) {
-      if (!pUtil.readSampleSheet(sampleSheetFile.toString(), pUtil.getFileExtension(sampleSheetFile.toString())).equals("wrong")) {
-        tfSampleSheet.setText(sampleSheetFile.toString());
-        p.setSampleSheetContent(pUtil.readSampleSheet(sampleSheetFile.toString(), pUtil.getFileExtension(sampleSheetFile.toString())));
+      String sSampleSheet = sampleSheetFile.toString();
+      String sExtension = pUtil.getFileExtension(sSampleSheet);
+      if (pUtil.checkSampleSheet(sSampleSheet, sExtension)) {
+        tfSampleSheet.setText(sSampleSheet);
+        p.setSampleSheetContent(pUtil.formatSampleSheetContent(pUtil.getSampleSheetContent(sSampleSheet, sExtension)));
       } else {
         pUtil.createAlertDialog(AlertType.ERROR, "Wrong sample sheet.", "The format of sample sheet is wrong.");
       };

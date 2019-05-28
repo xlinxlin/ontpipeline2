@@ -1,5 +1,8 @@
 Base Calling Settings
 =====================
+
+.. image:: /img/BasecallingSettings.png
+
 Flowcell ID (Required)
 _________________________
 Choose the Flowcell ID from the select list.
@@ -7,6 +10,8 @@ Choose the Flowcell ID from the select list.
 Kit Number (Required)
 ________________________
 Choose the kit number from the select list.
+
+.. image:: /img/AdvancedBasecallingSettings.png
 
 Mode (Required)
 ________________

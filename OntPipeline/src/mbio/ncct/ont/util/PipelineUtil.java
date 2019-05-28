@@ -14,6 +14,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javafx.scene.control.Alert;
@@ -230,7 +232,7 @@ public class PipelineUtil {
     }
     try {
       BufferedWriter writer = new BufferedWriter(new FileWriter(f, true));
-      writer.append("====General Settings====\n");
+      writer.append("====General Settings====\n\n");
       writer.append("Nanopore reads directory: " + p.getOntReadsWorkspace() + "\n");
       writer.append("Illumina reads directory: " + (p.getIlluminaReadsWorkspace().isEmpty() ? "Not given." : p.getIlluminaReadsWorkspace()) + "\n");
       writer.append("Output directory: " + p.getOutputPath() + "\n");
@@ -239,7 +241,7 @@ public class PipelineUtil {
       writer.append("Threads: " + p.getThreads() + "\n");
       writer.append("Selected barcodes: " + ( p.getSelectedBarcode().isEmpty() ? "Default: all. " :formatSelectedBarcodes(p.getSelectedBarcode()) ) + "\n\n");
       if (p.getIfBasecalling()) {
-        writer.append("====Basecalling Settings====\n");
+        writer.append("====Basecalling Settings====\n\n");
         writer.append("Flowcell ID: " + p.getFlowcellId() + " \n");
         writer.append("Kit number: " + p.getKitNumber() + " \n");
         writer.append("Guppy mode: " + p.getGuppyMode() + " \n");
@@ -248,14 +250,14 @@ public class PipelineUtil {
         writer.append("====No Basecalling====\n\n");
       }
       if (p.getIfDemultiplexing()) {
-        writer.append("====Basecalling Settings====\n");
+        writer.append("====Demultiplexing Settings====\n\n");
         writer.append("Barcode kits: " + (p.getBarcodeKits().isEmpty() ? "" : p.getBarcodeKits()) + " \n\n"); 
       } else {
-        writer.append("====No Demultiplexing====\n");
+        writer.append("====No Demultiplexing====\n\n");
       }
       
       if (p.getIfReadsFilter()) {
-        writer.append("====Reads Filter Settings====\n");
+        writer.append("====Reads Filter Settings====\n\n");
         writer.append("Read score: " + p.getReadScore() + " \n");
         writer.append("Read length: " + p.getReadLength() + " \n");
         writer.append("Head crop: " + p.getHeadCrop() + " \n");
@@ -267,7 +269,7 @@ public class PipelineUtil {
         writer.append("====No Reads Filter====\n\n");
       }
       if (p.getIfAssembly()) {
-        writer.append("====Assembly Settings====\n");
+        writer.append("====Assembly Settings====\n\n");
         writer.append("Assembly mode: " + p.getMode() + " \n");
         writer.append("Assembly method: " + p.getMethod() + " \n");
         writer.append("VCF: " + p.getIfVcf() + " \n\n");
@@ -275,14 +277,14 @@ public class PipelineUtil {
         writer.append("====No Assembly====\n\n");
       }
       if (p.getIfPolishing()) {
-        writer.append("====Polishing Settings====\n");
+        writer.append("====Polishing Settings====\n\n");
         writer.append("Polishing times: " + p.getPtimes() + " \n");
         writer.append("BUSCO: " + p.getIfBusco() + " \n");
         if (p.getIfBusco()) {
           writer.append("BUSCO database: " + p.getBuscoData() + " \n"); 
         }
       } else {
-        writer.append("====No Polishing====\n");
+        writer.append("====No Polishing====\n\n");
       }
       writer.close();
     } catch (Exception e) {
@@ -294,37 +296,44 @@ public class PipelineUtil {
    * Reads sample sheet and parses the content.
    * @param sampleSheet the String of sample sheet file path.
    * @param extension the String of sample sheet file extension.
-   * @return the String of formatted sample sheet content (HashMap in Bash).
+   * @return the HashMap of sample sheet content.
    */
-  public String readSampleSheet(String sampleSheet, String extension) {
-    String result = "";
-    if (checkSampleSheet(sampleSheet, extension)) {
-      String ch = (extension.equals("csv".toLowerCase()) ? "," : "\t");
-      try (BufferedReader br = new BufferedReader(new FileReader(sampleSheet))) {
-        String line;
-        line = br.readLine();
-        while ((line = br.readLine()) != null) {
-          String[] values = line.split(ch);
-          result = result + "['" + values[1] + "']='" + values[0] + "' ";  
-        }
-      } catch (Exception e) {
-        logger.error("Can not read sample sheet." + e);
-      } 
-      result = "(" + result + ")"; 
-      //System.out.println(result);
-    } else {
-      result = "wrong";
+  public HashMap<String,String> getSampleSheetContent(String sampleSheet, String extension) {
+    HashMap<String,String> hmResult = new HashMap<String,String>();
+    String ch = (extension.equals("csv".toLowerCase()) ? "," : "\t");
+    try (BufferedReader br = new BufferedReader(new FileReader(sampleSheet))) {
+      String line;
+      line = br.readLine();
+      while ((line = br.readLine()) != null) {
+        String[] values = line.split(ch);
+        hmResult.put(values[1], values[0]);
+      }
+    } catch (Exception e) {
+      logger.error("Can not read sample sheet." + e);
+    } 
+    return hmResult;
+  }
+  
+  /**
+   * Formats the HashMap of sample sheet content to String.
+   * @param hmSampleSheet the sample sheet content in HashMap format.
+   * @return formatted String of sample sheet content (HashMap in Bash).#(['barcode01']='MW_1' ['barcode02']='MW23' ['barcode03']='AA_45' )
+   */
+  public String formatSampleSheetContent(HashMap<String,String> hmSampleSheet) {
+    String result = null;
+    for(Map.Entry<String, String> entry : hmSampleSheet.entrySet()) {
+      result = result + "['" + entry.getKey() + "']='" + entry.getValue() + "' ";  
     }
-    return result;
+    return "(" + result + ")";
   }
   
   /**
    * Checks if the sample sheet has the correct content.
    * @param sampleSheet the String of sample sheet file path
    * @param extension the String of the sample sheet extension.
-   * @return the Boolean value if the sample sheet correct is..
+   * @return the Boolean value if the sample sheet correct is.
    */
-  private Boolean checkSampleSheet(String sampleSheet, String extension) {
+  public Boolean checkSampleSheet(String sampleSheet, String extension) {
     Boolean result = true;
     ArrayList<String> sampleNames = new ArrayList<String>();
     ArrayList<String> barcodeNames = new ArrayList<String>();
@@ -381,10 +390,10 @@ public class PipelineUtil {
   }
   
   /**
-   * Checks if the folder has the correct files with the given extension.
+   * Checks if the directory has the correct files with the given extension.
    * @param selectedDirectory the given directory to be checked.
    * @param extension the given extension to be checked in the directory
-   * @return the Boolean value if the check has been passed.
+   * @return the Boolean value if the directory is valid.
    */
   public Boolean checkDirectoryValidity(File selectedDirectory, String extension) {
     boolean result = false;
@@ -413,29 +422,73 @@ public class PipelineUtil {
   }
   
   /**
-   * Checks the Illumina reads folder.
-   * @param illuminaDirectory the path to the Illumina reads folder.
-   * @return an Object[2] with two values, Object[0]: if the folder is valid and Object[1]: pairs of Illumina reads. 
+   * Checks the Illumina reads directory.
+   * @param illuminaDirectory the path to the Illumina reads directory.
+   * @return the Boolean value if the Illumina reads directory is valid. 
    */
-  public Object[] checkIlluminaReads(File illuminaDirectory) {
+  public Boolean checkIlluminaReads(File illuminaDirectory) {
     Boolean validity = true;
     File[] f = illuminaDirectory.listFiles();
     ArrayList<String> alFR1 = new ArrayList<String>();
     ArrayList<String> alFR2 = new ArrayList<String>();
     for (int i = 0; i < f.length; i++) {
-      String prefix = f[i].getName().substring(0, f[i].getName().indexOf("_"));
-      if(f[i].getName().matches(".*R1.*\\.fastq\\.gz") && !alFR1.contains(prefix)) {
-        alFR1.add(prefix);
-      } else if (f[i].getName().matches(".*R2.*\\.fastq\\.gz") && !alFR2.contains(prefix)) {
-        alFR2.add(prefix);
-      } else {
-        validity = false;
-        break;
+      if (f[i].isFile() && f[i].getName().contains("_")) {
+        String prefix = f[i].getName().substring(0, f[i].getName().indexOf("_"));
+        if(f[i].getName().matches(".*R1.*\\.fastq\\.gz") && !alFR1.contains(prefix)) {
+          alFR1.add(prefix);
+        } else if (f[i].getName().matches(".*R2.*\\.fastq\\.gz") && !alFR2.contains(prefix)) {
+          alFR2.add(prefix);
+        } else {
+          validity = false;
+          break;
+        }
       }
     }
-    if ( !alFR1.containsAll(alFR2) || !alFR2.containsAll(alFR1)) {
+    if ( !alFR1.containsAll(alFR2) || !alFR2.containsAll(alFR1) || alFR1.isEmpty()) {
       validity = false;
     }
-    return new Object[]{validity, alFR1.size()};
+    return validity;
   }
+  
+  /**
+   * Gets the prefixs from the Illumina reads directory.
+   * @param illuminaDirectory the path to the Illumina reads directory.
+   * @return an ArrayList contains all prefixs.. 
+   */
+  public ArrayList<String> getIlluminaReadsPrefix(File illuminaDirectory) {
+    ArrayList<String> alPrefixs = new ArrayList<String>();
+    File[] f = illuminaDirectory.listFiles();
+    for (int i = 0; i < f.length; i++) {
+      if (f[i].isFile() && f[i].getName().matches(".*R1.*\\.fastq\\.gz")) {
+        String prefix = f[i].getName().substring(0, f[i].getName().indexOf("_"));
+        alPrefixs.add(prefix);
+      }
+    }
+    return alPrefixs;
+  }
+  
+  /**
+   * Formats the String of barcodeKits.
+   * @param barcodeKits selected barcode kits.
+   * @return formatted String of barcode kits.
+   */
+  public String formatBarcodeKits(String barcodeKits) {
+    return barcodeKits.replace("[", "\"").replace("]", "\"");
+  }
+  
+  /**
+   * Compares if the set of sample names in the sample sheet and the set of the prefixs of Illumina reads are the same.
+   * @param sampleSheet the path to the sample sheet.
+   * @param extension the extension of the sample sheet file
+   * @param illuminaDirectory the directory of Illumina reads.
+   * @return the boolean value if the two sets are the same.
+   */
+  public Boolean checkIlluminaReadsPrefixWithSampleSheet(String sampleSheet, String extension, File illuminaDirectory) {
+    Set<String> setSampleNames = getSampleSheetContent(sampleSheet, extension).keySet();
+    ArrayList<String> alSampleNames = new ArrayList<String>();
+    alSampleNames.addAll(setSampleNames);
+    ArrayList<String >alIlluminaPrefixs = getIlluminaReadsPrefix(illuminaDirectory);
+    return alSampleNames.containsAll(alIlluminaPrefixs) && alIlluminaPrefixs.containsAll(alSampleNames);
+  }
+  
 }

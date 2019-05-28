@@ -1,5 +1,10 @@
 Reads Filter Settings
 =====================
+
+.. image:: /img/ReadsFilterSettings.png
+
+.. image:: /img/AdvancedReadsFilterSettings.png
+
 Porechop Settings [1]_ (Optional)
 _________________________________
 Set Porechop options.

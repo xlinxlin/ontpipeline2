@@ -1,12 +1,12 @@
 package mbio.ncct.ont.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import mbio.ncct.ont.util.PipelineUtil;
 
 /**
  * This is the controller of the advanced reads-filter settings.
@@ -79,10 +79,8 @@ public class AdvancedReadsFilterController {
       isOK = 1;
       dialogStage.close();
     } else {
-      Alert alert = new Alert(AlertType.ERROR);
-      alert.setTitle("Error");
-      alert.setContentText("Only integer value is accepted. \nReset defaults.");
-      alert.showAndWait();
+      PipelineUtil pUtil = new PipelineUtil();
+      pUtil.createAlertDialog(AlertType.ERROR, "Error", "Only integer value is accepted. \nReset defaults.");
       tfReadScore.setText("9");
       tfReadLength.setText("500");
       tfHeadCrop.setText("50");

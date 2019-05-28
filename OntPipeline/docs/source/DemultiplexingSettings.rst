@@ -1,5 +1,8 @@
 Demultiplexing Settings
 =======================
+
+.. image:: /img/DemultiplexingSettings.png
+
 Barcode kit (Optional)
 _________________________
 Choose the barcode kit(s) from the list if used.

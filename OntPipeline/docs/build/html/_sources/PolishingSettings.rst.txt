@@ -1,5 +1,10 @@
 Polishing Settings
 ==================
+
+.. image:: /img/PolishingSettings.png
+
+.. image:: /img/AdvancedPolishingSettings.png
+
 Polishing times (Required)
 __________________________
 Set polishing times.

@@ -1,5 +1,8 @@
 General Settings
 ================
+
+.. image:: /img/GeneralSettings.png
+
 ONT Dir. (Required)
 ___________________
 Set the path to the Nanopore reads directory. 
@@ -29,7 +32,7 @@ Set the path to the sample sheet file.
 
 .. note::
   * The sample sheet must be in .csv or .tsv format.
-  * The sample name does not allowed contain "_".
+  * Underscore('_') is not allowed in the sample name.
   
 Prefix. (Optional)
 __________________
