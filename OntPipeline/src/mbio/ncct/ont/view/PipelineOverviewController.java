@@ -207,9 +207,11 @@ public class PipelineOverviewController {
     cDemultiplexing.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if (cDemultiplexing.isSelected()) {
         ccbBarcodeKits.setDisable(false);
+        tfSelectedBarcode.setDisable(false);
         p.setIfDemultiplexing(true);
       } else {
         ccbBarcodeKits.setDisable(true);
+        tfSelectedBarcode.setDisable(true);
         p.setIfDemultiplexing(false);
       }
     });

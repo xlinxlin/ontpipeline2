@@ -34,7 +34,7 @@ public class PipelineUtil {
   private static Logger logger = LogManager.getLogger(PipelineUtil.class);
   
   /** Sets Guppy location. */
-  private static String guppyUrl = "/opt/ont-guppy-cpu_3.0.3";
+  private static String guppyUrl = "/opt/ont-guppy-cpu_3.1.5";
   
   /** Sets pbs file location. */
   //private static String pbsUrl = "/opt/ontpipeline/pbs/pipelineWithLoop.pbs";
@@ -132,7 +132,7 @@ public class PipelineUtil {
     ArrayList<String> arBarcodeKits = new ArrayList<String>();
     Process p = null;
     try {
-      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "/opt/ont-guppy-cpu_3.0.3/bin/guppy_barcoder --print_kits | awk 'NR>1 {print $1}' | sort | uniq" });
+      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", guppyUrl + "/bin/guppy_barcoder --print_kits | awk 'NR>1 {print $1}' | sort | uniq" });
     } catch (Exception e) {
       logger.error("Can not get barcode kits. " + e);
     }
@@ -151,7 +151,7 @@ public class PipelineUtil {
   }
   
   /**
-   * Create a .pbs file filled with the input parameters.
+   * Creates a .pbs file filled with the input parameters.
    * @param p A Pipeline object.
    * @param timeStamp The current date and time yyyyMMdd_HHmmss.
    */
@@ -237,7 +237,7 @@ public class PipelineUtil {
       writer.append("Illumina reads directory: " + (p.getIlluminaReadsWorkspace().isEmpty() ? "Not given." : p.getIlluminaReadsWorkspace()) + "\n");
       writer.append("Output directory: " + p.getOutputPath() + "\n");
       writer.append("Sample sheet path: " + (p.getSampleSheetPath().isEmpty() ? "Not given." : p.getSampleSheetPath()) + "\n");
-      writer.append("Prefix: " + (p.getPrefix().isEmpty() ? "Not given (default: \"barcode\")." : p.getPrefix()) + "\n");
+      writer.append("Prefix: " + (p.getPrefix().isEmpty() ? "Not given." : p.getPrefix()) + "\n");
       writer.append("Threads: " + p.getThreads() + "\n");
       writer.append("Selected barcodes: " + ( p.getSelectedBarcode().isEmpty() ? "Default: all. " :formatSelectedBarcodes(p.getSelectedBarcode()) ) + "\n\n");
       if (p.getIfBasecalling()) {
@@ -255,7 +255,6 @@ public class PipelineUtil {
       } else {
         writer.append("====No Demultiplexing====\n\n");
       }
-      
       if (p.getIfReadsFilter()) {
         writer.append("====Reads Filter Settings====\n\n");
         writer.append("Read score: " + p.getReadScore() + " \n");
