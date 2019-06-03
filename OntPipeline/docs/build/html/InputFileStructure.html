@@ -83,11 +83,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Input File Structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#start-from-basecalling">Start from Basecalling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#start-from-demultiplexing">Start from Demultiplexing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#start-from-reads-filter">Start from Reads Filter</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#if-you-need-adapter-trimming">If you need adapter trimming</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#if-you-do-not-need-adapter-trimming">If you do not need adapter trimming</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#start-from-reads-filter">Start from Reads Filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#start-from-assembly">Start from Assembly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#start-from-polishing">Start from Polishing</a></li>
 </ul>
@@ -201,6 +197,50 @@ Prefix_*R1*.fastq.gz  Prefix_*R2*.fastq.gz</p>
 <h2>Start from Demultiplexing<a class="headerlink" href="#start-from-demultiplexing" title="Permalink to this headline">¶</a></h2>
 <p>Start the pipeline from Demultiplexing.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ONT_Reads_Directory/
+├── fastq_runid_50a6171cadcfb6b5cb2dae4e75a0ccc05b71e3d8_0.fastq
+├── fastq_runid_50a6171cadcfb6b5cb2dae4e75a0ccc05b71e3d8_1.fastq
+├── fastq_runid_50a6171cadcfb6b5cb2dae4e75a0ccc05b71e3d8_2.fastq
+├── fastq_runid_50a6171cadcfb6b5cb2dae4e75a0ccc05b71e3d8_3.fastq
+├── fastq_runid_50a6171cadcfb6b5cb2dae4e75a0ccc05b71e3d8_4.fastq
+└── ......
+
+Illumina_Reads_Directory/
+├── Prefix01_*R1*.fastq.gz
+├── Prefix01_*R2*.fastq.gz
+├── Prefix02_*R1*.fastq.gz
+├── Prefix02_*R2*.fastq.gz
+├── Prefix03_*R1*.fastq.gz
+├── Prefix03_*R2*.fastq.gz
+└── ......
+</pre></div>
+</div>
+</div>
+<div class="section" id="start-from-reads-filter">
+<h2>Start from Reads Filter<a class="headerlink" href="#start-from-reads-filter" title="Permalink to this headline">¶</a></h2>
+<p>Start the pipeline from Reads Filter.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ONT_Reads_Directory/
+ ├── Prefix01.fastq
+ ├── Prefix02.fastq
+ ├── Prefix03.fastq
+ ├── Prefix04.fastq
+ ├── Prefix05.fastq
+ └── ......
+
+ Illumina_Reads_Directory/
+ ├── Prefix01_*R1*.fastq.gz
+ ├── Prefix01_*R2*.fastq.gz
+ ├── Prefix02_*R1*.fastq.gz
+ ├── Prefix02_*R2*.fastq.gz
+ ├── Prefix03_*R1*.fastq.gz
+ ├── Prefix03_*R2*.fastq.gz
+ └── ......
+</pre></div>
+</div>
+</div>
+<div class="section" id="start-from-assembly">
+<h2>Start from Assembly<a class="headerlink" href="#start-from-assembly" title="Permalink to this headline">¶</a></h2>
+<p>Start the pipeline from Assembly.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ONT_Reads_Directory/
 ├── Prefix01.fastq
 ├── Prefix02.fastq
 ├── Prefix03.fastq
@@ -219,93 +259,25 @@ Illumina_Reads_Directory/
 </pre></div>
 </div>
 </div>
-<div class="section" id="start-from-reads-filter">
-<h2>Start from Reads Filter<a class="headerlink" href="#start-from-reads-filter" title="Permalink to this headline">¶</a></h2>
-<p>Start the pipeline from Reads Filter.</p>
-<div class="section" id="if-you-need-adapter-trimming">
-<h3>If you need adapter trimming<a class="headerlink" href="#if-you-need-adapter-trimming" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>YourWorkSpace/
-├── 1*
-│   ├── barcode01
-|   |   ├── *.fastq
-|   |   └── ......
-│   ├── barcode02
-|   |   ├── *.fastq
-|   |   └── ......
-│   ├── ......
-|   |   ├── *.fastq
-|   |   └── ......
-│   └── unclassified
-|       ├── *.fastq
-|       └── ......
-├── 2*
-│   ├── barcode01
-|   |   ├── *.fastq
-|   |   └── ......
-│   ├── barcode02
-|   |   ├── *.fastq
-|   |   └── ......
-│   ├── ......
-|   |   ├── *.fastq
-|   |   └── ......
-│   └── unclassified
-|       ├── *.fastq
-|       └── ......
-├── 1*_read1*.fastq(.gz)
-├── 1*_read2*.fastq(.gz)
-├── 2*_read1*.fastq(.gz)
-└── 2*_read2*.fastq(.gz)
-</pre></div>
-</div>
-</div>
-<div class="section" id="if-you-do-not-need-adapter-trimming">
-<h3>If you do not need adapter trimming<a class="headerlink" href="#if-you-do-not-need-adapter-trimming" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>YourWorkSpace/
-├── 1*
-│   ├── *.fastq
-│   └── ......
-├── 2*
-│   ├── *.fastq
-│   └── ......
-├── 1*_read1*.fastq(.gz)
-├── 1*_read2*.fastq(.gz)
-├── 2*_read1*.fastq(.gz)
-└── 2*_read2*.fastq(.gz)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="start-from-assembly">
-<h2>Start from Assembly<a class="headerlink" href="#start-from-assembly" title="Permalink to this headline">¶</a></h2>
-<p>Start the pipeline from Assembly.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>YourWorkSpace/
-├── 1*
-│   ├── *.fastq
-│   └── ......
-├── 2*
-│   ├── *.fastq
-│   └── ......
-├── 1*_read1*.fastq(.gz)
-├── 1*_read2*.fastq(.gz)
-├── 2*_read1*.fastq(.gz)
-└── 2*_read2*.fastq(.gz)
-</pre></div>
-</div>
-</div>
 <div class="section" id="start-from-polishing">
 <h2>Start from Polishing<a class="headerlink" href="#start-from-polishing" title="Permalink to this headline">¶</a></h2>
 <p>Start the pipeline from Polishing.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>YourWorkSpace/
-├── 1*
-│   ├── *.fastq
-│   └── ......
-├── 2*
-│   ├── *.fastq
-│   └── ......
-├── 1*_read1*.fastq(.gz)
-├── 1*_read2*.fastq(.gz)
-├── 2*_read1*.fastq(.gz)
-└── 2*_read2*.fastq(.gz)
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ONT_Reads_Directory/
+├── Prefix01.fasta
+├── Prefix02.fasta
+├── Prefix03.fasta
+├── Prefix04.fasta
+├── Prefix05.fasta
+└── ......
+
+Illumina_Reads_Directory/
+├── Prefix01_*R1*.fastq.gz
+├── Prefix01_*R2*.fastq.gz
+├── Prefix02_*R1*.fastq.gz
+├── Prefix02_*R2*.fastq.gz
+├── Prefix03_*R1*.fastq.gz
+├── Prefix03_*R2*.fastq.gz
+└── ......
 </pre></div>
 </div>
 </div>

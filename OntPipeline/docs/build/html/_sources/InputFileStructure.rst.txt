@@ -38,11 +38,11 @@ Start the pipeline from Demultiplexing.
 ::
    
     ONT_Reads_Directory/
-    ├── Prefix01.fastq
-    ├── Prefix02.fastq
-    ├── Prefix03.fastq  
-    ├── Prefix04.fastq
-    ├── Prefix05.fastq
+    ├── fastq_runid_50a6171cadcfb6b5cb2dae4e75a0ccc05b71e3d8_0.fastq
+    ├── fastq_runid_50a6171cadcfb6b5cb2dae4e75a0ccc05b71e3d8_1.fastq
+    ├── fastq_runid_50a6171cadcfb6b5cb2dae4e75a0ccc05b71e3d8_2.fastq 
+    ├── fastq_runid_50a6171cadcfb6b5cb2dae4e75a0ccc05b71e3d8_3.fastq
+    ├── fastq_runid_50a6171cadcfb6b5cb2dae4e75a0ccc05b71e3d8_4.fastq
     └── ......
     
     Illumina_Reads_Directory/
@@ -59,58 +59,24 @@ Start from Reads Filter
 _______________________
 Start the pipeline from Reads Filter.
 
-If you need adapter trimming
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 ::
-   
-    YourWorkSpace/
-    ├── 1*          
-    │   ├── barcode01
-    |   |   ├── *.fastq
-    |   |   └── ......
-    │   ├── barcode02
-    |   |   ├── *.fastq
-    |   |   └── ......
-    │   ├── ......
-    |   |   ├── *.fastq
-    |   |   └── ......
-    │   └── unclassified
-    |       ├── *.fastq
-    |       └── ......
-    ├── 2*
-    │   ├── barcode01
-    |   |   ├── *.fastq
-    |   |   └── ......
-    │   ├── barcode02
-    |   |   ├── *.fastq
-    |   |   └── ......
-    │   ├── ......
-    |   |   ├── *.fastq
-    |   |   └── ......
-    │   └── unclassified
-    |       ├── *.fastq
-    |       └── ......
-    ├── 1*_read1*.fastq(.gz)
-    ├── 1*_read2*.fastq(.gz)          
-    ├── 2*_read1*.fastq(.gz)
-    └── 2*_read2*.fastq(.gz)
 
-If you do not need adapter trimming
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-::
-   
-    YourWorkSpace/
-    ├── 1*          
-    │   ├── *.fastq
-    │   └── ......
-    ├── 2*
-    │   ├── *.fastq
-    │   └── ......
-    ├── 1*_read1*.fastq(.gz)
-    ├── 1*_read2*.fastq(.gz)          
-    ├── 2*_read1*.fastq(.gz)
-    └── 2*_read2*.fastq(.gz)
+   ONT_Reads_Directory/
+    ├── Prefix01.fastq
+    ├── Prefix02.fastq
+    ├── Prefix03.fastq 
+    ├── Prefix04.fastq
+    ├── Prefix05.fastq
+    └── ......
+    
+    Illumina_Reads_Directory/
+    ├── Prefix01_*R1*.fastq.gz
+    ├── Prefix01_*R2*.fastq.gz
+    ├── Prefix02_*R1*.fastq.gz
+    ├── Prefix02_*R2*.fastq.gz
+    ├── Prefix03_*R1*.fastq.gz
+    ├── Prefix03_*R2*.fastq.gz
+    └── ......
 
 Start from Assembly
 ___________________
@@ -118,31 +84,42 @@ Start the pipeline from Assembly.
 
 ::
    
-    YourWorkSpace/
-    ├── 1*          
-    │   ├── *.fastq
-    │   └── ......
-    ├── 2*
-    │   ├── *.fastq
-    │   └── ......
-    ├── 1*_read1*.fastq(.gz)
-    ├── 1*_read2*.fastq(.gz)          
-    ├── 2*_read1*.fastq(.gz)
-    └── 2*_read2*.fastq(.gz)
+    ONT_Reads_Directory/
+    ├── Prefix01.fastq
+    ├── Prefix02.fastq
+    ├── Prefix03.fastq 
+    ├── Prefix04.fastq
+    ├── Prefix05.fastq
+    └── ......
+    
+    Illumina_Reads_Directory/
+    ├── Prefix01_*R1*.fastq.gz
+    ├── Prefix01_*R2*.fastq.gz
+    ├── Prefix02_*R1*.fastq.gz
+    ├── Prefix02_*R2*.fastq.gz
+    ├── Prefix03_*R1*.fastq.gz
+    ├── Prefix03_*R2*.fastq.gz
+    └── ......
     
 Start from Polishing
 ____________________
 Start the pipeline from Polishing.
+
 ::
    
-    YourWorkSpace/
-    ├── 1*          
-    │   ├── *.fastq
-    │   └── ......
-    ├── 2*
-    │   ├── *.fastq
-    │   └── ......
-    ├── 1*_read1*.fastq(.gz)
-    ├── 1*_read2*.fastq(.gz)          
-    ├── 2*_read1*.fastq(.gz)
-    └── 2*_read2*.fastq(.gz)
+    ONT_Reads_Directory/
+    ├── Prefix01.fasta
+    ├── Prefix02.fasta
+    ├── Prefix03.fasta 
+    ├── Prefix04.fasta
+    ├── Prefix05.fasta
+    └── ......
+    
+    Illumina_Reads_Directory/
+    ├── Prefix01_*R1*.fastq.gz
+    ├── Prefix01_*R2*.fastq.gz
+    ├── Prefix02_*R1*.fastq.gz
+    ├── Prefix02_*R2*.fastq.gz
+    ├── Prefix03_*R1*.fastq.gz
+    ├── Prefix03_*R2*.fastq.gz
+    └── ......
