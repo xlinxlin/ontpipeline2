@@ -86,6 +86,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#start-from-reads-filter">Start from Reads Filter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#start-from-assembly">Start from Assembly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#start-from-polishing">Start from Polishing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-sheet">Sample Sheet</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="GeneralSettings.html">General Settings</a></li>
@@ -182,14 +183,18 @@ Illumina_Reads_Directory/
 └── ......
 </pre></div>
 </div>
-<p>Illumina reads files naming structure for each pair:
-Prefix_*R1*.fastq.gz  Prefix_*R2*.fastq.gz</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
+<li>Illumina reads files naming structure for each pair: Prefix_*R1*.fastq.gz  Prefix_*R2*.fastq.gz</li>
 <li>“Prefix” is the sample name, each pair should has its own prefix.</li>
-<li>Do not use underscore (“_”) in the prefix.</li>
 <li>“*” means arbitrarily long characters.</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Do not use underscore (“_”) in the prefix.</li>
 </ul>
 </div>
 </div>
@@ -279,6 +284,45 @@ Illumina_Reads_Directory/
 ├── Prefix03_*R2*.fastq.gz
 └── ......
 </pre></div>
+</div>
+</div>
+<div class="section" id="sample-sheet">
+<h2>Sample Sheet<a class="headerlink" href="#sample-sheet" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="colwidths-given docutils" id="id1">
+<caption><span class="caption-text">Sample Sheet</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Sample</th>
+<th class="head">Barcode</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>example_1</td>
+<td>barcode01</td>
+</tr>
+<tr class="row-odd"><td>example_2</td>
+<td>barcode02</td>
+</tr>
+<tr class="row-even"><td>example_3</td>
+<td>barcode03</td>
+</tr>
+<tr class="row-odd"><td>example_4</td>
+<td>barcode04</td>
+</tr>
+<tr class="row-even"><td>example_5</td>
+<td>barcode05</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>The format of sample sheet is CSV (split cell contents by comma) or TSV (split cell contents by tab).</li>
+<li>The format of barcode name: barcodeXX (XX are two digits: 01,02,03,…,10,11,12,…)</li>
+</ul>
 </div>
 </div>
 </div>

@@ -83,10 +83,10 @@
 <li class="toctree-l1"><a class="reference internal" href="InputFileStructure.html">Input File Structure</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">General Settings</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#ont-dir-required">ONT Dir. (Required)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#illumina-dir-optional">Illumina Dir. (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#illumina-dir-optional-required">Illumina Dir. (Optional/Required)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#output-dir-required">Output Dir. (Required)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sample-sheet-optional">Sample sheet. (Optional)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#prefix-optional">Prefix. (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-sheet-optional">Sample sheet (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prefix-optional">Prefix (Optional)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#threads-required">Threads (Required)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#barcodes-optional">Barcodes (Optional)</a></li>
 </ul>
@@ -174,14 +174,14 @@
 </ul>
 </div>
 </div>
-<div class="section" id="illumina-dir-optional">
-<h2>Illumina Dir. (Optional)<a class="headerlink" href="#illumina-dir-optional" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="illumina-dir-optional-required">
+<h2>Illumina Dir. (Optional/Required)<a class="headerlink" href="#illumina-dir-optional-required" title="Permalink to this headline">¶</a></h2>
 <p>Set the path to the Illumina reads directory.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
 <li><strong>Example:</strong> <code class="file docutils literal notranslate"><span class="pre">/path/to/your/Illumina/reads/directory</span></code></li>
-<li>Required if “hybrid-assembly” or/and “polishing” is used.</li>
+<li>Required if “hybrid-assembly” or/and “polishing” is/are used.</li>
 </ul>
 </div>
 </div>
@@ -192,50 +192,54 @@
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
 <li><strong>Example:</strong> <code class="file docutils literal notranslate"><span class="pre">/path/to/your/output/directory</span></code></li>
-<li>Required if “hybrid-assembly” or/and “polishing” is used.</li>
 </ul>
 </div>
 </div>
 <div class="section" id="sample-sheet-optional">
-<h2>Sample sheet. (Optional)<a class="headerlink" href="#sample-sheet-optional" title="Permalink to this headline">¶</a></h2>
+<h2>Sample sheet (Optional)<a class="headerlink" href="#sample-sheet-optional" title="Permalink to this headline">¶</a></h2>
 <p>Set the path to the sample sheet file.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
 <li>The sample sheet must be in .csv or .tsv format.</li>
-<li>Underscore(‘_’) is not allowed in the sample name.</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Underscore(‘_’) is <strong>not</strong> allowed in the sample name.</li>
 </ul>
 </div>
 </div>
 <div class="section" id="prefix-optional">
-<h2>Prefix. (Optional)<a class="headerlink" href="#prefix-optional" title="Permalink to this headline">¶</a></h2>
+<h2>Prefix (Optional)<a class="headerlink" href="#prefix-optional" title="Permalink to this headline">¶</a></h2>
 <p>Set the prefix for the Nanopore reads after demultiplexing.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
 <li><strong>Example:</strong> ID .</li>
-<li>Default value: barcode .</li>
+<li>Default: barcode .</li>
 </ul>
 </div>
 </div>
 <div class="section" id="threads-required">
 <h2>Threads (Required)<a class="headerlink" href="#threads-required" title="Permalink to this headline">¶</a></h2>
-<p>Set the number of threads to run the analysis.</p>
+<p>Set the number of threads/cpus to run the analysis.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
-<li>Default value: 8.</li>
+<li>Default: 8.</li>
 </ul>
 </div>
 </div>
 <div class="section" id="barcodes-optional">
 <h2>Barcodes (Optional)<a class="headerlink" href="#barcodes-optional" title="Permalink to this headline">¶</a></h2>
-<p>Set which barcodes should be included into the analysis. Put in the numbers and separate them with a comma.</p>
+<p>Set which barcodes will be analyzed. Put in the numbers and separate them with a comma.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
 <li><strong>Example:</strong> 1,2,3,4</li>
-<li>If you want to include all barcodes in your analysis, leave it blank.</li>
+<li>If you want to analysis all barcodes, leave it blank.</li>
 </ul>
 </div>
 </div>

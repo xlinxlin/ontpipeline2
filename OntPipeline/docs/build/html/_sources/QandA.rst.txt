@@ -2,12 +2,12 @@ FAQ
 ===
 What bioinformatics tools are used?
 ___________________________________
-* Guppy v3.0.3 https://community.nanoporetech.com
-* Porechop 0.2.3 https://github.com/rrwick/Porechop
-* NanoStat 1.1.2 https://github.com/wdecoster/nanostat
-* NanoFilt 2.2.0 https://github.com/wdecoster/nanofilt
-* Unicycler v0.4.8-beta https://github.com/rrwick/Unicycler
-* BUSCO 3.0.2 https://busco.ezlab.org
+* Guppy  https://community.nanoporetech.com
+* Porechop  https://github.com/rrwick/Porechop
+* NanoStat  https://github.com/wdecoster/nanostat
+* NanoFilt  https://github.com/wdecoster/nanofilt
+* Unicycler  https://github.com/rrwick/Unicycler
+* BUSCO  https://busco.ezlab.org
 
 Where can I find output files?
 _______________________________

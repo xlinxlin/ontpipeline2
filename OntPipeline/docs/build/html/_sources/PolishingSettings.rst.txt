@@ -10,7 +10,7 @@ __________________________
 Set polishing times.
 
 .. note::
-  * Default value: 1.
+  * Default: 1.
   
 BUSCO settings (Optional)
 _________________________

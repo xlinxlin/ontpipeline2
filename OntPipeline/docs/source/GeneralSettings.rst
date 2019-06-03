@@ -10,13 +10,13 @@ Set the path to the Nanopore reads directory.
 .. note::
   * **Example:** :file:`/path/to/your/ONT/reads/directory`
   
-Illumina Dir. (Optional)
-________________________
+Illumina Dir. (Optional/Required)
+_________________________________
 Set the path to the Illumina reads directory. 
 
 .. note::
   * **Example:** :file:`/path/to/your/Illumina/reads/directory`
-  * Required if "hybrid-assembly" or/and "polishing" is used.
+  * Required if "hybrid-assembly" or/and "polishing" is/are used.
 
 Output Dir. (Required)
 ______________________
@@ -24,35 +24,36 @@ Set the path to the output directory.
 
 .. note::
   * **Example:** :file:`/path/to/your/output/directory`
-  * Required if "hybrid-assembly" or/and "polishing" is used.
 
-Sample sheet. (Optional)
-________________________
+Sample sheet (Optional)
+_______________________
 Set the path to the sample sheet file. 
 
 .. note::
   * The sample sheet must be in .csv or .tsv format.
-  * Underscore('_') is not allowed in the sample name.
+
+.. warning::
+  * Underscore('_') is **not** allowed in the sample name.
   
-Prefix. (Optional)
-__________________
+Prefix (Optional)
+_________________
 Set the prefix for the Nanopore reads after demultiplexing. 
 
 .. note::
   * **Example:** ID .
-  * Default value: barcode .
+  * Default: barcode .
 
 Threads (Required)
 _____________________
-Set the number of threads to run the analysis.
+Set the number of threads/cpus to run the analysis.
 
 .. note::
-  * Default value: 8.
+  * Default: 8.
 
 Barcodes (Optional)
 ______________________
-Set which barcodes should be included into the analysis. Put in the numbers and separate them with a comma.
+Set which barcodes will be analyzed. Put in the numbers and separate them with a comma.
 
 .. note::
   * **Example:** 1,2,3,4
-  * If you want to include all barcodes in your analysis, leave it blank.
+  * If you want to analysis all barcodes, leave it blank.

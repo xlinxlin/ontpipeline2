@@ -23,13 +23,13 @@ Start the pipeline from Basecalling.
     ├── Prefix03_*R2*.fastq.gz
     └── ......
 
-Illumina reads files naming structure for each pair: 
-Prefix_*R1*.fastq.gz  Prefix_*R2*.fastq.gz
-
 .. note::
+  * Illumina reads files naming structure for each pair: Prefix_*R1*.fastq.gz  Prefix_*R2*.fastq.gz
   * "Prefix" is the sample name, each pair should has its own prefix.
-  * Do not use underscore ("_") in the prefix.
   * "*" means arbitrarily long characters.
+  
+.. warning::
+  * Do not use underscore ("_") in the prefix.
 
 Start from Demultiplexing
 _________________________
@@ -123,3 +123,19 @@ Start the pipeline from Polishing.
     ├── Prefix03_*R1*.fastq.gz
     ├── Prefix03_*R2*.fastq.gz
     └── ......
+
+Sample Sheet
+____________
+.. csv-table:: Sample Sheet
+   :header: Sample,Barcode
+   :widths: 20, 20
+
+   example_1,barcode01
+   example_2,barcode02
+   example_3,barcode03
+   example_4,barcode04
+   example_5,barcode05
+   
+.. note::
+  * The format of sample sheet is CSV (split cell contents by comma) or TSV (split cell contents by tab).
+  * The format of barcode name: barcodeXX (XX are two digits: 01,02,03,...,10,11,12,...)
