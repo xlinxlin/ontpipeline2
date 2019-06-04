@@ -86,9 +86,9 @@
 <li class="toctree-l1"><a class="reference internal" href="DemultiplexingSettings.html">Demultiplexing Settings</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Reads Filter Settings</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#porechop-settings-1-optional">Porechop Settings  (Optional)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#read-score-required">Read Score (Required)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#read-length-required">Read Length (Required)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#head-crop-required">Head Crop (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-score-2-required">Read Score  (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-length-2-required">Read Length [2] (Required)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#head-crop-2-required">Head Crop  (Required)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="AssemblySettings.html">Assembly Settings</a></li>
@@ -163,7 +163,7 @@
 <img alt="_images/ReadsFilterSettings.png" src="_images/ReadsFilterSettings.png" />
 <img alt="_images/AdvancedReadsFilterSettings.png" src="_images/AdvancedReadsFilterSettings.png" />
 <div class="section" id="porechop-settings-1-optional">
-<h2>Porechop Settings <a class="footnote-reference" href="#id2" id="id1">[1]</a> (Optional)<a class="headerlink" href="#porechop-settings-1-optional" title="Permalink to this headline">¶</a></h2>
+<h2>Porechop Settings <a class="footnote-reference" href="#id4" id="id1">[1]</a> (Optional)<a class="headerlink" href="#porechop-settings-1-optional" title="Permalink to this headline">¶</a></h2>
 <p>Set Porechop options.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -173,42 +173,48 @@
 </ul>
 </div>
 </div>
-<div class="section" id="read-score-required">
-<h2>Read Score (Required)<a class="headerlink" href="#read-score-required" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="read-score-2-required">
+<h2>Read Score <a class="footnote-reference" href="#id5" id="id2">[2]</a> (Required)<a class="headerlink" href="#read-score-2-required" title="Permalink to this headline">¶</a></h2>
 <p>Set a minimum average read quality score to filter the reads.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
-<li>Default value: 9.</li>
-<li>If you want to keep all the reads, set the value to 0, or only a postive integer is acceptable.</li>
+<li>Default: 9.</li>
+<li>If you want to keep all the reads, set the value to 0 .</li>
 </ul>
 </div>
 </div>
-<div class="section" id="read-length-required">
-<h2>Read Length (Required)<a class="headerlink" href="#read-length-required" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="read-length-2-required">
+<h2>Read Length [2] (Required)<a class="headerlink" href="#read-length-2-required" title="Permalink to this headline">¶</a></h2>
 <p>Set a minimum read length to filter reads.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
-<li>Default value: 500.</li>
+<li>Default: 500.</li>
 <li>If you want to keep all the reads, set the value to 0, or only a postive integer is acceptable.</li>
 </ul>
 </div>
 </div>
-<div class="section" id="head-crop-required">
-<h2>Head Crop (Required)<a class="headerlink" href="#head-crop-required" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="head-crop-2-required">
+<h2>Head Crop <a class="footnote-reference" href="#id5" id="id3">[2]</a> (Required)<a class="headerlink" href="#head-crop-2-required" title="Permalink to this headline">¶</a></h2>
 <p>Set n nucleotides to be trimmed from start of read.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
-<li>Default value: 50.</li>
-<li>If you do not want to crop any reads, set the value to 0, or only a postive integer is acceptable.</li>
+<li>Default: 50.</li>
+<li>If you do not want to crop any reads, set the value to 0.</li>
 </ul>
 </div>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
+<table class="docutils footnote" frame="void" id="id4" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Porechop <a class="reference external" href="https://github.com/rrwick/Porechop">https://github.com/rrwick/Porechop</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> NanoFilt <a class="reference external" href="https://github.com/wdecoster/nanofilt">https://github.com/wdecoster/nanofilt</a></td></tr>
 </tbody>
 </table>
 </div>

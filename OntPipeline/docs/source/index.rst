@@ -11,6 +11,7 @@ Welcome to ontpipeline's documentation!
 
    GetStarted.rst
    InputFileStructure.rst
+   OutputFileStructure.rst
    GeneralSettings.rst
    BasecallingSettings.rst
    DemultiplexingSettings.rst

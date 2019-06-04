@@ -1,8 +1,8 @@
 Input File Structure
 ====================
-Start from Basecalling
-______________________
-Start the pipeline from Basecalling.
+Start from Base Calling
+_______________________
+Start the pipeline from Base calling.
 
 ::
    
@@ -61,7 +61,7 @@ Start the pipeline from Reads Filter.
 
 ::
 
-   ONT_Reads_Directory/
+    ONT_Reads_Directory/
     ├── Prefix01.fastq
     ├── Prefix02.fastq
     ├── Prefix03.fastq 
@@ -137,5 +137,5 @@ ____________
    example_5,barcode05
    
 .. note::
-  * The format of sample sheet is CSV (split cell contents by comma) or TSV (split cell contents by tab).
+  * The type of sample sheet file is CSV (split cell contents by comma) or TSV (split cell contents by tab).
   * The format of barcode name: barcodeXX (XX are two digits: 01,02,03,...,10,11,12,...)

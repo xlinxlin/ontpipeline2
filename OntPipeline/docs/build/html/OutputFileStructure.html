@@ -1,6 +1,5 @@
 
 
-
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -9,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; ontpipeline2  documentation</title>
+  <title>Output File Structure &mdash; ontpipeline2  documentation</title>
   
 
   
@@ -27,8 +26,10 @@
 
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="index" title="Index" href="#" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="General Settings" href="GeneralSettings.html" />
+    <link rel="prev" title="Input File Structure" href="InputFileStructure.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -77,10 +78,10 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GetStarted.html">Get Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="InputFileStructure.html">Input File Structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="OutputFileStructure.html">Output File Structure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Output File Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GeneralSettings.html">General Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Base Calling Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DemultiplexingSettings.html">Demultiplexing Settings</a></li>
@@ -133,12 +134,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Index</li>
+      <li>Output File Structure</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/OutputFileStructure.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -150,11 +153,91 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
+  <div class="section" id="output-file-structure">
+<h1>Output File Structure<a class="headerlink" href="#output-file-structure" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Output Directory/
+ ├── Analysis_{timestamp}/
+ |    ├── Basecalled/
+ |    ├── Barcodes/
+ |    |    ├── barcode01/
+ |    |    ├── barcode02/
+ |    |    ├── barcode03/
+ |    |    ├── unclassified/
+ |    |    ├── Prefix01.fastq
+ |    |    ├── Prefix02.fastq
+ |    |    └── Prefix03.fastq
+ |    ├── AdaperTrimmedFiles/
+ |    |    ├── Prefix01_trimmed.fastq
+ |    |    ├── Prefix02_trimmed.fastq
+ |    |    └── Prefix03_trimmed.fastq
+ |    ├── FiltedFiles/
+ |    |    ├── Prefix01_filted.fastq
+ |    |    ├── Prefix02_filted.fastq
+ |    |    └── Prefix03_filted.fastq
+ |    ├── StatFiles/
+ |    |    ├── Prefix01_trimmed_stat.txt
+ |    |    ├── Prefix02_trimmed_stat.txt
+ |    |    ├── Prefix03_trimmed_stat.txt
+ |    |    ├── Prefix01_filted_stat.txt
+ |    |    ├── Prefix02_filted_stat.txt
+ |    |    └── Prefix03_filted_stat.txt
+ |    ├── Prefix01_Assembly/
+ |    |    ├── ...
+ |    |    └── assembly.fasta
+ |    ├── Prefix02_Assembly/
+ |    |    ├── ...
+ |    |    └── assembly.fasta
+ |    ├── Prefix03_Assembly/
+ |    |    ├── ...
+ |    |    └── assembly.fasta
+ |    ├── Prefix01_Polishing/
+ |    |    ├── run_Prefix01_busco/
+ |    |    |    ├── ...
+ |    |    |    └── full_table_Prefix01_busco.tsv
+ |    |    ├── ...
+ |    |    └── pilon_1.fasta
+ |    ├── Prefix02_Polishing/
+ |    |    ├── run_Prefix02_busco/
+ |    |    |    ├── ...
+ |    |    |    └── full_table_Prefix02_busco.tsv
+ |    |    ├── ...
+ |    |    └── pilon_1.fasta
+ |    ├── Prefix03_Polishing/
+ |    |    ├── run_Prefix03_busco/
+ |    |    |    ├── ...
+ |    |    |    └── full_table_Prefix03_busco.tsv
+ |    |    ├── ...
+ |    |    └── pilon_1.fasta
+ |    └── Logs/
+ |         ├── guppy_basecaller.log
+ |         ├── guppy_barcoder.log
+ |         ├── Prefix01_trimmed.log
+ |         ├── Prefix02_trimmed.log
+ |         ├── Prefix03_trimmed.log
+ |         ├── Prefix01_filted.log
+ |         ├── Prefix02_filted.log
+ |         ├── Prefix03_filted.log
+ |         ├── Prefix01_assembly.log
+ |         ├── Prefix02_assembly.log
+ |         ├── Prefix03_assembly.log
+ |         ├── Prefix01_polishing_1.log
+ |         ├── Prefix02_polishing_1.log
+ |         ├── Prefix03_polishing_1.log
+ |         ├── Prefix01_busco.log
+ |         ├── Prefix02_busco.log
+ |         └── Prefix03_busco.log
+ ├── pipelineWithLoop_{timestamp}.pbs
+ └── userlog_{timestamp}.log
 
-<h1 id="index">Index</h1>
+/home/{$USER}/
+ ├── Unicycler_Job.e
+ └── Unicycler_Job.o
 
-<div class="genindex-jumpbox">
- 
+/opt/ontpipeline/logs/
+ ├── ...
+ └── {$USER}_error.log
+</pre></div>
+</div>
 </div>
 
 
@@ -162,6 +245,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="GeneralSettings.html" class="btn btn-neutral float-right" title="General Settings" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="InputFileStructure.html" class="btn btn-neutral" title="Input File Structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -83,7 +83,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#anaconda-installation">Anaconda Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#jdk8-installation-9">JDK8 Installation </a></li>
-<li class="toctree-l3"><a class="reference internal" href="#guppy3-0-3-installation">Guppy3.0.3 Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#guppy-installation">Guppy Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#porechop-installation">Porechop Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nanostat-installation">NanoStat Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nanofilt-installation">NanoFilt Installation</a></li>
@@ -221,8 +221,8 @@ Java HotSpot<span class="o">(</span>TM<span class="o">)</span> <span class="m">6
 </pre></div>
 </div>
 </div>
-<div class="section" id="guppy3-0-3-installation">
-<h3>Guppy3.0.3 Installation<a class="headerlink" href="#guppy3-0-3-installation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="guppy-installation">
+<h3>Guppy Installation<a class="headerlink" href="#guppy-installation" title="Permalink to this headline">¶</a></h3>
 <p>Guppy is a data processing toolkit that contains the Oxford Nanopore Technologies’ basecalling algorithms, and several bioinformatic post-processing features. <a class="footnote-reference" href="#id10" id="id2">[1]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_3.0.3_linux64.tar.gz
 tar -xf ont-guppy-cpu_3.0.3_linux64.tar.gz
@@ -235,7 +235,7 @@ sudo mv ont-guppy-cpu_3.0.3_linux64 /opt/ont-guppy-cpu_3.0.3
 <p>Porechop is a tool for finding and removing adapters from Oxford Nanopore reads. <a class="footnote-reference" href="#id11" id="id3">[2]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n porechop
 <span class="nb">source</span> /opt/anaconda3/bin/activate porechop
-/opt/anaconda3/bin/conda install -c bioconda porechop
+conda install -c bioconda porechop
 conda deactivate
 </pre></div>
 </div>
@@ -245,7 +245,7 @@ conda deactivate
 <p>NanoStat calculates various statistics from a long read sequencing dataset in fastq, bam or albacore sequencing summary format. <a class="footnote-reference" href="#id12" id="id4">[3]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n nanostat
 <span class="nb">source</span> /opt/anaconda3/bin/activate nanostat
-/opt/anaconda3/bin/conda install -c bioconda nanostat
+conda install -c bioconda nanostat
 conda deactivate
 </pre></div>
 </div>
@@ -255,7 +255,7 @@ conda deactivate
 <p>NanoFilt filters and trims long read sequencing data. <a class="footnote-reference" href="#id13" id="id5">[4]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n nanofilt
 <span class="nb">source</span> /opt/anaconda3/bin/activate nanofilt
-/opt/anaconda3/bin/conda install -c bioconda nanofilt
+conda install -c bioconda nanofilt
 conda deactivate
 </pre></div>
 </div>
@@ -265,8 +265,8 @@ conda deactivate
 <p>Unicycler is an assembly pipeline for bacterial genomes. <a class="footnote-reference" href="#id14" id="id6">[5]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n unicycler
 <span class="nb">source</span> /opt/anaconda3/bin/activate unicylcer
-/opt/anaconda3/bin/conda install -c bioconda unicycler
-/opt/anaconda3/bin/conda install -c bioconda bcftools <span class="c1"># for .vcf file</span>
+conda install -c bioconda unicycler
+conda install -c bioconda bcftools <span class="c1"># for .vcf file</span>
 conda deactivate
 </pre></div>
 </div>
@@ -276,7 +276,7 @@ conda deactivate
 <p>BUSCO v3 provides quantitative measures for the assessment of genome assembly, gene set, and transcriptome completeness, based on evolutionarily-informed expectations of gene content from near-universal single-copy orthologs selected from OrthoDB v9. <a class="footnote-reference" href="#id15" id="id7">[6]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n busco
 <span class="nb">source</span> /opt/anaconda3/bin/activate busco
-/opt/anaconda3/bin/conda install -c bioconda busco
+conda install -c bioconda busco
 conda deactivate
 </pre></div>
 </div>
@@ -286,7 +286,7 @@ conda deactivate
 <p>BWA is a software package for mapping low-divergent sequences against a large reference genome. <a class="footnote-reference" href="#id16" id="id8">[7]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n bwa
 <span class="nb">source</span> /opt/anaconda3/bin/activate bwa
-/opt/anaconda3/bin/conda install -c bioconda bwa
+conda install -c bioconda bwa
 conda deactivate
 </pre></div>
 </div>
@@ -296,7 +296,7 @@ conda deactivate
 <p>Seqtk is a fast and lightweight tool for processing sequences in the FASTA or FASTQ format. <a class="footnote-reference" href="#id17" id="id9">[8]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n seqtk
 <span class="nb">source</span> /opt/anaconda3/bin/activate seqtk
-/opt/anaconda3/bin/conda install -c bioconda seqtk
+conda install -c bioconda seqtk
 conda deactivate
 </pre></div>
 </div>

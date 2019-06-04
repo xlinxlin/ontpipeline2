@@ -53,8 +53,8 @@ JDK8 Installation [9]_
   Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
   Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
 
-Guppy3.0.3 Installation
-^^^^^^^^^^^^^^^^^^^^^^^
+Guppy Installation
+^^^^^^^^^^^^^^^^^^
 
 Guppy is a data processing toolkit that contains the Oxford Nanopore Technologies' basecalling algorithms, and several bioinformatic post-processing features. [1]_
 
@@ -73,7 +73,7 @@ Porechop is a tool for finding and removing adapters from Oxford Nanopore reads.
    
    /opt/anaconda3/bin/conda create -n porechop
    source /opt/anaconda3/bin/activate porechop
-   /opt/anaconda3/bin/conda install -c bioconda porechop
+   conda install -c bioconda porechop
    conda deactivate
 
 NanoStat Installation
@@ -85,7 +85,7 @@ NanoStat calculates various statistics from a long read sequencing dataset in fa
 
    /opt/anaconda3/bin/conda create -n nanostat
    source /opt/anaconda3/bin/activate nanostat
-   /opt/anaconda3/bin/conda install -c bioconda nanostat
+   conda install -c bioconda nanostat
    conda deactivate
 
 NanoFilt Installation
@@ -97,7 +97,7 @@ NanoFilt filters and trims long read sequencing data. [4]_
 
    /opt/anaconda3/bin/conda create -n nanofilt
    source /opt/anaconda3/bin/activate nanofilt
-   /opt/anaconda3/bin/conda install -c bioconda nanofilt
+   conda install -c bioconda nanofilt
    conda deactivate
 
 
@@ -110,8 +110,8 @@ Unicycler is an assembly pipeline for bacterial genomes. [5]_
    
    /opt/anaconda3/bin/conda create -n unicycler
    source /opt/anaconda3/bin/activate unicylcer
-   /opt/anaconda3/bin/conda install -c bioconda unicycler
-   /opt/anaconda3/bin/conda install -c bioconda bcftools # for .vcf file
+   conda install -c bioconda unicycler
+   conda install -c bioconda bcftools # for .vcf file
    conda deactivate
 
 BUSCO Installation
@@ -123,7 +123,7 @@ BUSCO v3 provides quantitative measures for the assessment of genome assembly, g
    
    /opt/anaconda3/bin/conda create -n busco
    source /opt/anaconda3/bin/activate busco
-   /opt/anaconda3/bin/conda install -c bioconda busco
+   conda install -c bioconda busco
    conda deactivate
 
 BWA Installation
@@ -135,7 +135,7 @@ BWA is a software package for mapping low-divergent sequences against a large re
    
    /opt/anaconda3/bin/conda create -n bwa
    source /opt/anaconda3/bin/activate bwa
-   /opt/anaconda3/bin/conda install -c bioconda bwa
+   conda install -c bioconda bwa
    conda deactivate
 
 Seqtk Installation
@@ -147,7 +147,7 @@ Seqtk is a fast and lightweight tool for processing sequences in the FASTA or FA
    
    /opt/anaconda3/bin/conda create -n seqtk
    source /opt/anaconda3/bin/activate seqtk
-   /opt/anaconda3/bin/conda install -c bioconda seqtk
+   conda install -c bioconda seqtk
    conda deactivate
 
 .. [1] Guppy v3.0.3 Release https://community.nanoporetech.com/posts/guppy-3-0-release

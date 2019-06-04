@@ -30,7 +30,7 @@ _______________________
 Set the path to the sample sheet file. 
 
 .. note::
-  * The sample sheet must be in .csv or .tsv format.
+  * The sample sheet file type must be CSV or TSV.
 
 .. warning::
   * Underscore('_') is **not** allowed in the sample name.
