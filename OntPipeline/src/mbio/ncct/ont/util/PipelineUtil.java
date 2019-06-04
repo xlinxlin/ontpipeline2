@@ -155,7 +155,7 @@ public class PipelineUtil {
    * @param p A Pipeline object.
    * @param timeStamp The current date and time yyyyMMdd_HHmmss.
    */
-  public void createPbsFile(Pipeline p, String timeStamp) {
+  public void createPbsFile(Pipeline p, String timestamp) {
     if ( !p.getFlowcellId().equals("FLO-MIN107") && p.getGuppyMode().equals("fast")) {
       Map<String, String> combinationFlowcellKit = null;
       String cfg = null;
@@ -172,7 +172,7 @@ public class PipelineUtil {
     }
     
     Path path = Paths.get(pbsUrl);
-    Path newPath = Paths.get(p.getOutputPath() + "/pipelineWithLoop_" + timeStamp + ".pbs");
+    Path newPath = Paths.get(p.getOutputPath() + "/pipelineWithLoop_" + timestamp + ".pbs");
     Charset charset = StandardCharsets.UTF_8;
 
     String content = null;
@@ -221,8 +221,8 @@ public class PipelineUtil {
    * @param p a Pipeline object.
    * @param timeStamp the current date and time: yyyyMMdd_HHmmss.
    */
-  public void createUserLog(Pipeline p, String timeStamp) {
-    String path = p.getOutputPath() + "/userlog_" + timeStamp + ".log";
+  public void createUserLog(Pipeline p, String timestamp) {
+    String path = p.getOutputPath() + "/userlog_" + timestamp + ".log";
     File f = new File(path);
     f.getParentFile().mkdirs(); 
     try {
@@ -433,9 +433,9 @@ public class PipelineUtil {
     for (int i = 0; i < f.length; i++) {
       if (f[i].isFile() && f[i].getName().contains("_")) {
         String prefix = f[i].getName().substring(0, f[i].getName().indexOf("_"));
-        if(f[i].getName().matches(".*R1.*\\.fastq\\.gz") && !alFR1.contains(prefix)) {
+        if(f[i].getName().matches(".*_HQ_1\\.fastq\\.gz") && !alFR1.contains(prefix)) {
           alFR1.add(prefix);
-        } else if (f[i].getName().matches(".*R2.*\\.fastq\\.gz") && !alFR2.contains(prefix)) {
+        } else if (f[i].getName().matches(".*_HQ_2\\.fastq\\.gz") && !alFR2.contains(prefix)) {
           alFR2.add(prefix);
         } else {
           validity = false;
@@ -458,7 +458,7 @@ public class PipelineUtil {
     ArrayList<String> alPrefixs = new ArrayList<String>();
     File[] f = illuminaDirectory.listFiles();
     for (int i = 0; i < f.length; i++) {
-      if (f[i].isFile() && f[i].getName().matches(".*R1.*\\.fastq\\.gz")) {
+      if (f[i].isFile() && f[i].getName().matches(".*_HQ_1\\.fastq\\.gz")) {
         String prefix = f[i].getName().substring(0, f[i].getName().indexOf("_"));
         alPrefixs.add(prefix);
       }

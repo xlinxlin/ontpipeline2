@@ -489,11 +489,11 @@ public class PipelineOverviewController {
     } else if (pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fast5") && !p.getIfBasecalling()) {
       pUtil.createAlertDialog(AlertType.ERROR, "Base calling required.", "Base calling is required since you provide .fast5 files.");
     } else {
-      String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-      pUtil.createUserLog(p, timeStamp);
-      pUtil.createPbsFile(p, timeStamp);
+      String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+      pUtil.createUserLog(p, timestamp);
+      pUtil.createPbsFile(p, timestamp);
       try {
-        Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getOutputPath() + "/pipelineWithLoop_" + timeStamp + ".pbs" });
+        Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getOutputPath() + "/pipelineWithLoop_" + timestamp + ".pbs" });
       } catch (Exception e) {
         logger.error("Can not run .pbs file. " + e);
       }

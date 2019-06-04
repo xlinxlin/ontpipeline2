@@ -15,16 +15,16 @@ Start the pipeline from Base calling.
     └── ......
     
     Illumina_Reads_Directory/
-    ├── Prefix01_*R1*.fastq.gz
-    ├── Prefix01_*R2*.fastq.gz
-    ├── Prefix02_*R1*.fastq.gz
-    ├── Prefix02_*R2*.fastq.gz
-    ├── Prefix03_*R1*.fastq.gz
-    ├── Prefix03_*R2*.fastq.gz
+    ├── Prefix01_HQ_1.fastq.gz
+    ├── Prefix01_HQ_2.fastq.gz
+    ├── Prefix02_HQ_1.fastq.gz
+    ├── Prefix02_HQ_2.fastq.gz
+    ├── Prefix03_HQ_1.fastq.gz
+    ├── Prefix03_HQ_2.fastq.gz
     └── ......
 
 .. note::
-  * Illumina reads files naming structure for each pair: Prefix_*R1*.fastq.gz  Prefix_*R2*.fastq.gz
+  * Illumina reads files naming structure for each pair: Prefix_HQ_1.fastq.gz  Prefix_HQ_2.fastq.gz
   * "Prefix" is the sample name, each pair should has its own prefix.
   * "*" means arbitrarily long characters.
   
@@ -46,12 +46,12 @@ Start the pipeline from Demultiplexing.
     └── ......
     
     Illumina_Reads_Directory/
-    ├── Prefix01_*R1*.fastq.gz
-    ├── Prefix01_*R2*.fastq.gz
-    ├── Prefix02_*R1*.fastq.gz
-    ├── Prefix02_*R2*.fastq.gz
-    ├── Prefix03_*R1*.fastq.gz
-    ├── Prefix03_*R2*.fastq.gz
+    ├── Prefix01_HQ_1.fastq.gz
+    ├── Prefix01_HQ_2.fastq.gz
+    ├── Prefix02_HQ_1.fastq.gz
+    ├── Prefix02_HQ_2.fastq.gz
+    ├── Prefix03_HQ_1.fastq.gz
+    ├── Prefix03_HQ_2.fastq.gz
     └── ......
 
 
@@ -70,12 +70,12 @@ Start the pipeline from Reads Filter.
     └── ......
     
     Illumina_Reads_Directory/
-    ├── Prefix01_*R1*.fastq.gz
-    ├── Prefix01_*R2*.fastq.gz
-    ├── Prefix02_*R1*.fastq.gz
-    ├── Prefix02_*R2*.fastq.gz
-    ├── Prefix03_*R1*.fastq.gz
-    ├── Prefix03_*R2*.fastq.gz
+    ├── Prefix01_HQ_1.fastq.gz
+    ├── Prefix01_HQ_2.fastq.gz
+    ├── Prefix02_HQ_1.fastq.gz
+    ├── Prefix02_HQ_2.fastq.gz
+    ├── Prefix03_HQ_1.fastq.gz
+    ├── Prefix03_HQ_2.fastq.gz
     └── ......
 
 Start from Assembly
@@ -93,12 +93,12 @@ Start the pipeline from Assembly.
     └── ......
     
     Illumina_Reads_Directory/
-    ├── Prefix01_*R1*.fastq.gz
-    ├── Prefix01_*R2*.fastq.gz
-    ├── Prefix02_*R1*.fastq.gz
-    ├── Prefix02_*R2*.fastq.gz
-    ├── Prefix03_*R1*.fastq.gz
-    ├── Prefix03_*R2*.fastq.gz
+    ├── Prefix01_HQ_1.fastq.gz
+    ├── Prefix01_HQ_2.fastq.gz
+    ├── Prefix02_HQ_1.fastq.gz
+    ├── Prefix02_HQ_2.fastq.gz
+    ├── Prefix03_HQ_1.fastq.gz
+    ├── Prefix03_HQ_2.fastq.gz
     └── ......
     
 Start from Polishing
@@ -116,12 +116,12 @@ Start the pipeline from Polishing.
     └── ......
     
     Illumina_Reads_Directory/
-    ├── Prefix01_*R1*.fastq.gz
-    ├── Prefix01_*R2*.fastq.gz
-    ├── Prefix02_*R1*.fastq.gz
-    ├── Prefix02_*R2*.fastq.gz
-    ├── Prefix03_*R1*.fastq.gz
-    ├── Prefix03_*R2*.fastq.gz
+    ├── Prefix01_HQ_1.fastq.gz
+    ├── Prefix01_HQ_2.fastq.gz
+    ├── Prefix02_HQ_1.fastq.gz
+    ├── Prefix02_HQ_2.fastq.gz
+    ├── Prefix03_HQ_1.fastq.gz
+    ├── Prefix03_HQ_2.fastq.gz
     └── ......
 
 Sample Sheet
