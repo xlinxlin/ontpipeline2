@@ -74,14 +74,14 @@ Output File Structure
      |         ├── Prefix01_busco.log
      |         ├── Prefix02_busco.log
      |         └── Prefix03_busco.log
-     ├── pipelineWithLoop_{timestamp}.pbs
-     └── userlog_{timestamp}.log
+     ├── pipelineWithLoop_{timestamp}.pbs # Submitted PBS file.
+     └── userlog_{timestamp}.log # User given parameters.
      
     /home/{$USER}/
-     ├── Unicycler_Job.e*
-     └── Unicycler_Job.o*
+     ├── Unicycler_Job.e* # Error messages after the run. 
+     └── Unicycler_Job.o* # Output messages after the run.
      
     /opt/ontpipeline/logs/
      ├── ...
-     └── {$USER}_error.log
+     └── {$USER}_error.log # Error messages if something wrong with the program.
    
