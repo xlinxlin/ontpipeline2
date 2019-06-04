@@ -7,7 +7,7 @@ Welcome to ontpipeline's documentation!
 =======================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    GetStarted.rst
    InputFileStructure.rst
