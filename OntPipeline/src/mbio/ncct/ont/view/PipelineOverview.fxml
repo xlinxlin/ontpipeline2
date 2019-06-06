@@ -62,7 +62,7 @@
       <TextField fx:id="tfPrefix" layoutX="553.0" layoutY="152.0" prefHeight="26.0" prefWidth="99.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="142.0" />
       <Label layoutX="27.0" layoutY="81.0" text="Output Dir." AnchorPane.rightAnchor="552.0" />
       <TextField fx:id="tfOutputPath" editable="false" layoutX="112.0" layoutY="76.0" prefHeight="26.0" prefWidth="441.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="109.0" />
-      <Button layoutX="551.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleSelectOutputFolder" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="76.0" />
+      <Button layoutX="551.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleSelectOutputDirectory" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="76.0" />
       <TextField fx:id="tfSampleSheet" layoutX="112.0" layoutY="102.0" prefHeight="26.0" prefWidth="440.0" AnchorPane.leftAnchor="113.0" />
       <Button layoutX="552.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleReadSampleSheet" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" />
       <Label layoutX="66.0" layoutY="107.0" text="Sample sheet" AnchorPane.rightAnchor="552.0" />

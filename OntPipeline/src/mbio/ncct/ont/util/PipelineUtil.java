@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -153,7 +154,7 @@ public class PipelineUtil {
   /**
    * Creates a .pbs file filled with the input parameters.
    * @param p A Pipeline object.
-   * @param timeStamp The current date and time yyyyMMdd_HHmmss.
+   * @param timestamp The current date and time yyyyMMdd_HHmmss.
    */
   public void createPbsFile(Pipeline p, String timestamp) {
     if ( !p.getFlowcellId().equals("FLO-MIN107") && p.getGuppyMode().equals("fast")) {
@@ -219,7 +220,7 @@ public class PipelineUtil {
   /**
    * Creates an user log file with all the input parameters.
    * @param p a Pipeline object.
-   * @param timeStamp the current date and time: yyyyMMdd_HHmmss.
+   * @param timestamp the current date and time: yyyyMMdd_HHmmss.
    */
   public void createUserLog(Pipeline p, String timestamp) {
     String path = p.getOutputPath() + "/userlog_" + timestamp + ".log";
@@ -232,31 +233,31 @@ public class PipelineUtil {
     }
     try {
       BufferedWriter writer = new BufferedWriter(new FileWriter(f, true));
-      writer.append("====General Settings====\n\n");
+      writer.append("====General Settings====\n");
       writer.append("Nanopore reads directory: " + p.getOntReadsWorkspace() + "\n");
       writer.append("Illumina reads directory: " + (p.getIlluminaReadsWorkspace().isEmpty() ? "Not given." : p.getIlluminaReadsWorkspace()) + "\n");
       writer.append("Output directory: " + p.getOutputPath() + "\n");
       writer.append("Sample sheet path: " + (p.getSampleSheetPath().isEmpty() ? "Not given." : p.getSampleSheetPath()) + "\n");
       writer.append("Prefix: " + (p.getPrefix().isEmpty() ? "Not given." : p.getPrefix()) + "\n");
       writer.append("Threads: " + p.getThreads() + "\n");
-      writer.append("Selected barcodes: " + ( p.getSelectedBarcode().isEmpty() ? "Default: all. " :formatSelectedBarcodes(p.getSelectedBarcode()) ) + "\n\n");
+      writer.append("Selected barcodes: " + ( p.getSelectedBarcode().isEmpty() ? "Default: all. " :formatSelectedBarcodes(p.getSelectedBarcode()) ) + "\n");
       if (p.getIfBasecalling()) {
-        writer.append("====Basecalling Settings====\n\n");
+        writer.append("\n====Basecalling Settings====\n");
         writer.append("Flowcell ID: " + p.getFlowcellId() + " \n");
         writer.append("Kit number: " + p.getKitNumber() + " \n");
         writer.append("Guppy mode: " + p.getGuppyMode() + " \n");
         writer.append("Device: " + p.getDevice() + " \n");
       } else {
-        writer.append("====No Basecalling====\n\n");
+        writer.append("\n====No Basecalling====\n");
       }
       if (p.getIfDemultiplexing()) {
-        writer.append("====Demultiplexing Settings====\n\n");
-        writer.append("Barcode kits: " + (p.getBarcodeKits().isEmpty() ? "" : p.getBarcodeKits()) + " \n\n"); 
+        writer.append("\n====Demultiplexing Settings====\n");
+        writer.append("Barcode kits: " + (p.getBarcodeKits().isEmpty() ? "" : p.getBarcodeKits()) + " \n"); 
       } else {
-        writer.append("====No Demultiplexing====\n\n");
+        writer.append("\n====No Demultiplexing====\n");
       }
       if (p.getIfReadsFilter()) {
-        writer.append("====Reads Filter Settings====\n\n");
+        writer.append("\n====Reads Filter Settings====\n");
         writer.append("Read score: " + p.getReadScore() + " \n");
         writer.append("Read length: " + p.getReadLength() + " \n");
         writer.append("Head crop: " + p.getHeadCrop() + " \n");
@@ -265,25 +266,25 @@ public class PipelineUtil {
           writer.append("If split reads: " + p.getIfNoSplit() + "\n"); 
         }
       } else {
-        writer.append("====No Reads Filter====\n\n");
+        writer.append("\n====No Reads Filter====\n");
       }
       if (p.getIfAssembly()) {
-        writer.append("====Assembly Settings====\n\n");
+        writer.append("\n====Assembly Settings====\n");
         writer.append("Assembly mode: " + p.getMode() + " \n");
         writer.append("Assembly method: " + p.getMethod() + " \n");
-        writer.append("VCF: " + p.getIfVcf() + " \n\n");
+        writer.append("VCF: " + p.getIfVcf() + " \n");
       } else {
-        writer.append("====No Assembly====\n\n");
+        writer.append("\n====No Assembly====\n");
       }
       if (p.getIfPolishing()) {
-        writer.append("====Polishing Settings====\n\n");
+        writer.append("\n====Polishing Settings====\n");
         writer.append("Polishing times: " + p.getPtimes() + " \n");
         writer.append("BUSCO: " + p.getIfBusco() + " \n");
         if (p.getIfBusco()) {
           writer.append("BUSCO database: " + p.getBuscoData() + " \n"); 
         }
       } else {
-        writer.append("====No Polishing====\n\n");
+        writer.append("\n====No Polishing====\n");
       }
       writer.close();
     } catch (Exception e) {
@@ -299,7 +300,7 @@ public class PipelineUtil {
    */
   public HashMap<String,String> getSampleSheetContent(String sampleSheet, String extension) {
     HashMap<String,String> hmResult = new HashMap<String,String>();
-    String ch = (extension.equals("csv".toLowerCase()) ? "," : "\t");
+    String ch = (extension.toLowerCase().equals("csv") ? "," : "\t");
     try (BufferedReader br = new BufferedReader(new FileReader(sampleSheet))) {
       String line;
       line = br.readLine();
@@ -487,7 +488,45 @@ public class PipelineUtil {
     ArrayList<String> alSampleNames = new ArrayList<String>();
     alSampleNames.addAll(setSampleNames);
     ArrayList<String >alIlluminaPrefixs = getIlluminaReadsPrefix(illuminaDirectory);
-    return alSampleNames.containsAll(alIlluminaPrefixs) && alIlluminaPrefixs.containsAll(alSampleNames);
+    return alIlluminaPrefixs.containsAll(alSampleNames);
   }
   
+  /**
+   * Gets all prefixes of ONT reads in a given directory.
+   * @param ontDirectory the path of ONT reads directory.
+   * @return an ArrayList contains all prefixes.
+   */
+  private ArrayList<String> getOntReadsPrefix(File ontDirectory){
+    ArrayList<String> alPrefixs = new ArrayList<String>();
+    File[] f = ontDirectory.listFiles();
+    for (int i = 0; i < f.length; i++) {
+      if (f[i].isFile() && f[i].getName().matches(".*\\.fastq")) {
+        String prefix = null;
+        if (f[i].getName().contains("_")) {
+          prefix = f[i].getName().substring(0, f[i].getName().indexOf("_")); 
+        } else {
+          prefix = f[i].getName().substring(0, f[i].getName().indexOf(".")); 
+        }
+        alPrefixs.add(prefix);
+      }
+    }
+    return alPrefixs;
+  }
+  
+  /**
+   * Checks if the prefixes ONT reads are unique and if the set of Illumina prefixes contains all ONT reads prefixes.
+   * @param ontDirectory the path of ONT reads directory.
+   * @param illuminaDirectory the path of Illumina reads directory.
+   * @return true if all prefixes ONT reads are unique and the set of Illumina prefixes contains all ONT reads prefixes.
+   */
+  public Boolean checkOntReadsPrefix(File ontDirectory, File illuminaDirectory) {
+    Boolean result = true;
+    ArrayList<String> alOntPrefixes = getOntReadsPrefix(ontDirectory);
+    ArrayList<String> alIlluminaPrefixes = getIlluminaReadsPrefix(illuminaDirectory);
+    Set<String> stOntPrefixes = new HashSet<String>(alOntPrefixes);
+    if (stOntPrefixes.size() != alOntPrefixes.size() || !alIlluminaPrefixes.containsAll(alOntPrefixes)) {
+      result = false;
+    }
+    return result;
+  }
 }

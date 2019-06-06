@@ -467,13 +467,24 @@ public class PipelineOverviewController {
   
   /**
    * Called when start pipeline button is clicked.
+   * Errors check:
+   * 01. ONT reads directory is empty.
+   * 02. Output directory is empty.
+   * 03. The threads number is not a positive integer.
+   * 04. No module is selected.
+   * 05. The format of selected barcodes is wrong (the right format: 1,2,3,4)
+   * 06. User selects "Base calling" but the ONT directory contains no FAST5 file.
+   * 07. User selects "Hybrid assembly" but the Illumina reads directory is empty.
+   * 08. User selects "Polishing" but the Illumina reads directory is empty.
+   * 09. User uploads FAST5 files but do not select "Base calling".
+   * 10. User starts the pipeline from "Reads filter"/"Assembly"/"Polishing", but the prefixes of ONT reads (FASTQ) do not match the prefixes of Illumina reads.
    */
   @FXML
   private void handleStartPipeline()  {
     if (p.getOntReadsWorkspace().isEmpty()) {
-      pUtil.createAlertDialog(AlertType.ERROR, "Empty Nanopore reads folder.", "Nanopore reads folder can not be empty.");
+      pUtil.createAlertDialog(AlertType.ERROR, "Empty Nanopore reads directory.", "Nanopore reads directory can not be empty.");
     } else if (p.getOutputPath().isEmpty()) {
-      pUtil.createAlertDialog(AlertType.ERROR, "Empty output folder.", "Output folder can not be empty.");
+      pUtil.createAlertDialog(AlertType.ERROR, "Empty output directory.", "Output directory can not be empty.");
     } else if (!p.getThreads().matches(("\\d+"))){
       pUtil.createAlertDialog(AlertType.ERROR, "Wrong threads.", "Threads should be a positive integer.");
     } else if (!p.getIfBasecalling() && !p.getIfReadsFilter() && !p.getIfAssembly() && !p.getIfPolishing()) {
@@ -488,12 +499,15 @@ public class PipelineOverviewController {
       pUtil.createAlertDialog(AlertType.ERROR, "No Illumina reads found.", "Polishing requires Illumina reads.");
     } else if (pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fast5") && !p.getIfBasecalling()) {
       pUtil.createAlertDialog(AlertType.ERROR, "Base calling required.", "Base calling is required since you provide .fast5 files.");
+    } else if (!p.getIfBasecalling() && !p.getIfDemultiplexing() && pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fastq")
+        && !pUtil.checkOntReadsPrefix(new File(p.getOntReadsWorkspace()), new File(p.getIlluminaReadsWorkspace()))) {
+      pUtil.createAlertDialog(AlertType.ERROR, "Wrong prefixes.", "The prefixes of ONT reads do not match the prefixes of Illumina reads.");
     } else {
       String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
       pUtil.createUserLog(p, timestamp);
       pUtil.createPbsFile(p, timestamp);
       try {
-        Runtime.getRuntime().exec(new String[] {"bash","-c","qsub " + p.getOutputPath() + "/pipelineWithLoop_" + timestamp + ".pbs" });
+        Runtime.getRuntime().exec(new String[] {"bash","-c","qsub -k oe -N Ont_Pipeline_" + timestamp + " " + p.getOutputPath() + "/pipelineWithLoop_" + timestamp + ".pbs" });
       } catch (Exception e) {
         logger.error("Can not run .pbs file. " + e);
       }
@@ -544,7 +558,7 @@ public class PipelineOverviewController {
    * Called when select output directory button is clicked.
    */
   @FXML
-  private void handleSelectOutputFolder() {
+  private void handleSelectOutputDirectory() {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File selectedDirectory = directoryChooser.showDialog(null);
     if (selectedDirectory != null) {
