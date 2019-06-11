@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javafx.scene.control.Alert;
@@ -528,5 +527,30 @@ public class PipelineUtil {
       result = false;
     }
     return result;
+  }
+  
+  /**
+   * Gets the result from the qstat command.
+   * @return ArrayList with the result from qstat command.
+   */  
+  public ArrayList<String> getQstat() {
+    String s = null;
+    Process p = null;
+    ArrayList<String> alResult = new ArrayList<String>();
+    try {
+      p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "qstat" });
+    } catch (Exception e) {
+      logger.error("Can not get barcode kits. " + e);
+    }
+    BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+    //BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+    try {
+      while ((s = stdInput.readLine()) != null ) {
+        alResult.add(s);
+      }
+    } catch (Exception e) {
+      logger.error("Can not read barcode kits. " + e);
+    }
+    return alResult;
   }
 }

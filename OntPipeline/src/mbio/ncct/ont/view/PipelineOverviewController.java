@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
@@ -132,6 +133,10 @@ public class PipelineOverviewController {
   /** Initializes check combo box for barcode kits. */
   @FXML
   private CheckComboBox<String> ccbBarcodeKits = new CheckComboBox<String>();
+  
+  /** Initializes text area for Qstat result. */
+  @FXML
+  private TextArea taQstat;
   
   
   /**
@@ -295,6 +300,12 @@ public class PipelineOverviewController {
         p.setBarcodeKits(pUtil.formatBarcodeKits(ccbBarcodeKits.getCheckModel().getCheckedItems().toString()));
       }
     });
+    
+    //Timer timer = new Timer();
+    //timer.schedule(new CheckQstat(), 0, 5000);
+    
+
+    
   }
 
   /**
@@ -481,6 +492,7 @@ public class PipelineOverviewController {
    */
   @FXML
   private void handleStartPipeline()  {
+    
     if (p.getOntReadsWorkspace().isEmpty()) {
       pUtil.createAlertDialog(AlertType.ERROR, "Empty Nanopore reads directory.", "Nanopore reads directory can not be empty.");
     } else if (p.getOutputPath().isEmpty()) {
@@ -518,6 +530,7 @@ public class PipelineOverviewController {
         logger.error("Can not open terminal to show log. " + e);
       }
     }
+    
   }
      
   /**
@@ -602,5 +615,18 @@ public class PipelineOverviewController {
         pUtil.createAlertDialog(AlertType.ERROR, "Wrong sample sheet.", "The format of sample sheet is wrong.");
       };
     }
+  }
+  
+  /**
+   * Gets the result from qstat command.
+   */
+  @FXML
+  private void getQstat() {
+    ArrayList<String> alResult = pUtil.getQstat();
+    String s = "";
+    for (int i=0;i<alResult.size();i++ ) {
+      s = s + alResult.get(i) + "\n";
+    }
+    taQstat.setText(s);
   }
 }
