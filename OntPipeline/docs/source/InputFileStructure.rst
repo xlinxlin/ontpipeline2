@@ -138,4 +138,4 @@ ____________
    
 .. note::
   * The type of sample sheet file is CSV (split cell contents by comma) or TSV (split cell contents by tab).
-  * The format of barcode name: barcodeXX (XX are two digits: 01,02,03,...,10,11,12,...)
+  * The format of barcode name: barcodeXX ("barcode" can be any characters, but XX must be two digits: 01,02,03,...,10,11,12,...)

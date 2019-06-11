@@ -96,6 +96,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="InputFileStructure.html">Input File Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OutputFileStructure.html">Output File Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GeneralSettings.html">General Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Base Calling Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DemultiplexingSettings.html">Demultiplexing Settings</a></li>
@@ -174,9 +175,15 @@
 <div class="section" id="anaconda-installation">
 <h3>Anaconda Installation<a class="headerlink" href="#anaconda-installation" title="Permalink to this headline">¶</a></h3>
 <p>Installing on Linux <a class="reference external" href="https://docs.anaconda.com/anaconda/install/linux/">https://docs.anaconda.com/anaconda/install/linux/</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Anaconda is installed in <code class="file docutils literal notranslate"><span class="pre">/opt</span></code> directory .</li>
+</ul>
+</div>
 </div>
 <div class="section" id="jdk8-installation-9">
-<h3>JDK8 Installation <a class="footnote-reference" href="#id18" id="id1">[9]</a><a class="headerlink" href="#jdk8-installation-9" title="Permalink to this headline">¶</a></h3>
+<h3>JDK8 Installation <a class="footnote-reference" href="#id19" id="id1">[9]</a><a class="headerlink" href="#jdk8-installation-9" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Download source pakage from Oracle. <a class="reference external" href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></li>
 <li>Extract JDK8 files to the target folder.</li>
@@ -223,7 +230,7 @@ Java HotSpot<span class="o">(</span>TM<span class="o">)</span> <span class="m">6
 </div>
 <div class="section" id="guppy-installation">
 <h3>Guppy Installation<a class="headerlink" href="#guppy-installation" title="Permalink to this headline">¶</a></h3>
-<p>Guppy is a data processing toolkit that contains the Oxford Nanopore Technologies’ basecalling algorithms, and several bioinformatic post-processing features. <a class="footnote-reference" href="#id10" id="id2">[1]</a></p>
+<p>Guppy is a data processing toolkit that contains the Oxford Nanopore Technologies’ basecalling algorithms, and several bioinformatic post-processing features. <a class="footnote-reference" href="#id11" id="id2">[1]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_3.0.3_linux64.tar.gz
 tar -xf ont-guppy-cpu_3.0.3_linux64.tar.gz
 sudo mv ont-guppy-cpu_3.0.3_linux64 /opt/ont-guppy-cpu_3.0.3
@@ -232,7 +239,7 @@ sudo mv ont-guppy-cpu_3.0.3_linux64 /opt/ont-guppy-cpu_3.0.3
 </div>
 <div class="section" id="porechop-installation">
 <h3>Porechop Installation<a class="headerlink" href="#porechop-installation" title="Permalink to this headline">¶</a></h3>
-<p>Porechop is a tool for finding and removing adapters from Oxford Nanopore reads. <a class="footnote-reference" href="#id11" id="id3">[2]</a></p>
+<p>Porechop is a tool for finding and removing adapters from Oxford Nanopore reads. <a class="footnote-reference" href="#id12" id="id3">[2]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n porechop
 <span class="nb">source</span> /opt/anaconda3/bin/activate porechop
 conda install -c bioconda porechop
@@ -242,7 +249,7 @@ conda deactivate
 </div>
 <div class="section" id="nanostat-installation">
 <h3>NanoStat Installation<a class="headerlink" href="#nanostat-installation" title="Permalink to this headline">¶</a></h3>
-<p>NanoStat calculates various statistics from a long read sequencing dataset in fastq, bam or albacore sequencing summary format. <a class="footnote-reference" href="#id12" id="id4">[3]</a></p>
+<p>NanoStat calculates various statistics from a long read sequencing dataset in fastq, bam or albacore sequencing summary format. <a class="footnote-reference" href="#id13" id="id4">[3]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n nanostat
 <span class="nb">source</span> /opt/anaconda3/bin/activate nanostat
 conda install -c bioconda nanostat
@@ -252,7 +259,7 @@ conda deactivate
 </div>
 <div class="section" id="nanofilt-installation">
 <h3>NanoFilt Installation<a class="headerlink" href="#nanofilt-installation" title="Permalink to this headline">¶</a></h3>
-<p>NanoFilt filters and trims long read sequencing data. <a class="footnote-reference" href="#id13" id="id5">[4]</a></p>
+<p>NanoFilt filters and trims long read sequencing data. <a class="footnote-reference" href="#id14" id="id5">[4]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n nanofilt
 <span class="nb">source</span> /opt/anaconda3/bin/activate nanofilt
 conda install -c bioconda nanofilt
@@ -262,7 +269,7 @@ conda deactivate
 </div>
 <div class="section" id="unicycler-installation">
 <h3>Unicycler Installation<a class="headerlink" href="#unicycler-installation" title="Permalink to this headline">¶</a></h3>
-<p>Unicycler is an assembly pipeline for bacterial genomes. <a class="footnote-reference" href="#id14" id="id6">[5]</a></p>
+<p>Unicycler is an assembly pipeline for bacterial genomes. <a class="footnote-reference" href="#id15" id="id6">[5]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n unicycler
 <span class="nb">source</span> /opt/anaconda3/bin/activate unicylcer
 conda install -c bioconda unicycler
@@ -270,10 +277,16 @@ conda install -c bioconda bcftools <span class="c1"># for .vcf file</span>
 conda deactivate
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Change the memory setting in Pilon is necessary or it could be failed to start <a class="footnote-reference" href="#id20" id="id7">[10]</a> .</li>
+</ul>
+</div>
 </div>
 <div class="section" id="busco-installation">
 <h3>BUSCO Installation<a class="headerlink" href="#busco-installation" title="Permalink to this headline">¶</a></h3>
-<p>BUSCO v3 provides quantitative measures for the assessment of genome assembly, gene set, and transcriptome completeness, based on evolutionarily-informed expectations of gene content from near-universal single-copy orthologs selected from OrthoDB v9. <a class="footnote-reference" href="#id15" id="id7">[6]</a></p>
+<p>BUSCO v3 provides quantitative measures for the assessment of genome assembly, gene set, and transcriptome completeness, based on evolutionarily-informed expectations of gene content from near-universal single-copy orthologs selected from OrthoDB v9. <a class="footnote-reference" href="#id16" id="id8">[6]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n busco
 <span class="nb">source</span> /opt/anaconda3/bin/activate busco
 conda install -c bioconda busco
@@ -283,7 +296,7 @@ conda deactivate
 </div>
 <div class="section" id="bwa-installation">
 <h3>BWA Installation<a class="headerlink" href="#bwa-installation" title="Permalink to this headline">¶</a></h3>
-<p>BWA is a software package for mapping low-divergent sequences against a large reference genome. <a class="footnote-reference" href="#id16" id="id8">[7]</a></p>
+<p>BWA is a software package for mapping low-divergent sequences against a large reference genome. <a class="footnote-reference" href="#id17" id="id9">[7]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n bwa
 <span class="nb">source</span> /opt/anaconda3/bin/activate bwa
 conda install -c bioconda bwa
@@ -293,65 +306,71 @@ conda deactivate
 </div>
 <div class="section" id="seqtk-installation">
 <h3>Seqtk Installation<a class="headerlink" href="#seqtk-installation" title="Permalink to this headline">¶</a></h3>
-<p>Seqtk is a fast and lightweight tool for processing sequences in the FASTA or FASTQ format. <a class="footnote-reference" href="#id17" id="id9">[8]</a></p>
+<p>Seqtk is a fast and lightweight tool for processing sequences in the FASTA or FASTQ format. <a class="footnote-reference" href="#id18" id="id10">[8]</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/bin/conda create -n seqtk
 <span class="nb">source</span> /opt/anaconda3/bin/activate seqtk
 conda install -c bioconda seqtk
 conda deactivate
 </pre></div>
 </div>
-<table class="docutils footnote" frame="void" id="id10" rules="none">
+<table class="docutils footnote" frame="void" id="id11" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>Guppy v3.0.3 Release <a class="reference external" href="https://community.nanoporetech.com/posts/guppy-3-0-release">https://community.nanoporetech.com/posts/guppy-3-0-release</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id11" rules="none">
+<table class="docutils footnote" frame="void" id="id12" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>Porechop <a class="reference external" href="https://github.com/rrwick/Porechop">https://github.com/rrwick/Porechop</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id12" rules="none">
+<table class="docutils footnote" frame="void" id="id13" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id4">[3]</a></td><td>NanoStat <a class="reference external" href="https://github.com/wdecoster/nanostat">https://github.com/wdecoster/nanostat</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id13" rules="none">
+<table class="docutils footnote" frame="void" id="id14" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id5">[4]</a></td><td>NanoFilt <a class="reference external" href="https://github.com/wdecoster/nanofilt">https://github.com/wdecoster/nanofilt</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id14" rules="none">
+<table class="docutils footnote" frame="void" id="id15" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id6">[5]</a></td><td>Unicycler <a class="reference external" href="https://github.com/rrwick/Unicycler">https://github.com/rrwick/Unicycler</a></td></tr>
 </tbody>
 </table>
-<table class="docutils footnote" frame="void" id="id15" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[6]</a></td><td>BUSCO v3 <a class="reference external" href="https://busco.ezlab.org">https://busco.ezlab.org</a></td></tr>
-</tbody>
-</table>
 <table class="docutils footnote" frame="void" id="id16" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id8">[7]</a></td><td>BWA <a class="reference external" href="https://github.com/lh3/bwa">https://github.com/lh3/bwa</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id8">[6]</a></td><td>BUSCO v3 <a class="reference external" href="https://busco.ezlab.org">https://busco.ezlab.org</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id17" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id9">[8]</a></td><td>Seqtk <a class="reference external" href="https://github.com/lh3/seqtk">https://github.com/lh3/seqtk</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id9">[7]</a></td><td>BWA <a class="reference external" href="https://github.com/lh3/bwa">https://github.com/lh3/bwa</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id18" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id10">[8]</a></td><td>Seqtk <a class="reference external" href="https://github.com/lh3/seqtk">https://github.com/lh3/seqtk</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id19" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[9]</a></td><td>Ubuntu 安装 JDK 7 / JDK8 的两种方式 <a class="reference external" href="https://www.cnblogs.com/a2211009/p/4265225.html">https://www.cnblogs.com/a2211009/p/4265225.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id20" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[10]</a></td><td>Pilon step runs out of error <a class="reference external" href="https://github.com/rrwick/Unicycler/issues/147">https://github.com/rrwick/Unicycler/issues/147</a></td></tr>
 </tbody>
 </table>
 </div>

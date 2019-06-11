@@ -306,7 +306,7 @@ public class PipelineUtil {
       line = br.readLine();
       while ((line = br.readLine()) != null) {
         String[] values = line.split(ch);
-        hmResult.put(values[1], values[0]);
+        hmResult.put("barcode"+values[1].substring(values[1].length()-2), values[0]);
       }
     } catch (Exception e) {
       logger.error("Can not read sample sheet." + e);
@@ -343,12 +343,12 @@ public class PipelineUtil {
       line = br.readLine();
       while ((line = br.readLine()) != null) {
         String[] values = line.split(ch);
-        if (!values[1].matches("barcode\\d+") || sampleNames.contains(values[0]) || barcodeNames.contains(values[1])) {
+        if (!values[1].substring(values[1].length() - 2).matches(".*\\d\\d") || sampleNames.contains(values[0]) || barcodeNames.contains(values[1])) {
           result = false;
           break;
         } else {
           sampleNames.add(values[0]);
-          barcodeNames.add(values[1]); 
+          barcodeNames.add(values[1].substring(values[1].length() - 2)); 
         }
       }
     } catch (Exception e) {

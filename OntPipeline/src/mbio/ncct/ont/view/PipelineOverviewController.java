@@ -347,7 +347,7 @@ public class PipelineOverviewController {
         p.setDevice(controller.cbDevice.getValue());
       }
     } catch (Exception e) {
-      logger.error("Can not load advanced basecalling view. " + e);
+      logger.error("Can not load advanced base calling view. " + e);
     }
   }
   
@@ -492,13 +492,13 @@ public class PipelineOverviewController {
     } else if (!p.getSelectedBarcode().matches("([123456789],{0,1})*")){
       pUtil.createAlertDialog(AlertType.ERROR, "Wrong seleted barcodes.", "The format of selected barcodes is wrong.");
     } else if (p.getIfBasecalling() && !pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fast5")) {
-      pUtil.createAlertDialog(AlertType.ERROR, "Wrong input files.", "Base calling runs only with .fast5 files");
+      pUtil.createAlertDialog(AlertType.ERROR, "Wrong input files.", "Base calling runs only with FAST5 files");
     } else if (p.getIfAssembly() && p.getMethod().equals("Hybrid assembly") && p.getIlluminaReadsWorkspace().isEmpty()) {
       pUtil.createAlertDialog(AlertType.ERROR, "No Illumina reads found.", "Hybrid assembly requires Illumina reads.");
     } else if (p.getIfPolishing() && p.getIlluminaReadsWorkspace().isEmpty()) {
       pUtil.createAlertDialog(AlertType.ERROR, "No Illumina reads found.", "Polishing requires Illumina reads.");
     } else if (pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fast5") && !p.getIfBasecalling()) {
-      pUtil.createAlertDialog(AlertType.ERROR, "Base calling required.", "Base calling is required since you provide .fast5 files.");
+      pUtil.createAlertDialog(AlertType.ERROR, "Base calling required.", "Base calling is required since you provide FAST5 files.");
     } else if (!p.getIfBasecalling() && !p.getIfDemultiplexing() && pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fastq")
         && !pUtil.checkOntReadsPrefix(new File(p.getOntReadsWorkspace()), new File(p.getIlluminaReadsWorkspace()))) {
       pUtil.createAlertDialog(AlertType.ERROR, "Wrong prefixes.", "The prefixes of ONT reads do not match the prefixes of Illumina reads.");
@@ -509,9 +509,14 @@ public class PipelineOverviewController {
       try {
         Runtime.getRuntime().exec(new String[] {"bash","-c","qsub -k oe -N Ont_Pipeline_" + timestamp + " " + p.getOutputPath() + "/pipelineWithLoop_" + timestamp + ".pbs" });
       } catch (Exception e) {
-        logger.error("Can not run .pbs file. " + e);
+        logger.error("Can not run PBS file. " + e);
       }
       pUtil.createAlertDialog(AlertType.INFORMATION, "Submitted.", "Your job has been submitted successfully.");
+      try {
+        Runtime.getRuntime().exec(new String[] {"bash","-c","gnome-terminal -- sh -c 'tail -F /home/sysgen/Ont_Pipeline_" + timestamp + ".o*'" });
+      } catch (Exception e) {
+        logger.error("Can not open terminal to show log. " + e);
+      }
     }
   }
      
@@ -526,7 +531,7 @@ public class PipelineOverviewController {
       if (pUtil.checkDirectoryValidity(selectedDirectory,"fast5") || pUtil.checkDirectoryValidity(selectedDirectory,"fastq")) {
         tfNanoporeWorkspace.setText(selectedDirectory.toString()); 
       } else {
-        pUtil.createAlertDialog(AlertType.ERROR, "Wrong ONT workspace.", "No .fast5/.fastq files found in this directory.");
+        pUtil.createAlertDialog(AlertType.ERROR, "Wrong ONT workspace.", "No FAST5/FASTQ files found in this directory.");
       }
     } 
   }

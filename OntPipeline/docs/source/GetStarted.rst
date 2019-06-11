@@ -6,6 +6,9 @@ Anaconda Installation
 ^^^^^^^^^^^^^^^^^^^^^
 Installing on Linux https://docs.anaconda.com/anaconda/install/linux/
 
+.. note::
+  * Anaconda is installed in :file:`/opt` directory .
+
 JDK8 Installation [9]_
 ^^^^^^^^^^^^^^^^^^^^^^
 1. Download source pakage from Oracle. https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html 
@@ -113,6 +116,9 @@ Unicycler is an assembly pipeline for bacterial genomes. [5]_
    conda install -c bioconda unicycler
    conda install -c bioconda bcftools # for .vcf file
    conda deactivate
+   
+.. warning::
+  * Change the memory setting in Pilon is necessary or it could be failed to start [10]_ .
 
 BUSCO Installation
 ^^^^^^^^^^^^^^^^^^
@@ -159,3 +165,4 @@ Seqtk is a fast and lightweight tool for processing sequences in the FASTA or FA
 .. [7] BWA https://github.com/lh3/bwa
 .. [8] Seqtk https://github.com/lh3/seqtk
 .. [9] Ubuntu 安装 JDK 7 / JDK8 的两种方式 https://www.cnblogs.com/a2211009/p/4265225.html
+.. [10] Pilon step runs out of error https://github.com/rrwick/Unicycler/issues/147

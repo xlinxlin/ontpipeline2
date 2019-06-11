@@ -3,7 +3,7 @@ Output File Structure
 
 ::
 
-    Output Directory/
+    Output_Directory/
      ├── Analysis_{timestamp}/
      |    ├── Basecalled/
      |    ├── Barcodes/
@@ -78,8 +78,8 @@ Output File Structure
      └── userlog_{timestamp}.log # User given parameters.
      
     /home/{$USER}/
-     ├── Unicycler_Job.e* # Error messages after the run. 
-     └── Unicycler_Job.o* # Output messages after the run.
+     ├── Ont_Pipeline.e* # Error messages after the run. 
+     └── Ont_Pipeline.o* # Output messages after the run.
      
     /opt/ontpipeline/logs/
      ├── ...
