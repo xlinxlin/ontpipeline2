@@ -540,7 +540,7 @@ public class PipelineUtil {
     try {
       p = Runtime.getRuntime().exec(new String[] { "bash", "-c", "qstat" });
     } catch (Exception e) {
-      logger.error("Can not get barcode kits. " + e);
+      logger.error("Can not get qstat result. " + e);
     }
     BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
     //BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -549,7 +549,7 @@ public class PipelineUtil {
         alResult.add(s);
       }
     } catch (Exception e) {
-      logger.error("Can not read barcode kits. " + e);
+      logger.error("Can not read qstat result. " + e);
     }
     return alResult;
   }

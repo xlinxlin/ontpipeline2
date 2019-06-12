@@ -13,8 +13,8 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
@@ -98,22 +98,6 @@ public class PipelineOverviewController {
   @FXML
   private TextField tfThreads;
   
-  /** Initializes button for base calling. */
-  @FXML
-  private Button btnBasecalling;
-  
-  /** Initializes button for reads filter. */
-  @FXML
-  private Button btnReadsFilter;
-  
-  /** Initializes button for assembly. */
-  @FXML
-  private Button btnAssembly;
-  
-  /** Initializes button for polishing. */
-  @FXML
-  private Button btnPolishing;
-  
   /** Initializes text field for selected barcodes. */
   @FXML
   private TextField tfSelectedBarcode;
@@ -134,10 +118,29 @@ public class PipelineOverviewController {
   @FXML
   private CheckComboBox<String> ccbBarcodeKits = new CheckComboBox<String>();
   
-  /** Initializes text area for Qstat result. */
+  /** Initializes text area for qstat result. */
   @FXML
   private TextArea taQstat;
   
+  /** Initializes base calling group.  */
+  @FXML
+  private Group gpBaseCalling;
+  
+  /** Initializes demultiplexing group.  */
+  @FXML
+  private Group gpDemultiplexing;
+  
+  /** Initializes reads filter group.  */
+  @FXML
+  private Group gpReadsFilter;
+  
+  /** Initializes assembly group.  */
+  @FXML
+  private Group gpAssembly;
+  
+  /** Initializes polishing group.  */
+  @FXML
+  private Group gpPolishing;
   
   /**
    * Initializes the controller of pipeline overview.
@@ -145,13 +148,16 @@ public class PipelineOverviewController {
   @FXML
   private void initialize()  { 
     
-    ObservableList<String> olFlowcellIds = null;
-    olFlowcellIds = FXCollections.observableArrayList(pUtil.getFlowcellIds());
+    ObservableList<String> olFlowcellIds = FXCollections.observableArrayList(pUtil.getFlowcellIds());
     cbFlowcellId.setItems(olFlowcellIds);
-    cbFlowcellId.getSelectionModel().selectFirst();
+    if(olFlowcellIds.contains("FLO-MIN106")) {
+      cbFlowcellId.getSelectionModel().select("FLO-MIN106");
+    } else {
+      cbFlowcellId.getSelectionModel().selectFirst();
+      p.setFlowcellId(cbFlowcellId.getSelectionModel().getSelectedItem());
+    }
     
-    ObservableList<String> olKitNumbers = null;
-    olKitNumbers = FXCollections.observableArrayList(pUtil.getKitNumbers());
+    ObservableList<String> olKitNumbers = FXCollections.observableArrayList(pUtil.getKitNumbers());
     cbKitNumber.setItems(olKitNumbers);
     if(olKitNumbers.contains("SQK-LSK109")) {
       cbKitNumber.getSelectionModel().select("SQK-LSK109");
@@ -197,60 +203,50 @@ public class PipelineOverviewController {
     
     cBasecalling.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cBasecalling.isSelected()) {
-        cbFlowcellId.setDisable(false);
-        cbKitNumber.setDisable(false); 
-        btnBasecalling.setDisable(false);
+        gpBaseCalling.setDisable(false);
         p.setIfBasecalling(true);
       } else {
-        cbFlowcellId.setDisable(true);
-        cbKitNumber.setDisable(true); 
-        btnBasecalling.setDisable(true);
+        gpBaseCalling.setDisable(true);
         p.setIfBasecalling(false);
       }
     });
     
     cDemultiplexing.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if (cDemultiplexing.isSelected()) {
-        ccbBarcodeKits.setDisable(false);
-        tfSelectedBarcode.setDisable(false);
+        gpDemultiplexing.setDisable(false);
         p.setIfDemultiplexing(true);
       } else {
-        ccbBarcodeKits.setDisable(true);
-        tfSelectedBarcode.setDisable(true);
+        gpDemultiplexing.setDisable(true);
         p.setIfDemultiplexing(false);
       }
     });
     
     cReadsFilter.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cReadsFilter.isSelected()) {
-        btnReadsFilter.setDisable(false);
+        gpReadsFilter.setDisable(false);
         p.setIfReadsFilter(true);
       } else {
-        btnReadsFilter.setDisable(true);
+        gpReadsFilter.setDisable(true);
         p.setIfReadsFilter(false);
       }
     });
     
     cAssembly.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cAssembly.isSelected()) {
-        cbMode.setDisable(false);
-        cbMethod.setDisable(false);
-        btnAssembly.setDisable(false);
+        gpAssembly.setDisable(false);
         p.setIfAssembly(true);
       } else {
-        cbMode.setDisable(true);
-        cbMethod.setDisable(true);
-        btnAssembly.setDisable(true);
+        gpAssembly.setDisable(true);
         p.setIfAssembly(false);
       }
     });
     
     cPolishing.selectedProperty().addListener((observable, oldValue, newValue) -> {
       if(cPolishing.isSelected()) {
-        btnPolishing.setDisable(false);
+        gpPolishing.setDisable(false);
         p.setIfPolishing(true);
       } else {
-        btnPolishing.setDisable(true);
+        gpPolishing.setDisable(true);
         p.setIfPolishing(false);
       }
     });
@@ -300,12 +296,7 @@ public class PipelineOverviewController {
         p.setBarcodeKits(pUtil.formatBarcodeKits(ccbBarcodeKits.getCheckModel().getCheckedItems().toString()));
       }
     });
-    
-    //Timer timer = new Timer();
-    //timer.schedule(new CheckQstat(), 0, 5000);
-    
-
-    
+    getQstat();
   }
 
   /**
@@ -315,17 +306,7 @@ public class PipelineOverviewController {
   public void setMainApp(MainApp mainApp) {
     this.mainApp = mainApp;
   }
-  
-  
-  //public void setDialogStage(Stage dialogStage) {
-  //  this.dialogStage = dialogStage;
-  //}
-  
-  
-  //public boolean isOkClicked() {
-  //  return okClicked;
-  //}
-  
+   
   /**
    * Called when advanced basecalling button is clicked.
    */
@@ -524,6 +505,7 @@ public class PipelineOverviewController {
         logger.error("Can not run PBS file. " + e);
       }
       pUtil.createAlertDialog(AlertType.INFORMATION, "Submitted.", "Your job has been submitted successfully.");
+      getQstat();
       try {
         Runtime.getRuntime().exec(new String[] {"bash","-c","gnome-terminal -- sh -c 'tail -F /home/sysgen/Ont_Pipeline_" + timestamp + ".o*'" });
       } catch (Exception e) {
@@ -627,6 +609,7 @@ public class PipelineOverviewController {
     for (int i=0;i<alResult.size();i++ ) {
       s = s + alResult.get(i) + "\n";
     }
+    s = "Job status:\n" + ( s.isEmpty() ? "No jobs." : s );
     taQstat.setText(s);
   }
 }
