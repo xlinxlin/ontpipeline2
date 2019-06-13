@@ -19,7 +19,6 @@ Set a minimum average read quality score to filter the reads.
 
 .. note::
   * Default: 9.
-  * If you want to keep all the reads, set the value to 0 .
 
 Read Length [2] (Required)
 ______________________________
@@ -27,16 +26,13 @@ Set a minimum read length to filter reads.
 
 .. note::
   * Default: 500.
-  * If you want to keep all the reads, set the value to 0, or only a postive integer is acceptable.
 
 Head Crop [2]_ (Required)
 ____________________________
 Set n nucleotides to be trimmed from start of read.
 
 .. note::
-  * Default: 50.
-  * If you do not want to crop any reads, set the value to 0. 
- 
+  * Default: 50. 
  
 .. [1] Porechop https://github.com/rrwick/Porechop
 .. [2] NanoFilt https://github.com/wdecoster/nanofilt

@@ -470,6 +470,7 @@ public class PipelineOverviewController {
    * 08. User selects "Polishing" but the Illumina reads directory is empty.
    * 09. User uploads FAST5 files but do not select "Base calling".
    * 10. User starts the pipeline from "Reads filter"/"Assembly"/"Polishing", but the prefixes of ONT reads (FASTQ) do not match the prefixes of Illumina reads.
+   * 11. Guppy_basecaller is in fast mode, the Flowcell ID does not match the device. (PromethION should match FLO-PRO* and MinION* should match FLO-MIN*.)
    */
   @FXML
   private void handleStartPipeline()  {
@@ -495,6 +496,9 @@ public class PipelineOverviewController {
     } else if (!p.getIfBasecalling() && !p.getIfDemultiplexing() && pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fastq")
         && !pUtil.checkOntReadsPrefix(new File(p.getOntReadsWorkspace()), new File(p.getIlluminaReadsWorkspace()))) {
       pUtil.createAlertDialog(AlertType.ERROR, "Wrong prefixes.", "The prefixes of ONT reads do not match the prefixes of Illumina reads.");
+    } else if ((p.getIfGuppyFast() && p.getDevice().equals("PromethION") && p.getFlowcellId().startsWith("FLO-MIN") )|| 
+        (p.getIfGuppyFast() && !p.getDevice().equals("PromethION") && p.getFlowcellId().startsWith("FLO-PRO"))) {
+      pUtil.createAlertDialog(AlertType.ERROR, "Wrong Flowcell ID or device.", "The flowcell ID does not match the device.");
     } else {
       String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
       pUtil.createUserLog(p, timestamp);

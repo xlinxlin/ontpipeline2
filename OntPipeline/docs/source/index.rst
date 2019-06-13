@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ontpipeline's documentation!
-=======================================
+ONT Pipeline Document (English)
+===============================
 
 .. toctree::
    :maxdepth: 1

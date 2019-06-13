@@ -28,7 +28,7 @@ trim_barcodes [2]_ (Default)
 ____________________________
 
 .. note::
-  * Trim the barcodes from the output sequences in the .fastq files.
+  * Trim the barcodes from the output sequences in the FASTQ files.
 
  
 .. [1] How to configure Guppy parameters https://community.nanoporetech.com/protocols/Guppy-protocol-preRev/v/gpb_2003_v1_revg_14dec2018/how-to-configure-guppy-parameters

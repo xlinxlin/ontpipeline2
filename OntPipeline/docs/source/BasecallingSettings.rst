@@ -44,11 +44,5 @@ _________________________
 .. note::
   * Set value: search for input files recursively.
 
-enable_trimming [2]_ (Default)
-_________________________________
-.. note::
-  * Set value: enable trimming of the adapter from the beginning of the read before base calling.
-
-
 .. [1] Guppy v3.0.3 Release https://community.nanoporetech.com/posts/guppy-3-0-release
 .. [2] How to configure Guppy parameters https://community.nanoporetech.com/protocols/Guppy-protocol-preRev/v/gpb_2003_v1_revg_14dec2018/how-to-configure-guppy-parameters

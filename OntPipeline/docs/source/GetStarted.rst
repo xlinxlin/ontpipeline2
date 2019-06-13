@@ -1,5 +1,5 @@
-Get Started
-===========
+Installation
+============
 Installation
 _______________________________
 Anaconda Installation

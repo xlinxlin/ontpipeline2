@@ -130,11 +130,11 @@ ____________
    :header: Sample,Barcode
    :widths: 20, 20
 
-   example_1,barcode01
-   example_2,barcode02
-   example_3,barcode03
-   example_4,barcode04
-   example_5,barcode05
+   example1,barcode01
+   example2,barcode02
+   example3,barcode03
+   example4,barcode04
+   example5,barcode05
    
 .. note::
   * The type of sample sheet file is CSV (split cell contents by comma) or TSV (split cell contents by tab).
