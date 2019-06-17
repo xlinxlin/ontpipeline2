@@ -62,6 +62,7 @@ public class MainApp extends Application {
    * Initializes the overview layout.
    */
   private void showPipelineOverview() {
+    
     try {
       // Load pipeline overview.
       FXMLLoader loader = new FXMLLoader();
@@ -75,6 +76,7 @@ public class MainApp extends Application {
     } catch (Exception e) {
       logger.error("Can not load pipeline overview layout. " + e);
     }
+    
   }
   
   

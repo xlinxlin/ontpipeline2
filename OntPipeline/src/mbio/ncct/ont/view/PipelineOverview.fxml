@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane minHeight="391.0" minWidth="662.0" prefHeight="690.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mbio.ncct.ont.view.PipelineOverviewController">
+<AnchorPane maxHeight="690.0" maxWidth="662.0" minHeight="391.0" minWidth="662.0" prefHeight="690.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mbio.ncct.ont.view.PipelineOverviewController">
    <children>
       <Group fx:id="gpBaseCalling" layoutX="35.0" layoutY="185.0" AnchorPane.topAnchor="185.0">
          <children>
@@ -60,35 +60,39 @@
          </children>
       </Group>
       <Button layoutX="553.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleStartPipeline" prefHeight="26.0" prefWidth="99.0" text="Start" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="482.0" />
-      <Label layoutX="15.0" layoutY="55.0" text="Illumina Dir." AnchorPane.rightAnchor="552.0" />
-      <TextField fx:id="tfIlluminaWorkspace" editable="false" layoutX="112.0" layoutY="50.0" prefHeight="26.0" prefWidth="441.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="50.0" />
-      <Button layoutX="553.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleSelectIlluminaWorkspace" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
-      <Label layoutX="57.0" layoutY="155.0" text="Threads" AnchorPane.rightAnchor="552.0" AnchorPane.topAnchor="145.0" />
-      <TextField fx:id="tfThreads" layoutX="113.0" layoutY="152.0" prefHeight="26.0" prefWidth="35.0" AnchorPane.leftAnchor="113.0" AnchorPane.topAnchor="142.0" />
-      <Label layoutX="165.0" layoutY="155.0" text="Barcodes" AnchorPane.rightAnchor="436.0" AnchorPane.topAnchor="145.0" />
-      <TextField fx:id="tfSelectedBarcode" layoutX="230.0" layoutY="152.0" prefHeight="26.0" prefWidth="264.0" AnchorPane.topAnchor="142.0" />
+      <Group layoutX="21.0" layoutY="24.0">
+         <children>
+            <Label layoutX="9.0" layoutY="31.0" text="Illumina Dir." />
+            <TextField fx:id="tfIlluminaWorkspace" editable="false" layoutX="92.0" layoutY="26.0" prefHeight="26.0" prefWidth="441.0" />
+            <Button layoutX="532.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleSelectIlluminaWorkspace" prefHeight="26.0" prefWidth="99.0" text="Browse" />
+            <Label layoutX="36.0" layoutY="121.0" text="Threads" />
+            <TextField fx:id="tfThreads" layoutX="92.0" layoutY="118.0" prefHeight="26.0" prefWidth="46.0" />
+            <Label layoutX="144.0" layoutY="121.0" text="Barcodes" />
+            <TextField fx:id="tfSelectedBarcode" layoutX="209.0" layoutY="118.0" prefHeight="26.0" prefWidth="278.0" />
+            <TextField fx:id="tfNanoporeWorkspace" editable="false" layoutX="92.0" prefHeight="26.0" prefWidth="441.0" />
+            <Button layoutX="532.0" mnemonicParsing="false" onAction="#handleSelectNanoporeWorkspace" prefHeight="26.0" prefWidth="99.0" text="Browse" />
+            <Label layoutX="33.0" layoutY="3.0" text="ONT Dir." />
+            <Label layoutX="492.0" layoutY="121.0" text="Prefix" />
+            <TextField fx:id="tfPrefix" layoutX="532.0" layoutY="118.0" prefHeight="26.0" prefWidth="99.0" />
+            <Label layoutX="16.0" layoutY="57.0" text="Output Dir." />
+            <TextField fx:id="tfOutputPath" editable="false" layoutX="92.0" layoutY="52.0" prefHeight="26.0" prefWidth="441.0" />
+            <Button layoutX="532.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleSelectOutputDirectory" prefHeight="26.0" prefWidth="99.0" text="Browse" />
+            <TextField fx:id="tfSampleSheet" layoutX="92.0" layoutY="78.0" prefHeight="26.0" prefWidth="440.0" />
+            <Button layoutX="532.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleReadSampleSheet" prefHeight="26.0" prefWidth="99.0" text="Browse" />
+            <Label layoutY="83.0" text="Sample sheet" />
+         </children>
+      </Group>
       <Separator layoutX="23.0" layoutY="185.0" prefHeight="1.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="185.0" />
       <Separator layoutX="23.0" layoutY="240.0" prefHeight="1.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="241.0" />
       <Separator layoutX="23.0" layoutY="349.0" prefHeight="1.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="353.0" />
       <Separator layoutX="23.0" layoutY="401.0" prefHeight="1.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="409.0" />
       <Separator layoutX="23.0" layoutY="449.0" prefHeight="1.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="467.0" />
       <Hyperlink layoutX="23.0" layoutY="468.0" onAction="#handleOpenDocument" text="https://ontpipeline2.readthedocs.io/" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="482.0" />
-      <TextField fx:id="tfNanoporeWorkspace" editable="false" layoutX="112.0" layoutY="24.0" prefHeight="26.0" prefWidth="441.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="24.0" />
-      <Button layoutX="552.0" layoutY="24.0" mnemonicParsing="false" onAction="#handleSelectNanoporeWorkspace" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="24.0" />
-      <Label layoutX="41.0" layoutY="27.0" text="ONT Dir." AnchorPane.rightAnchor="552.0" />
-      <Label layoutX="513.0" layoutY="155.0" text="Prefix" AnchorPane.rightAnchor="111.0" AnchorPane.topAnchor="145.0" />
-      <TextField fx:id="tfPrefix" layoutX="553.0" layoutY="152.0" prefHeight="26.0" prefWidth="99.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="142.0" />
-      <Label layoutX="27.0" layoutY="81.0" text="Output Dir." AnchorPane.rightAnchor="552.0" />
-      <TextField fx:id="tfOutputPath" editable="false" layoutX="112.0" layoutY="76.0" prefHeight="26.0" prefWidth="441.0" AnchorPane.leftAnchor="113.0" AnchorPane.rightAnchor="109.0" />
-      <Button layoutX="551.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleSelectOutputDirectory" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="76.0" />
-      <TextField fx:id="tfSampleSheet" layoutX="112.0" layoutY="102.0" prefHeight="26.0" prefWidth="440.0" AnchorPane.leftAnchor="113.0" />
-      <Button layoutX="552.0" layoutY="102.0" mnemonicParsing="false" onAction="#handleReadSampleSheet" prefHeight="26.0" prefWidth="99.0" text="Browse" AnchorPane.leftAnchor="553.0" />
-      <Label layoutX="66.0" layoutY="107.0" text="Sample sheet" AnchorPane.rightAnchor="552.0" />
       <Separator layoutX="23.0" layoutY="294.0" prefHeight="1.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="297.0" />
       <Group fx:id="gpDemultiplexing" layoutX="35.0" layoutY="242.0">
          <children>
             <CheckComboBox fx:id="ccbBarcodeKits" layoutX="133.0" layoutY="14.0" prefHeight="26.0" prefWidth="363.0" />
-            <Label layoutX="137.0" text="Barcode KIts Number:" />
+            <Label layoutX="137.0" text="Barcode Kits Number:" />
          </children>
       </Group>
       <TextArea fx:id="taQstat" editable="false" layoutX="25.0" layoutY="534.0" onMouseEntered="#getQstat" prefHeight="134.0" prefWidth="623.0" AnchorPane.leftAnchor="23.0" />
