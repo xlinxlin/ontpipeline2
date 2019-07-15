@@ -42,7 +42,7 @@ public class PipelineOverviewController {
   private static Logger logger = LogManager.getLogger(PipelineOverviewController.class);
   
   /** Initializes MainApp. */
-  private MainApp mainApp;
+  public MainApp mainApp;
 
   /** Initializes PipelineUtil. */
   private PipelineUtil pUtil = new PipelineUtil();
@@ -468,7 +468,7 @@ public class PipelineOverviewController {
    * 06. User selects "Base calling" but the ONT directory contains no FAST5 file.
    * 07. User selects "Hybrid assembly" but the Illumina reads directory is empty.
    * 08. User selects "Polishing" but the Illumina reads directory is empty.
-   * 09. User uploads FAST5 files but do not select "Base calling".
+   * #09. User uploads FAST5 files but do not select "Base calling".
    * 10. User starts the pipeline from "Assembly(hybrid)"/"Polishing", but the prefixes of ONT reads (FASTQ) do not match the prefixes of Illumina reads.
    * 11. Guppy_basecaller is in fast mode, the Flowcell ID does not match the device. (PromethION should match FLO-PRO* and MinION* should match FLO-MIN*.)
    */
@@ -493,7 +493,7 @@ public class PipelineOverviewController {
       pUtil.createAlertDialog(AlertType.ERROR, "No Illumina reads found.", "Polishing requires Illumina reads.");
     } else if (pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fast5") && !p.getIfBasecalling()) {
       pUtil.createAlertDialog(AlertType.ERROR, "Base calling required.", "Base calling is required since you provide FAST5 files.");
-    } else if ((p.getIfAssembly() || p.getIfPolishing()) && p.getMethod().equals("Hybrid assembly") && pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fastq")
+    } else if (((p.getIfAssembly() && p.getMethod().equals("Hybrid assembly")) || p.getIfPolishing()) && pUtil.checkDirectoryValidity(new File(p.getOntReadsWorkspace()), "fastq")
         && !pUtil.checkOntReadsPrefix(new File(p.getOntReadsWorkspace()), new File(p.getIlluminaReadsWorkspace()))) {
       pUtil.createAlertDialog(AlertType.ERROR, "Wrong prefixes.", "The prefixes of ONT reads do not match the prefixes of Illumina reads.");
     } else if ((p.getIfGuppyFast() && p.getDevice().equals("PromethION") && p.getFlowcellId().startsWith("FLO-MIN") )|| 
