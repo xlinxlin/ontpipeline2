@@ -25,6 +25,7 @@ Start the pipeline from Base calling.
 
 .. note::
   * Illumina reads files naming structure for each pair: Prefix_HQ_1.fastq.gz  Prefix_HQ_2.fastq.gz
+  * If there is without "HQ" in the file name, these Illumina reads will be trimmed.
   * "Prefix" is the sample name, each pair should has its own prefix.
   * "*" means arbitrarily long characters.
   
