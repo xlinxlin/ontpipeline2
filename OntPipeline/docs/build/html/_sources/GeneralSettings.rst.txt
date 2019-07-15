@@ -19,8 +19,8 @@ Set the path to the Illumina reads directory.
   * Required if "hybrid-assembly" or/and "polishing" is/are used.
 
 .. warning::
-  * If the structure of Illumina reads name is \*_{1,2}.fastq.gz (for example: ID40_1.fastq.gz, ID40_2.fastq), these Illumina reads will be trimmed.
-  * If the structure of Illumina reads name is \*_HQ_{1,2}.fastq.gz (for example: ID40_HQ_1.fastq.gz, ID40_HQ_2.fastq), these Illumina reads will not be trimmed.
+  * If the structure of Illumina reads filename is \*_{1,2}.fastq.gz (for example: ID40_1.fastq.gz, ID40_2.fastq), these Illumina reads will be trimmed.
+  * If the structure of Illumina reads filename is \*_HQ_{1,2}.fastq.gz (for example: ID40_HQ_1.fastq.gz, ID40_HQ_2.fastq), these Illumina reads will not be trimmed.
 
 Output Dir. (Required)
 ______________________
