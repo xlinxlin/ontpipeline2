@@ -155,6 +155,18 @@ Seqtk is a fast and lightweight tool for processing sequences in the FASTA or FA
    source /opt/anaconda3/bin/activate seqtk
    conda install -c bioconda seqtk
    conda deactivate
+   
+Trimmomatic Installation
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Trimmomatic is a flexible read trimming tool for Illumina NGS data. [11]_
+
+.. code-block:: bash
+   
+   /opt/anaconda3/bin/conda create -n trimmomatic
+   source /opt/anaconda3/bin/activate trimmomatic
+   conda install -c bioconda trimmomatic
+   conda deactivate
 
 .. [1] Guppy v3.0.3 Release https://community.nanoporetech.com/posts/guppy-3-0-release
 .. [2] Porechop https://github.com/rrwick/Porechop
@@ -166,3 +178,4 @@ Seqtk is a fast and lightweight tool for processing sequences in the FASTA or FA
 .. [8] Seqtk https://github.com/lh3/seqtk
 .. [9] Ubuntu 安装 JDK 7 / JDK8 的两种方式 https://www.cnblogs.com/a2211009/p/4265225.html
 .. [10] Pilon step runs out of error https://github.com/rrwick/Unicycler/issues/147
+.. [11] Trimmomatic http://www.usadellab.org/cms/?page=trimmomatic
