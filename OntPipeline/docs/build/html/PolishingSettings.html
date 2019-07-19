@@ -79,8 +79,9 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="GetStarted.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GetStarted.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="InputFileStructure.html">Input File Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OutputFileStructure.html">Output File Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GeneralSettings.html">General Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="BasecallingSettings.html">Base Calling Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DemultiplexingSettings.html">Demultiplexing Settings</a></li>
@@ -89,6 +90,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Polishing Settings</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#polishing-times-required">Polishing times (Required)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#busco-settings-optional">BUSCO settings (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trimmomatic-settings-1">Trimmomatic settings </a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="QandA.html">FAQ</a></li>
@@ -180,6 +182,33 @@
 <li>Select a lineage dataset. Default: Bacteria.</li>
 </ul>
 </div>
+</div>
+<div class="section" id="trimmomatic-settings-1">
+<h2>Trimmomatic settings <a class="footnote-reference" href="#id2" id="id1">[1]</a><a class="headerlink" href="#trimmomatic-settings-1" title="Permalink to this headline">¶</a></h2>
+<p>Trim Illumina reads when it is necessary.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>Illumina reads will be trimmed in “Polishing” step only when all the following two conditions are satisfied:<ol class="arabic">
+<li>No hybrid assembly or without assembly;</li>
+<li>Illumina reads filename contains no “HQ”.</li>
+</ol>
+</li>
+<li>Remove Illumina adapters provided in the NexteraPE-PE.fa file (provided). Initially Trimmomatic will look for seed matches (16 bases) allowing maximally 2 mismatches.
+These seeds will be extended and clipped if in the case of paired end reads a score of 30 is reached (about 50 bases),
+or in the case of single ended reads a score of 10, (about 17 bases).</li>
+<li>Remove leading low quality or N bases (below quality 3)</li>
+<li>Remove trailing low quality or N bases (below quality 3)</li>
+<li>Scan the read with a 4-base wide sliding window, cutting when the average quality per base drops below 15</li>
+<li>Drop reads which are less than 40 bases long after these steps</li>
+</ul>
+</div>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Trimmomatic <a class="reference external" href="http://www.usadellab.org/cms/?page=trimmomatic">http://www.usadellab.org/cms/?page=trimmomatic</a></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 

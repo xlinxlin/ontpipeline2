@@ -79,7 +79,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="GetStarted.html">Get Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GetStarted.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="InputFileStructure.html">Input File Structure</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Output File Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GeneralSettings.html">General Settings</a></li>
@@ -157,8 +157,8 @@
 <h1>Output File Structure<a class="headerlink" href="#output-file-structure" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Output_Directory/
  ├── Analysis_{timestamp}/
- |    ├── Basecalled/
- |    ├── Barcodes/
+ |    ├── _Basecalled/
+ |    ├── _Barcodes/
  |    |    ├── barcode01/
  |    |    ├── barcode02/
  |    |    ├── barcode03/
@@ -166,15 +166,15 @@
  |    |    ├── Prefix01.fastq
  |    |    ├── Prefix02.fastq
  |    |    └── Prefix03.fastq
- |    ├── AdaperTrimmedFiles/
+ |    ├── _AdaperTrimmedFiles/
  |    |    ├── Prefix01_trimmed.fastq
  |    |    ├── Prefix02_trimmed.fastq
  |    |    └── Prefix03_trimmed.fastq
- |    ├── FiltedFiles/
+ |    ├── _FiltedFiles/
  |    |    ├── Prefix01_filted.fastq
  |    |    ├── Prefix02_filted.fastq
  |    |    └── Prefix03_filted.fastq
- |    ├── StatFiles/
+ |    ├── _StatFiles/
  |    |    ├── Prefix01_trimmed_stat.txt
  |    |    ├── Prefix02_trimmed_stat.txt
  |    |    ├── Prefix03_trimmed_stat.txt
@@ -208,9 +208,10 @@
  |    |    |    └── full_table_Prefix03_busco.tsv
  |    |    ├── ...
  |    |    └── pilon_1.fasta
- |    └── Logs/
+ |    └── _Logs/
  |         ├── guppy_basecaller.log
  |         ├── guppy_barcoder.log
+ |         ├── barcode_rename.log
  |         ├── Prefix01_trimmed.log
  |         ├── Prefix02_trimmed.log
  |         ├── Prefix03_trimmed.log

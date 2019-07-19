@@ -5,8 +5,8 @@ Output File Structure
 
     Output_Directory/
      ├── Analysis_{timestamp}/
-     |    ├── Basecalled/
-     |    ├── Barcodes/
+     |    ├── _Basecalled/
+     |    ├── _Barcodes/
      |    |    ├── barcode01/
      |    |    ├── barcode02/
      |    |    ├── barcode03/
@@ -14,15 +14,15 @@ Output File Structure
      |    |    ├── Prefix01.fastq
      |    |    ├── Prefix02.fastq
      |    |    └── Prefix03.fastq
-     |    ├── AdaperTrimmedFiles/
+     |    ├── _AdaperTrimmedFiles/
      |    |    ├── Prefix01_trimmed.fastq
      |    |    ├── Prefix02_trimmed.fastq
      |    |    └── Prefix03_trimmed.fastq
-     |    ├── FiltedFiles/
+     |    ├── _FiltedFiles/
      |    |    ├── Prefix01_filted.fastq
      |    |    ├── Prefix02_filted.fastq
      |    |    └── Prefix03_filted.fastq
-     |    ├── StatFiles/
+     |    ├── _StatFiles/
      |    |    ├── Prefix01_trimmed_stat.txt
      |    |    ├── Prefix02_trimmed_stat.txt
      |    |    ├── Prefix03_trimmed_stat.txt
@@ -56,9 +56,10 @@ Output File Structure
      |    |    |    └── full_table_Prefix03_busco.tsv
      |    |    ├── ...   
      |    |    └── pilon_1.fasta
-     |    └── Logs/
+     |    └── _Logs/
      |         ├── guppy_basecaller.log
      |         ├── guppy_barcoder.log
+     |         ├── barcode_rename.log
      |         ├── Prefix01_trimmed.log
      |         ├── Prefix02_trimmed.log
      |         ├── Prefix03_trimmed.log
